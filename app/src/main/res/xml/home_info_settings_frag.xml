@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:key="key_show_qrcode"
+        android:layout="@layout/icon_preference_layout"
+        android:title="@string/home_settings_show_qrcode"
+        android:summary="@string/home_settings_show_qrcode_summary"
+        android:defaultValue="@bool/def_home_show_qrcode"/>
+    <SwitchPreference
+        android:key="key_show_weather"
+        android:layout="@layout/icon_preference_layout"
+        android:title="@string/home_settings_show_weather"
+        android:summary="@string/home_settings_show_weather_summary"
+        android:defaultValue="@bool/def_home_show_weather"/>
+    <Preference
+        android:key="key_weather_settings"
+        android:layout="@layout/icon_preference_layout"
+        android:widgetLayout="@layout/widget_layout_more_arrow"
+        android:title="@string/home_settings_weather_setting"/>
+</PreferenceScreen>

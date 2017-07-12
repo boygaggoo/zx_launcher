@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:key="key_auto_date_time"
+        android:title="@string/settings_str_auto_date_time"
+        android:summary="@string/string_use_network_time"
+        android:disableDependentsState="true"
+        android:defaultValue="@bool/def_auto_date_time"/>
+    <CheckBoxPreference
+        android:key="key_auto_time_zone"
+        android:title="@string/settings_str_auto_time_zone"
+        android:summary="@string/string_use_network_time_zone"
+        android:disableDependentsState="true"
+        android:defaultValue="@bool/def_auto_time_zone"/>
+    <Preference
+        android:key="key_set_date"
+        android:title="@string/settings_str_set_date"
+        android:dependency="key_auto_date_time"/>
+    <Preference
+        android:key="key_set_time"
+        android:title="@string/settings_str_set_time"
+        android:dependency="key_auto_date_time"/>
+    <PreferenceScreen
+        android:key="key_select_timezone"
+        android:fragment="com.ds05.launcher.common.ZonePicker"
+        android:title="@string/settings_str_select_time_zone"
+        android:dependency="key_auto_time_zone"/>
+    <CheckBoxPreference
+        android:key="key_use_24_hour"
+        android:title="@string/settings_str_use_24_hour_format"
+        android:defaultValue="@bool/def_use_24_hour_format"/>
+</PreferenceScreen>

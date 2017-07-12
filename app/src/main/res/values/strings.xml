@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">DS05 Launcher</string>
+    <string name="string_system_settings">Settings</string>
+    <string name="string_help_info">Help</string>
+    <string name="string_monitor">Monitor</string>
+    <string name="string_photo">Photo</string>
+
+    <string name="string_change">Change</string>
+    <string name="string_go_back">Go Back</string>
+    <string name="string_done">Done</string>
+
+    <string name="string_low">Low</string>
+    <string name="string_middle">Middle</string>
+    <string name="string_hight">Hight</string>
+
+    <string name="string_50hz" translatable="false">50Hz</string>
+    <string name="string_60hz" translatable="false">60Hz</string>
+
+    <string name="string_sound_1">Sound 1</string>
+    <string name="string_sound_2">Sound 2</string>
+    <string name="string_sound_3">Sound 3</string>
+    <string name="string_sound_4">Sound 4</string>
+
+    <string name="string_title_bar_back">Back</string>
+
+    <!-- HOME weather UI String -->
+    <string name="string_home_day_weather">白天</string>
+    <string name="string_home_night_weather">晚上</string>
+    <string name="string_weather_server_exception">Get weather fail from server!</string>
+    <string name="string_weather_network_exception">Get weather fail, please check network!</string>
+    <string name="string_not_get_weather_from_this_city">Can\'t get weather information from this city, please select other!</string>
+    <string name="string_select_city">Select city:</string>
+    <string name="string_city_load_dialog_msg">Please wait...</string>
+
+    <!-- Display Settings -->
+    <string name="string_screen_brightness">Brightness</string>
+    <string name="string_screen_sleep_time">Sleep</string>
+    <string-array name="array_screen_sleep_time_entries">
+        <item>@string/str_item_15_sec</item>
+        <item>@string/str_item_30_sec</item>
+        <item>@string/str_item_1_min</item>
+        <item>@string/str_item_2_min</item>
+        <item>@string/str_item_5_min</item>
+        <item>@string/str_item_10_min</item>
+        <item>@string/str_item_30_min</item>
+    </string-array>
+    <string-array name="array_screen_sleep_time_values" translatable="false">
+        <!-- Do not translate. -->
+        <item>15000</item>
+        <!-- Do not translate. -->
+        <item>30000</item>
+        <!-- Do not translate. -->
+        <item>60000</item>
+        <!-- Do not translate. -->
+        <item>120000</item>
+        <!-- Do not translate. -->
+        <item>300000</item>
+        <!-- Do not translate. -->
+        <item>600000</item>
+        <!-- Do not translate. -->
+        <item>1800000</item>
+    </string-array>
+    <string name="string_wallpaper">Wallpaper</string>
+    <string name="string_auro_brightness">Auto brightness</string>
+
+    <!-- Camera Settings -->
+    <string name="string_night_vision_light_sens">Night vision light sensitivity</string>
+    <string-array name="array_night_nision_light_sens_entries">
+        <item>@string/string_low</item>
+        <item>@string/string_middle</item>
+        <item>@string/string_hight</item>
+    </string-array>
+    <string-array name="array_night_nision_light_sens_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string name="string_backlight_lights">Backlight</string>
+    <string name="string_light_source_freq">Frequency of light source</string>
+    <string-array name="array_light_source_freq_entries">
+        <item>@string/string_50hz</item>
+        <item>@string/string_60hz</item>
+    </string-array>
+    <string-array name="array_light_source_freq_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <!-- Doorbell settings -->
+    <string name="string_doorbell_sound">Doorbell sound</string>
+    <string-array name="array_doorbell_sound_entries">
+        <item>@string/string_sound_1</item>
+        <item>@string/string_sound_2</item>
+        <item>@string/string_sound_3</item>
+        <item>@string/string_sound_4</item>
+    </string-array>
+    <string-array name="array_doorbell_sound_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string name="string_doorbell_volume">Doorbell volume</string>
+    <string name="string_doorbell_light">Doorbell light</string>
+
+    <string name="string_week_mon">Mon</string>
+    <string name="string_week_tue">Tue</string>
+    <string name="string_week_wed">Wed</string>
+    <string name="string_week_thu">Thu</string>
+    <string name="string_week_fir">Fri</string>
+    <string name="string_week_sat">Sat</string>
+    <string name="string_week_sun">Sun</string>
+    <string-array name="array_week_string">
+        <item>@string/string_week_sun</item>
+        <item>@string/string_week_mon</item>
+        <item>@string/string_week_tue</item>
+        <item>@string/string_week_wed</item>
+        <item>@string/string_week_thu</item>
+        <item>@string/string_week_fir</item>
+        <item>@string/string_week_sat</item>
+    </string-array>
+
+    <!-- Version information -->
+    <string name="string_model">Model</string>
+    <string name="string_serial_number">Serial number</string>
+    <string name="string_android_version">Android version</string>
+    <string name="string_base_band_version">Baseband version</string>
+    <string name="string_kernel_version">Kernel version</string>
+    <string name="string_system_version">System verdion</string>
+    <string name="string_software_version">Software version</string>
+
+    <!-- Monitor Setting UI String -->
+    <string name="monitor_str_human_monitor">Human body monitoring</string>
+    <string name="monitor_str_intelligent_alarm_time">Intelligent alarm time</string>
+    <string name="monitor_str_monitoring_sensitivity">Monitoring sensitivity</string>
+    <string name="monitor_str_auto_alarm_sound">Automatic alarm sound</string>
+    <string name="monitor_str_auto_alarm_volume">Automatic alarm volume</string>
+    <string name="monitor_str_shooting_mode">Shooting mode</string>
+
+    <string name="str_item_3_sec">3 second</string>
+    <string name="str_item_5_sec">5 second</string>
+    <string name="str_item_10_sec">10 second</string>
+    <string name="str_item_8_sec">8 second</string>
+    <string name="str_item_15_sec">15 second</string>
+    <string name="str_item_25_sec">25 second</string>
+    <string name="str_item_30_sec">30 second</string>
+    <string name="str_item_1_min">1 minutes</string>
+    <string name="str_item_2_min">2 minutes</string>
+    <string name="str_item_5_min">5 minutes</string>
+    <string name="str_item_10_min">10 minutes</string>
+    <string name="str_item_30_min">30 minutes</string>
+    <string-array name="monitor_str_intellignet_alarm_time_entry">
+        <item>@string/str_item_3_sec</item>
+        <item>@string/str_item_8_sec</item>
+        <item>@string/str_item_15_sec</item>
+        <item>@string/str_item_25_sec</item>
+    </string-array>
+    <integer-array name="array_auto_alarm_time" translatable="false">
+        <item>3000</item>
+        <item>8000</item>
+        <item>15000</item>
+        <item>25000</item>
+    </integer-array>
+    <string-array name="monitor_str_intellignet_alarm_time_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string name="str_item_monitoring_sensitivity_height">Height</string>
+    <string name="str_item_monitoring_sensitivity_low">Low</string>
+    <string-array name="monitor_str_mimonitoring_sensitivity_entry">
+        <item>@string/str_item_monitoring_sensitivity_height</item>
+        <item>@string/str_item_monitoring_sensitivity_low</item>
+    </string-array>
+    <string-array name="monitor_str_monitoring_sensitivity_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <string name="str_item_auto_alarm_sound_silence">Silence</string>
+    <string name="str_item_auto_alarm_sound_alarm">Alarm</string>
+    <string name="str_item_auto_alarm_sound_scream">Scream</string>
+    <string-array name="monitor_str_auto_alarm_sound_entry">
+        <item>@string/str_item_auto_alarm_sound_silence</item>
+        <item>@string/str_item_auto_alarm_sound_alarm</item>
+        <item>@string/str_item_auto_alarm_sound_scream</item>
+    </string-array>
+    <string-array name="monitor_str_auto_alarm_sound_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string name="item_str_shooting_mode_3pic">3 consecutive pictures</string>
+    <string name="item_str_shooting_mode_rec_10_sec">Record 10 second</string>
+    <string name="item_str_shooting_mode_keep_rec">Keep recording(Detect someone)</string>
+    <string-array name="monitor_str_shooting_mode_entry">
+        <item>@string/item_str_shooting_mode_3pic</item>
+        <item>@string/item_str_shooting_mode_rec_10_sec</item>
+        <item>@string/item_str_shooting_mode_keep_rec</item>
+    </string-array>
+    <string-array name="monitor_str_shooting_mode_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <!-- System Setting UI String -->
+    <string name="settings_str_display">Display</string>
+    <string name="settings_str_camera_settings">Camera settings</string>
+    <string name="settings_str_scan_qr_code">Scan QR code</string>
+    <string name="settings_str_doorbell_settings">Doorbell settings</string>
+    <string name="settings_str_energy_saving_mode">Energy saving mode</string>
+    <string name="settings_str_date_time">Time&amp;Date</string>
+    <string name="settings_str_language">Language</string>
+    <string name="settings_str_wifi">WIFI</string>
+    <string name="settings_str_bt">Bluetooth</string>
+    <string name="settings_str_intelligent_lock">Intelligent lock settings</string>
+    <string name="settings_str_store">Store</string>
+    <string name="settings_str_home_settings">Home setting</string>
+    <string name="settings_str_reset_factory">Factory reset</string>
+    <string name="settings_str_version">Version</string>
+
+    <string name="string_lang_chinese">Chinese</string>
+    <string name="string_lang_english">English</string>
+    <string-array name="array_langs" translatable="false">
+        <item>zh_CN</item>
+        <item>en_US</item>
+    </string-array>
+    <string-array name="array_language_entries">
+        <item>@string/string_lang_chinese</item>
+        <item>@string/string_lang_english</item>
+    </string-array>
+    <string-array name="array_language_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <string name="settings_str_auto_date_time">Automatic date &amp; Time</string>
+    <string name="string_use_network_time">Use network-provided time</string>
+    <string name="settings_str_auto_time_zone">Automatic time zone</string>
+    <string name="string_use_network_time_zone">Use network-provided time zone</string>
+    <string name="settings_str_set_date">Set date</string>
+    <string name="settings_str_set_time">Set time</string>
+    <string name="settings_str_select_time_zone">Select time zone</string>
+    <string name="settings_str_use_24_hour_format">Use 24-hour format</string>
+    <string name="settings_str_24_hour_format_sample">13:00</string>
+    <string name="settings_str_12_hour_format_sample">1:00 PM</string>
+    <string name="settings_str_reset_factory_dialog_title">Factory data reset</string>
+    <string name="settings_str_reset_factory_summary">Erases all data on phone</string>
+    <string name="settings_str_reset_factory_dialog_msg">This will erase all data from your phone\'s internal storage: Account, system and app data and settings. Are you sure continue?</string>
+    <string name="settings_str_reset_factory_reset_btn_txt">Reset phone</string>
+    <string name="settings_str_reset_phone_wait_msg">Preparing to reset the phone,please wait</string>
+    <string name="settings_str_scan_qr_code_result">QR code scan result</string>
+
+    <string name="string_connect_wifi">(QR-code)WIFI connection request</string>
+    <string name="string_ap_name">WIFI Name:</string>
+    <string name="string_pwd">Password:</string>
+    <string name="string_connect">Connect</string>
+
+    <string name="string_wait_open_wifi">Open WIFI</string>
+    <string name="string_searching_wifi">Searching WIFI(%1$s)</string>
+    <string name="string_connect_wifi_fail">Connect WIFI fail</string>
+    <string name="string_wifi_connecting">Connecting</string>
+    <string name="string_wifi_verify">Verify</string>
+    <string name="string_wifi_obtain_ip">Obtain IP</string>
+
+
+    <!-- Intelligent Lock Settings -->
+    <string name="string_remote_unlock_feature">Remote unlock</string>
+    <string name="string_intelligent_lock_info_trans">Intelligent lock message transmit</string>
+
+    <!-- Home info settings -->
+    <string name="home_settings_show_weather">Show weather</string>
+    <string name="home_settings_show_weather_summary">Show weather information in Desktop.</string>
+    <string name="home_settings_show_qrcode">Show QR code</string>
+    <string name="home_settings_show_qrcode_summary">Show QR code in desktop</string>
+    <string name="home_settings_weather_setting">Weather setting</string>
+
+
+    <string name="local_service_started">服务正在运行中……</string>
+    <string name="local_service_stopped">服务停止了……</string>
+    <string name="local_service_label">正在测试中……</string>
+
+</resources>

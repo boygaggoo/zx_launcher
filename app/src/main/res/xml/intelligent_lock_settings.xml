@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:key="key_remote_unlock"
+        android:title="@string/string_remote_unlock_feature"
+        android:defaultValue="@bool/def_remote_unlock"/>
+    <SwitchPreference
+        android:key="key_intelligent_lock_msg_trans"
+        android:title="@string/string_intelligent_lock_info_trans"
+        android:defaultValue="@bool/def_intell_lock_msg_trans"/>
+</PreferenceScreen>

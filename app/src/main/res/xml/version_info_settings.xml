@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <Preference
+    android:key="key_model"
+    android:title="@string/string_model"/>
+    <Preference
+        android:key="key_serial_number"
+        android:title="@string/string_serial_number"/>
+    <Preference
+        android:key="key_android_version"
+        android:title="@string/string_android_version"/>
+    <Preference
+        android:key="key_baseband_verdion"
+        android:title="@string/string_base_band_version"/>
+    <Preference
+        android:key="key_kernel_version"
+        android:title="@string/string_kernel_version"/>
+    <Preference
+        android:key="key_system_version"
+        android:title="@string/string_system_version"/>
+    <Preference
+        android:key="key_software_version"
+        android:title="@string/string_software_version"/>
+</PreferenceScreen>

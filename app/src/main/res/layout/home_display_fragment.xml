@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:id="@+id/id_home_display_frag"
+    android:clickable="true">
+
+    <com.ds05.launcher.view.CornerImageView
+        android:id="@+id/id_time_wall"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ds05_home_bg"/>
+
+    <TextClock
+        android:id="@+id/id_time_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/dimen_time_text_size"
+        android:textColor="@color/color_time_color"
+        android:textStyle="bold"/>
+    <TextView 
+        android:id="@+id/id_date_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id_time_view"
+        android:layout_marginTop="3dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/dimen_date_text_size"
+        android:textColor="@color/color_date_color"
+        android:text="2016-12-29 星期四 十二月初一"/>
+
+    <fragment
+        android:id="@+id/id_info_frag"
+        android:name="com.ds05.launcher.ui.home.InformationFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/id_date_view"/>
+</RelativeLayout>

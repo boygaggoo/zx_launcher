@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.ds05.launcher"
+          android:versionCode="2"
+          android:versionName="DS05 Launcher v0.4">
+
+    <uses-sdk
+        android:minSdkVersion="19"
+        android:targetSdkVersion="19"/>
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+    <!-- For send sticky broadcast -->
+    <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
+
+    <!-- For Weather -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+    <!-- For QR Code -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.READ_SETTINGS"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    //允许程序读取所有者数据
+    <uses-permission android:name="android.permission.READ_OWNER_DATA"/>
+    //允许一个程序写入但不读取所有者数据
+    <uses-permission android:name="android.permission.WRITE_OWNER_DATA"/>
+    //装载和卸载文件系统
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    //允许一个程序修改当前设置，如本地化
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
+    //读写手机状态和身份
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    //允许程序改变网络连接状态
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    //允许程序改变Wi-Fi连接状态
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    //允许一个程序访问CellID或Wifi热点来获取粗略的位置
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    //允许程序读取底层系统日志文件
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+    //访问GMail账户列表
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    //Required to access Android Market Licensing
+    <uses-permission android:name="com.android.vending.CHECK_LICENSE"/>
+    //禁用键盘锁
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+    //允许使用PowerManager的WakeLocks保持进程在休眠时从屏幕消失
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    //允许程序录制音频
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    //修改声音设置
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <application
+        android:name=".LauncherApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Light.NoTitleBar">
+        <activity
+            android:name=".MainActivity"
+            android:clearTaskOnLaunch="true"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape"
+            android:stateNotNeeded="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.HOME"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.MONKEY"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen"/>
+        <activity
+            android:name=".ui.help.HelpActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen"/>
+        <activity
+            android:name=".ui.monitor.MonitorActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen"/>
+        <activity
+            android:name=".ui.media.MediaActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen"/>
+        <activity
+            android:name=".ModuleBaseActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen"/>
+
+
+        <activity
+            android:name=".qrcode.QRCodeScanActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+            android:name=".CameraActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen">
+            <intent-filter>
+                <action android:name="com.ds05.launcher.service.ACTION.DisplayCameraUI"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <service android:name=".service.LauncherService"/>
+        <service android:name=".service.WeatherService"/>
+        <service android:name=".service.ConnectSocketService"/>
+        <service android:name=".service.CameraService"/>
+        <service android:name=".service.ZhongyunService"/>
+        <service android:name=".service.VideoService"/>
+        <service android:name=".service.PictureService"/>
+        <activity
+            android:name=".CameraActivity_ZY"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen">
+            <intent-filter>
+                <action android:name="com.ds05.launcher.service.ACTION.DisplayCameraUI"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+
+        <receiver android:name=".BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".receiver.NetCheckReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".receiver.CameraReceiver"
+            android:enabled="true"
+            android:exported="false" >
+
+            <!-- 静态注册广播 -->
+            <!-- intent过滤器,指定可以匹配哪些intent, 一般需要定义action 可以是自定义的也可是系统的 -->
+            <intent-filter>
+
+                <!-- action -->
+                <action android:name="com.ds05.Broadcast.ToServer.REPORT_SYSTEM_CONFIG" />
+                <action android:name="com.ds05.Broadcast.ToServer.NOTIFY_DOORBELL_PRESSED" />
+                <action android:name="com.ds05.Broadcast.ToServer.NOTIFY_HUMAN_MONITORING" />
+                <action android:name="com.ds05.Broadcast.FromServer.Action.OPEN_CAMERA" />
+                <action android:name="com.ds05.Broadcast.FromServer.Action.CLOSE_CAMERA" />
+                <action android:name="com.ds05.Broadcast.ToServer.NOTIFY_QRCODE_RESULT" />
+                <action android:name="com.ds05.Broadcast.FromServer.Action.TEST_CAMERA" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name=".provider.DS05DataProvider"
+            android:authorities="com.ds05.launcher.provider.DS05DataProvider.AUTHORITIES"
+            android:exported="true"/>
+
+    </application>
+
+</manifest>

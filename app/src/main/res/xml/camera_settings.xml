@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:key="key_backlight_light"
+        android:title="@string/string_backlight_lights"
+        android:defaultValue="@bool/def_backlight_light"/>
+    <ListPreference
+        android:key="key_night_vision_light_sens"
+        android:widgetLayout="@layout/widget_layout_more_arrow"
+        android:title="@string/string_night_vision_light_sens"
+        android:entries="@array/array_night_nision_light_sens_entries"
+        android:entryValues="@array/array_night_nision_light_sens_values"
+        android:defaultValue="@string/def_night_vision_light_sens"/>
+    <ListPreference
+        android:key="key_light_source_freq"
+        android:widgetLayout="@layout/widget_layout_more_arrow"
+        android:title="@string/string_light_source_freq"
+        android:entries="@array/array_light_source_freq_entries"
+        android:entryValues="@array/array_light_source_freq_values"
+        android:defaultValue="@string/def_light_source_freq"/>
+</PreferenceScreen>

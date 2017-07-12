@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimen_title_bar_height"
+    android:id="@+id/id_titlebar"
+    android:background="@drawable/title_bar">
+
+    <LinearLayout
+        android:id="@+id/back_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:paddingLeft="10dp"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="@dimen/dime_title_bar_back_size"
+            android:layout_height="@dimen/dime_title_bar_back_size"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ic_back_arrow"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:textSize="18sp"
+            android:textColor="@color/title_bar_back_color"
+            android:text="@string/string_title_bar_back"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textColor="@color/title_bar_title_color"/>
+</RelativeLayout>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">DS05 Launcher</string>
+	<string name="string_system_settings">系统设置</string>
+	<string name="string_help_info">帮助信息</string>
+	<string name="string_monitor">智能监控</string>
+	<string name="string_photo">影像信息</string>
+
+	<string name="string_title_bar_back">返回</string>
+	<string name="string_change">修改</string>
+	<string name="string_go_back">上一级</string>
+	<string name="string_done">完成</string>
+
+	<string name="string_low">低</string>
+	<string name="string_middle">中</string>
+	<string name="string_hight">高</string>
+
+	<string name="string_sound_1">铃声 1</string>
+	<string name="string_sound_2">铃声 2</string>
+	<string name="string_sound_3">铃声 3</string>
+	<string name="string_sound_4">铃声 4</string>
+
+	<!-- HOME weather UI String -->
+	<string name="string_home_day_weather">白天</string>
+	<string name="string_home_night_weather">夜间</string>
+	<string name="string_weather_server_exception">从服务器获取天气信息失败！</string>
+	<string name="string_weather_network_exception">获取天气信息失败，请检查网络！</string>
+	<string name="string_not_get_weather_from_this_city">无法从服务器获取指定城市的天气信息，请选择其他城市！</string>
+	<string name="string_select_city">选择城市:</string>
+	<string name="string_city_load_dialog_msg">请稍等...</string>
+
+	<!-- Display Settings -->
+	<string name="string_screen_brightness">屏幕亮度</string>
+	<string name="string_screen_sleep_time">屏幕休眠</string>
+	<string name="string_wallpaper">壁纸</string>
+	<string name="string_auro_brightness">自动调节亮度</string>
+
+	<string name="string_week_mon">星期一</string>
+	<string name="string_week_tue">星期二</string>
+	<string name="string_week_wed">星期三</string>
+	<string name="string_week_thu">星期四</string>
+	<string name="string_week_fir">星期五</string>
+	<string name="string_week_sat">星期六</string>
+	<string name="string_week_sun">星期日</string>
+
+	<!-- Camera Settings -->
+	<string name="string_night_vision_light_sens">夜视补光灵敏度</string>
+	<string name="string_backlight_lights">逆光补光灯</string>
+	<string name="string_light_source_freq">光源频率</string>
+
+	<!-- Doorbell settings -->
+	<string name="string_doorbell_sound">门铃铃声</string>
+	<string name="string_doorbell_volume">门铃音量</string>
+	<string name="string_doorbell_light">门铃灯</string>
+
+	<!-- Version information -->
+	<string name="string_model">型号</string>
+	<string name="string_serial_number">序列号</string>
+	<string name="string_android_version">Android版本</string>
+	<string name="string_base_band_version">基带版本</string>
+	<string name="string_kernel_version">内核版本</string>
+	<string name="string_system_version">系统版本</string>
+	<string name="string_software_version">软件版本</string>
+
+	<!-- Monitor Setting UI String -->
+	<string name="monitor_str_human_monitor">智能人体监测</string>
+	<string name="monitor_str_intelligent_alarm_time">智能报警时间</string>
+	<string name="monitor_str_monitoring_sensitivity">监控灵敏度</string>
+	<string name="monitor_str_auto_alarm_sound">自动报警铃声</string>
+	<string name="monitor_str_auto_alarm_volume">自动报警铃声音量</string>
+	<string name="monitor_str_shooting_mode">拍摄模式</string>
+
+	<string name="str_item_3_sec">3秒</string>
+	<string name="str_item_5_sec">5秒</string>
+	<string name="str_item_8_sec">8秒</string>
+	<string name="str_item_10_sec">10秒</string>
+	<string name="str_item_15_sec">15秒</string>
+	<string name="str_item_25_sec">25秒</string>
+	<string name="str_item_30_sec">30秒</string>
+	<string name="str_item_1_min">1分钟</string>
+	<string name="str_item_2_min">2分钟</string>
+	<string name="str_item_5_min">5分钟</string>
+	<string name="str_item_10_min">10分钟</string>
+	<string name="str_item_30_min">30分钟</string>
+
+	<string name="str_item_monitoring_sensitivity_height">高</string>
+	<string name="str_item_monitoring_sensitivity_low">低</string>
+
+	<string name="str_item_auto_alarm_sound_silence">静音</string>
+	<string name="str_item_auto_alarm_sound_alarm">警报声</string>
+	<string name="str_item_auto_alarm_sound_scream">尖啸声</string>
+
+	<string name="item_str_shooting_mode_3pic">连拍三张</string>
+	<string name="item_str_shooting_mode_rec_10_sec">短录像(10s)模式</string>
+	<string name="item_str_shooting_mode_keep_rec">连续录像(侦测有人)</string>
+
+	<!-- System Setting UI String -->
+	<string name="settings_str_display">显示</string>
+	<string name="settings_str_camera_settings">摄像头设置</string>
+	<string name="settings_str_scan_qr_code">扫描二维码</string>
+	<string name="settings_str_doorbell_settings">门铃设置</string>
+	<string name="settings_str_energy_saving_mode">节能模式</string>
+	<string name="settings_str_date_time">时间和日期</string>
+	<string name="settings_str_language">语言</string>
+	<string name="settings_str_wifi">WIFI</string>
+	<string name="settings_str_bt">蓝牙</string>
+	<string name="settings_str_intelligent_lock">智能锁控制</string>
+	<string name="settings_str_store">存储</string>
+	<string name="settings_str_home_settings">主界面设置</string>
+	<string name="settings_str_reset_factory">恢复出厂设置</string>
+	<string name="settings_str_version">版本信息</string>
+
+	<string name="string_lang_chinese">中文</string>
+	<string name="string_lang_english">英文</string>
+
+	<string name="settings_str_auto_date_time">自动确定日期和时间</string>
+	<string name="string_use_network_time">使用网络提供的时间</string>
+	<string name="settings_str_auto_time_zone">自动确定时区</string>
+	<string name="string_use_network_time_zone">使用网络提供的时区</string>
+	<string name="settings_str_set_date">设置日期</string>
+	<string name="settings_str_set_time">设置时间</string>
+	<string name="settings_str_select_time_zone">选择时区</string>
+	<string name="settings_str_use_24_hour_format">使用24小时格式</string>
+	<string name="settings_str_24_hour_format_sample">13:00</string>
+	<string name="settings_str_12_hour_format_sample">下午1:00</string>
+	<string name="settings_str_reset_factory_dialog_title">恢复出厂设置</string>
+	<string name="settings_str_reset_factory_summary">清除手机上的所有数据</string>
+	<string name="settings_str_reset_factory_dialog_msg">此操作会清除手机存储中的所有数据: 账户，系统及应用数据和设置。是否继续重置手机？</string>
+	<string name="settings_str_reset_factory_reset_btn_txt">重置手机</string>
+	<string name="settings_str_reset_phone_wait_msg">正在准备重置手机，请稍等...</string>
+    <string name="settings_str_scan_qr_code_result">二维码扫描结果</string>
+
+    <string name="string_connect_wifi">(二维码)WIFI连接请求</string>
+    <string name="string_ap_name">WIFI名称:</string>
+    <string name="string_pwd">WIFI密码:</string>
+    <string name="string_connect">连接</string>
+
+	<string name="string_wait_open_wifi">开启WIFI...</string>
+	<string name="string_searching_wifi">搜索WIFI(%1$s)...</string>
+	<string name="string_connect_wifi_fail">连接WIFI失败</string>
+	<string name="string_wifi_connecting">正在连接...</string>
+	<string name="string_wifi_verify">连接认证...</string>
+	<string name="string_wifi_obtain_ip">分配IP地址...</string>
+
+	<!-- Intelligent Lock Settings -->
+	<string name="string_remote_unlock_feature">远程开锁功能</string>
+	<string name="string_intelligent_lock_info_trans">智能锁信息传送</string>
+
+	<!-- Home info settings -->
+	<string name="home_settings_show_weather">显示天气信息</string>
+	<string name="home_settings_show_weather_summary">在桌面显示当天天气信息</string>
+	<string name="home_settings_show_qrcode">显示二维码</string>
+	<string name="home_settings_show_qrcode_summary">在桌面显示移动端APP下载地址的二维码</string>
+	<string name="home_settings_weather_setting">天气设置</string>
+</resources>

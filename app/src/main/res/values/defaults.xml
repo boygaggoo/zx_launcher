@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="def_human_monitor_value">true</bool>
+    <string name="def_intelligent_alarm_time" translatable="false">2</string>
+    <string name="def_mimonitoring_sensitivity" translatable="false">0</string>
+    <string name="def_auto_alarm_sound" translatable="false">0</string>
+    <string name="def_shooting_mode" translatable="false">0</string>
+
+    <string name="def_screen_timeout" translatable="false">15000</string>
+    <string name="def_night_vision_light_sens" translatable="false">0</string>
+    <bool name="def_backlight_light" translatable="false">true</bool>
+    <string name="def_light_source_freq" translatable="false">0</string>
+    <string name="def_doorbell_sound" translatable="false">0</string>
+    <bool name="def_doorbell_light" translatable="false">true</bool>
+
+    <bool name="def_home_show_weather" translatable="false">false</bool>
+    <bool name="def_home_show_qrcode" translatable="false">false</bool>
+
+    <bool name="def_remote_unlock" translatable="false">false</bool>
+    <bool name="def_intell_lock_msg_trans" translatable="false">false</bool>
+
+    <string name="def_language" translatable="false">zh_CN</string>
+
+    <!-- Weather update interval time ms. 1Hour = 1 * 60 * 60 * 1000 = 3600000 -->
+    <integer name="def_weather_update_interval_ms" translatable="false">3600000</integer>
+    <string name="def_weather_update_city" translatable="false">上海</string>
+
+    <bool name="def_auto_date_time">true</bool>
+    <bool name="def_auto_time_zone">true</bool>
+    <bool name="def_use_24_hour_format">true</bool>
+</resources>

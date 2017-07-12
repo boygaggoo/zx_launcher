@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.ds05.launcher.view.DialogSeekBarPreference
+        android:key="key_screen_brightness"
+        android:widgetLayout="@layout/widget_layout_more_arrow"
+        android:title="@string/string_screen_brightness"
+        android:dialogTitle="@string/string_screen_brightness"
+        android:dialogLayout="@layout/pref_seekbar"/>
+    <ListPreference
+        android:key="key_screen_timeout"
+        android:widgetLayout="@layout/widget_layout_more_arrow"
+        android:title="@string/string_screen_sleep_time"
+        android:entries="@array/array_screen_sleep_time_entries"
+        android:entryValues="@array/array_screen_sleep_time_values"
+        android:defaultValue="@string/def_screen_timeout"/>
+    <Preference
+        android:key="key_wallpaper"
+        android:widgetLayout="@layout/widget_layout_more_arrow"
+        android:title="@string/string_wallpaper"/>
+</PreferenceScreen>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:key="key_doorbell_light"
+        android:title="@string/string_doorbell_light"
+        android:defaultValue="@bool/def_doorbell_light"/>
+    <com.ds05.launcher.view.ListPreferenceExt
+        android:key="key_doorbell_sound"
+        android:title="@string/string_doorbell_sound"
+        android:entries="@array/array_doorbell_sound_entries"
+        android:entryValues="@array/array_doorbell_sound_values"
+        android:widgetLayout="@layout/widget_layout_more_arrow"
+        android:defaultValue="@string/def_doorbell_sound"/>
+    <com.ds05.launcher.view.DialogSeekBarPreference
+        android:key="key_doorbell_volume"
+        android:widgetLayout="@layout/widget_layout_more_arrow"
+        android:title="@string/string_doorbell_volume"
+        android:dialogTitle="@string/string_doorbell_volume"
+        android:dialogLayout="@layout/pref_seekbar"/>
+</PreferenceScreen>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/selector_luncher_btn_bg"
+    android:id="@+id/id_help"
+    android:orientation="vertical"
+    android:focusable="true">
+    <ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleX="0.9"
+        android:scaleY="0.9"
+        android:layout_marginLeft="1dp"
+        android:src="@drawable/ic_help"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/string_help_info"
+            android:textColor="@color/color_launcher_main_text"
+            android:textStyle="bold"
+            android:textSize="@dimen/dimen_launcher_main_text_size"
+            android:layout_gravity="center_horizontal"/>
+</LinearLayout>
