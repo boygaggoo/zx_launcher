@@ -57,7 +57,7 @@ public class LauncherApplication extends Application  {
         ConnectUtils.NETWORK_IS_OK=ConnectUtils.isNetAvailable(mContext);
         if(ConnectUtils.NETWORK_IS_OK){
             startService(new Intent(LauncherApplication.getContext(), ConnectSocketService.class));
-            startService(new Intent(LauncherApplication.getContext(), ZhongyunService.class));
+//            startService(new Intent(LauncherApplication.getContext(), ZhongyunService.class));
         }
     }
 
@@ -72,7 +72,7 @@ public class LauncherApplication extends Application  {
     public void onTerminate() {
         Log.d(TAG, "onTerminate");
         super.onTerminate();
-        ConnectUtils.mMyAvsHelper.logout();
+//        ConnectUtils.mMyAvsHelper.logout();
     }
 
 }

@@ -6,7 +6,8 @@ import android.os.Bundle;
 import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 
-import com.ichano.rvs.streamer.ui.MediaSurfaceView;
+import com.ichano.MediaSurfaceView;
+
 
 /**
  * Created by kabru on 2017/6/4.
@@ -14,6 +15,7 @@ import com.ichano.rvs.streamer.ui.MediaSurfaceView;
 
 public class CameraActivity_ZY extends Activity {
 
+    public static CameraActivity_ZY instance = null;
     private MediaSurfaceView mMediaSurfaceView;
     boolean isFirst = true;
 
@@ -21,11 +23,10 @@ public class CameraActivity_ZY extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_by_zy);
+        instance = this;
         mMediaSurfaceView = (MediaSurfaceView) findViewById(R.id.cameraView);
         mMediaSurfaceView.openCamera(Configuration.ORIENTATION_LANDSCAPE);
         final int[] size = mMediaSurfaceView.getVideoSize();
-
-        mMediaSurfaceView.flip();
 
         ViewTreeObserver viewTreeObserver = mMediaSurfaceView.getViewTreeObserver();
 

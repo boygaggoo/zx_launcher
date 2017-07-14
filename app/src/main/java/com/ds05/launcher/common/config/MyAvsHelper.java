@@ -90,6 +90,7 @@ public class MyAvsHelper extends AvsInitHelper {
 		Log.i(TAG, "loginState = " + state+ ", error = " + error);
 		if (AuthState.SUCCESS == state) {
 			String cid = streamer.getCID();
+			Log.i(TAG, "cid = " + cid);
 			//mCidView.setText(cid);
 			String[] namePwd = streamer.getUserNameAndPwd();
 			if (null != namePwd) {

@@ -1,6 +1,9 @@
 package com.ds05.launcher.service;
 
+import android.app.ActivityManager;
 import android.app.IntentService;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
@@ -11,6 +14,8 @@ import com.ds05.launcher.net.SessionManager;
 import com.ds05.launcher.receiver.CameraReceiver;
 
 import org.apache.mina.core.buffer.IoBuffer;
+
+import java.util.List;
 
 
 /**
@@ -57,7 +62,11 @@ public class CameraService extends IntentService {
 			buffer.put(msg.getBytes());
 			SessionManager.getInstance().writeToServer(buffer);
 
-
+			if(!isForeground(CameraService.this,"com.ds05.launcher.CameraActivity_ZY")){
+				Intent activity = new Intent(CameraService.this, CameraActivity_ZY.class);
+				activity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(activity);
+			}
 			Log.i(TAG, "收到门铃事件通知: " + msg);
 
 		} else if (Constants.BROADCAST_NOTIFY_HUMAN_MONITORING.equals(action)) {
@@ -109,4 +118,18 @@ public class CameraService extends IntentService {
 		CameraReceiver.completeWakefulIntent(intent);
 	}
 
+	private boolean isForeground(Context context, String className) {
+		if (context == null) {
+			return false;
+		}
+		ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+		List<ActivityManager.RunningTaskInfo> list = am.getRunningTasks(1);
+		if (list != null && list.size() > 0) {
+			ComponentName cpn = list.get(0).topActivity;
+			if (className.equals(cpn.getClassName())) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
