@@ -65,6 +65,7 @@ public class Constants {
 
     public static final String BROADCAST_ACTION_TEST_CAMERA="com.ds05.Broadcast.FromServer.Action.TEST_CAMERA";
 
-    
-    
+
+    public static final String EXTRA_CAPTURE="extra_capture";
+
 }

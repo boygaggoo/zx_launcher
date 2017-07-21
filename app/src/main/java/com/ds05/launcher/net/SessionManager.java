@@ -3,6 +3,7 @@ package com.ds05.launcher.net;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
 
+import android.util.Log;
 import android.widget.Toast;
 
 import com.ds05.launcher.LauncherApplication;
@@ -30,6 +31,7 @@ public class SessionManager {
 
     public void writeToServer(IoBuffer buffer){
         if(mSession!=null){
+            Log.d("ZXH1","###  writeToServer");
             buffer.flip();
             mSession.write(buffer);
         }else{

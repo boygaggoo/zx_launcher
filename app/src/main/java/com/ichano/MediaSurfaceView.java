@@ -24,6 +24,7 @@ import android.hardware.Camera.Parameters;
 import android.os.Build;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -939,6 +940,9 @@ public class MediaSurfaceView extends SurfaceView
         byte[] out = null;
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try{
+			if(!checkYUV(yuvData)){
+				return null;
+			}
             YuvImage yuvImage = null;
             Rect rect = null ;
             if(screenOritation == Configuration.ORIENTATION_PORTRAIT){

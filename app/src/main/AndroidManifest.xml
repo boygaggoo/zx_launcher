@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.ds05.launcher"
           android:versionCode="2"
-          android:versionName="DS05 Launcher v0.4">
+          android:versionName="DS05 Launcher v0.5.6">
 
     <uses-sdk
         android:minSdkVersion="19"
@@ -90,6 +90,7 @@
                 <category android:name="android.intent.category.MONKEY"/>
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.settings.SettingsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

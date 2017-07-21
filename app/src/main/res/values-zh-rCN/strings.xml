@@ -153,4 +153,8 @@
 	<string name="home_settings_show_qrcode">显示二维码</string>
 	<string name="home_settings_show_qrcode_summary">在桌面显示移动端APP下载地址的二维码</string>
 	<string name="home_settings_weather_setting">天气设置</string>
+
+	<string name="waiting">wifi连接中，请等待…</string>
+	<string name="wifi_connected">wifi连接成功</string>
+	<string name="not_configure_wifi">网络可用无需配网，正在绑定</string>
 </resources>

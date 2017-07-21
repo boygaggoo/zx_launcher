@@ -58,7 +58,7 @@ public class MediaManagerService extends Service
 	protected int bitsPerSample = 16;
 	public static int audioSampleRateInHz = 8000;
 	int[] videoSize;
-	
+	public static boolean hasConnected = false;
 			
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -146,6 +146,7 @@ public class MediaManagerService extends Service
 	public void onMediaChannelState(long clientCID, int stateCode, int currentChannelCount){
 		Log.d("ZXH","################## currentChannelCount = " + currentChannelCount);
 		if(currentChannelCount > 0){
+			hasConnected = true;
 			Log.d("ZXH","isForeground = " + isForeground(MediaManagerService.this,"com.ds05.launcher.CameraActivity_ZY"));
 			if(!isForeground(MediaManagerService.this,"com.ds05.launcher.CameraActivity_ZY")){
 		        Intent intent = new Intent(MediaManagerService.this, CameraActivity_ZY.class);
@@ -153,6 +154,7 @@ public class MediaManagerService extends Service
 		        startActivity(intent);
 			}
 		}else{
+			hasConnected = false;
 			Log.d("ZXH","isForeground = " + isForeground(MediaManagerService.this,"com.ds05.launcher.CameraActivity_ZY"));
 			if(isForeground(MediaManagerService.this,"com.ds05.launcher.CameraActivity_ZY")){
 //				closeActivity("com.ds05.launcher.CameraActivity_ZY");

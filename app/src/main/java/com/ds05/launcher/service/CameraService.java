@@ -64,6 +64,7 @@ public class CameraService extends IntentService {
 
 			if(!isForeground(CameraService.this,"com.ds05.launcher.CameraActivity_ZY")){
 				Intent activity = new Intent(CameraService.this, CameraActivity_ZY.class);
+				activity.putExtra(Constants.EXTRA_CAPTURE,true);
 				activity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				startActivity(activity);
 			}
@@ -88,11 +89,10 @@ public class CameraService extends IntentService {
 			String msg = "[" + System.currentTimeMillis() + ",T6," + Constants.SOFT_VERSION + "," + Constants.ZHONGYUN_LINCESE + "," + userid + "," + ssid + "," + pwd + "]";
 			IoBuffer buffer = IoBuffer.allocate(msg.length());
 			buffer.put(msg.getBytes());
+			Log.d("ZXH","###  writeToServer msg = " + msg);
 			SessionManager.getInstance().writeToServer(buffer);
-			Log.i(TAG, "收到扫二维码: " + msg);
 
 		} else if (Constants.BROADCAST_ACTION_OPEN_CAMERA.equals(action)) {
-
 			//Log.i(TAG, "收到消息，############################################################################################################################################要求打开camera");
 			Intent intent2 = new Intent(getApplicationContext(), CameraActivity_ZY.class);
 			intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -285,5 +285,9 @@
     <string name="local_service_started">服务正在运行中……</string>
     <string name="local_service_stopped">服务停止了……</string>
     <string name="local_service_label">正在测试中……</string>
+    <string name="waiting">wifi connecting , Waitting…</string>
+    <string name="wifi_connected">wifi connected</string>
+    <string name="wifi_disconnected">wifi disconnected</string>
+    <string name="not_configure_wifi">network is ok, not need configure wifi</string>
 
 </resources>

@@ -169,7 +169,7 @@ public class QRCodeScanActivity extends Activity implements Callback {
                     showDialog(obj, barcode);
                     break;
                 }
-                String[] wifiInfo = obj.getText().split(";");
+                String[] wifiInfo = obj.getText().split(",");
                 if (wifiInfo.length == 2 || wifiInfo.length == 3) {
                     Intent intent = new Intent();
                     intent.putExtra(EXTRA_QRCODE_RESULT, obj.getText());

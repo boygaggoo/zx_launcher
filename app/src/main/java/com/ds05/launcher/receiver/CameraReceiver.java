@@ -16,6 +16,7 @@ import com.ds05.launcher.service.CameraService;
 import com.ds05.launcher.service.PictureService;
 import com.ds05.launcher.service.VideoService;
 
+import static com.ds05.launcher.common.Constants.BROADCAST_NOTIFY_DOORBELL_PRESSED;
 import static com.ds05.launcher.common.Constants.mHandlingEvent;
 
 public class CameraReceiver extends WakefulBroadcastReceiver {
@@ -28,7 +29,9 @@ public class CameraReceiver extends WakefulBroadcastReceiver {
 		Bundle bundle = intent.getExtras();
 		Log.i(TAG, "收到广播消息："+intent.getAction());
 		this.context=context;
-		if(!ConnectUtils.NETWORK_IS_OK || !ConnectUtils.CONNECT_SERVER_STATUS){
+
+		if((!ConnectUtils.NETWORK_IS_OK || !ConnectUtils.CONNECT_SERVER_STATUS) &&
+		!BROADCAST_NOTIFY_DOORBELL_PRESSED.equals(intent.getAction())){
 			Toast.makeText(context, "收到广播消息,但是网络不可用,不进行网络发送。"+ConnectUtils.NETWORK_IS_OK +" ,"+ConnectUtils.CONNECT_SERVER_STATUS, Toast.LENGTH_SHORT).show();
 			if(ConnectUtils.NETWORK_IS_OK && !ConnectUtils.CONNECT_SERVER_STATUS && linkstart){
 				linkstart=false;

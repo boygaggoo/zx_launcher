@@ -8,8 +8,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
@@ -21,6 +26,8 @@ import android.util.Log;
 import com.ds05.launcher.LauncherApplication;
 import com.ds05.launcher.ModuleBaseFragment;
 import com.ds05.launcher.R;
+import com.ds05.launcher.common.ConnectUtils;
+import com.ds05.launcher.common.utils.ToastUtil;
 import com.ds05.launcher.common.utils.WifiUtils;
 import com.ds05.launcher.qrcode.QRCodeScanActivity;
 
@@ -49,9 +56,17 @@ public class SettingsFragment extends ModuleBaseFragment
     public static final String KEY_HOME_SETTINGS = "key_Settings_home_settings";
     public static final String KEY_RESET_FACTORY = "key_Settings_reset_factory";
     public static final String KEY_VERSION = "key_Settings_version";
+    private static final int TIMEOUT = 18;
+
+    private static final int NETWORKCONNECTED = 0;
+    private static final int NETWORKDISCONNECTED = 1;
+    private static final int NETWORKISOK = 2;
+
+    private boolean wifiConnected = false;
 
     private WifiManager mWifiManager;
     private BluetoothAdapter mBluetoothAdapter;
+    WifiAutoConnectManager wac;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,6 +80,8 @@ public class SettingsFragment extends ModuleBaseFragment
         SwitchPreference wifiPref = (SwitchPreference) findPreference(KEY_WIFI);
         wifiPref.setOnPreferenceChangeListener(this);
         energySaveingMode.setOnPreferenceChangeListener(this);
+
+        wac = new WifiAutoConnectManager(mWifiManager);
 
         boolean isSavingMode = energySaveingMode.isChecked();
         wifiPref.setEnabled(!isSavingMode);
@@ -137,6 +154,8 @@ public class SettingsFragment extends ModuleBaseFragment
             Intent intent = new Intent(getActivity(), QRCodeScanActivity.class);
             intent.putExtra(QRCodeScanActivity.EXTRA_REQ_REASON, QRCodeScanActivity.REASON_GET_WIFI);
             startActivityForResult(intent, QRCodeScanActivity.ACT_REQUEST_CODE_GET_WIFI);
+//            Intent intent = new Intent(getActivity(), MainActivity123.class);
+//            startActivity(intent);
             return true;
         } else if (key.equals(KEY_DISPLAY)) {
             jumpToFragment(new DisplaySettings());
@@ -245,6 +264,27 @@ public class SettingsFragment extends ModuleBaseFragment
         return true;
     }
 
+    private ProgressDialog mWaitingDialog;
+
+    private void showWaitDialog() {
+        if (mWaitingDialog != null && mWaitingDialog.isShowing()) return;
+        if (mWaitingDialog == null) {
+            mWaitingDialog = new ProgressDialog(getActivity());
+            mWaitingDialog.setMessage(getString(R.string.waiting));
+            mWaitingDialog.setIndeterminate(true);
+            mWaitingDialog.setCancelable(false);
+            mWaitingDialog.setCanceledOnTouchOutside(false);
+        }
+        mWaitingDialog.show();
+    }
+
+    private void dismissDlg() {
+        if (mWaitingDialog != null && mWaitingDialog.isShowing()) {
+            mWaitingDialog.dismiss();
+        }
+    }
+
+    String userId = null, ssid = null, pwd = null;
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -254,10 +294,9 @@ public class SettingsFragment extends ModuleBaseFragment
                 String result = data.getStringExtra(QRCodeScanActivity.EXTRA_QRCODE_RESULT);
                 if(TextUtils.isEmpty(result)) return;
 
-                final String[] wifiInfo = result.split(";");
+                final String[] wifiInfo = result.split(",");
                 if(wifiInfo == null || (wifiInfo.length != 2 && wifiInfo.length != 3)) return;
 
-                String userId = null, ssid = null, pwd = null;
                 if(wifiInfo.length == 2) {
                     ssid = wifiInfo[0];
                     pwd = wifiInfo[1];
@@ -265,33 +304,119 @@ public class SettingsFragment extends ModuleBaseFragment
                     userId = wifiInfo[0];
                     ssid = wifiInfo[1];
                     pwd = wifiInfo[2];
+                    if(ConnectUtils.NETWORK_IS_OK  && ConnectUtils.CONNECT_SERVER_STATUS){
+                        Message message = new Message();
+                        message.what = NETWORKISOK;
+                        mHandler.sendMessage(message);
 
-                    Intent intent = new Intent();
-                    intent.setAction("com.ds05.Broadcast.ToServer.NOTIFY_QRCODE_RESULT");
-                    intent.putExtra("QRCodeResult_UserId", userId);
-                    intent.putExtra("QRCodeResult_WifiSSID", ssid);
-                    intent.putExtra("QRCodeResult_WifiPassword", pwd);
-                    getActivity().sendBroadcast(intent);
-                }
-                if(ssid == null) return;
-
-                final String ssidF = ssid, pwdF = pwd;
-                createDialog(getActivity(),
-                        getString(R.string.string_connect_wifi),
-                        getString(R.string.string_ap_name) + " " + ssid + "\n"
-                            + getString(R.string.string_pwd) + " " + pwd,
-                        getString(R.string.string_connect),
-                        new DialogInterface.OnClickListener() {
+                        Intent intent = new Intent();
+                        intent.setAction("com.ds05.Broadcast.ToServer.NOTIFY_QRCODE_RESULT");
+                        intent.putExtra("QRCodeResult_UserId", userId);
+                        intent.putExtra("QRCodeResult_WifiSSID", ssid);
+                        intent.putExtra("QRCodeResult_WifiPassword", pwd);
+                        getActivity().sendBroadcast(intent);
+                    }else{
+                        wac.connect(ssid, pwd, pwd.equals("")? WifiAutoConnectManager.WifiCipherType.WIFICIPHER_NOPASS: WifiAutoConnectManager.WifiCipherType.WIFICIPHER_WPA);
+                        showWaitDialog();
+                        Thread mThread = new Thread(new Runnable() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                WifiUtils wifiUtils = new WifiUtils(getActivity());
-                                wifiUtils.connectWifi(ssidF, pwdF);
+                            public void run() {
+                                wifiConnected = true;
+                                int timeout = 0;
+
+                                while (!ConnectUtils.NETWORK_IS_OK || !ConnectUtils.CONNECT_SERVER_STATUS) {
+                                    try {
+                                        // 为了避免程序一直while循环，让它睡个100毫秒检测……
+                                        timeout++;
+                                        if(timeout > TIMEOUT){
+                                            wifiConnected = false;
+                                            break;
+                                        }
+                                        Thread.sleep(1000);
+                                    } catch (InterruptedException ie) {
+                                    }
+                                }
+                                Log.d("ZXH","###  wifiConnected = " + wifiConnected);
+
+                                dismissDlg();
+                                if(wifiConnected){
+                                    Message message = new Message();
+                                    message.what = NETWORKCONNECTED;
+                                    mHandler.sendMessage(message);
+                                    Intent intent = new Intent();
+                                    intent.setAction("com.ds05.Broadcast.ToServer.NOTIFY_QRCODE_RESULT");
+                                    intent.putExtra("QRCodeResult_UserId", userId);
+                                    intent.putExtra("QRCodeResult_WifiSSID", ssid);
+                                    intent.putExtra("QRCodeResult_WifiPassword", pwd);
+                                    getActivity().sendBroadcast(intent);
+                                }else{
+                                    Message message = new Message();
+                                    message.what = NETWORKDISCONNECTED;
+                                    mHandler.sendMessage(message);
+                                }
                             }
                         });
+                        mThread.start();
+                    }
+
+//                    Intent intent = new Intent();
+//                    intent.setAction("com.ds05.Broadcast.ToServer.NOTIFY_QRCODE_RESULT");
+//                    intent.putExtra("QRCodeResult_UserId", userId);
+//                    intent.putExtra("QRCodeResult_WifiSSID", ssid);
+//                    intent.putExtra("QRCodeResult_WifiPassword", pwd);
+//                    getActivity().sendBroadcast(intent);
+                }
+//                if(ssid == null) return;
+//
+//                final String ssidF = ssid, pwdF = pwd;
+//                createDialog(getActivity(),
+//                        getString(R.string.string_connect_wifi),
+//                        getString(R.string.string_ap_name) + " " + ssid + "\n"
+//                            + getString(R.string.string_pwd) + " " + pwd,
+//                        getString(R.string.string_connect),
+//                        new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                WifiUtils wifiUtils = new WifiUtils(getActivity());
+//                                wifiUtils.connectWifi(ssidF, pwdF);
+//                            }
+//                        });
                 return;
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case NETWORKCONNECTED:
+                    ToastUtil.showToast(getActivity(), getActivity().getResources().getString(R.string.wifi_connected));
+                    break;
+                case NETWORKDISCONNECTED:
+                    ToastUtil.showToast(getActivity(), getActivity().getResources().getString(R.string.wifi_disconnected));
+                    break;
+                case NETWORKISOK:
+                    ToastUtil.showToast(getActivity(), getActivity().getResources().getString(R.string.not_configure_wifi));
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
+
+    public static boolean isWifiConnected(Context context)
+    {
+        ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo wifiNetworkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if(wifiNetworkInfo.isConnected())
+        {
+            return true ;
+        }
+        return false ;
     }
 
     private void createDialog(final Context ctx, String title, String msg,
