@@ -43,6 +43,11 @@ public final class HWSink {
     public static final int LIGHT_SRC_FREQ_60HZ = 60;
     /** 智能人体监测是否开启 boolean */
     public static final String EXTRA_DRV_CFG_HUMAN_MONITOR_STATE = "HumanMonitorState";
+    /** 报警间隔时间 */
+    public static final String EXTRA_DRV_CFG_ALARM_INTERVAL_TIME = "AlarmIntervalTime";
+    public static final int ALARM_INTERVAL_TIME_30SEC = 30;
+    public static final int ALARM_INTERVAL_TIME_90SEC = 90;
+    public static final int ALARM_INTERVAL_TIME_180SEC = 180;
     /** 智能报警时间 */
     public static final String EXTRA_DRV_CFG_AUTO_ALARM_TIME = "AutoAlarmTime";
     public static final int AUTO_ALARM_TIME_3SEC = 3;

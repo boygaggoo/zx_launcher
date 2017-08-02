@@ -52,6 +52,26 @@ public final class PrefDataManager {
             return time;
         }
     }//AutoAlarmTime
+    public enum AlarmIntervalTime{
+        Time_30sec(30000),Time_90sec(90000),Time_180sec(180000);
+
+        private int time;
+        AlarmIntervalTime(int t){ time = t;}
+
+        public static AlarmIntervalTime get(int t){
+            switch(t){
+                case 30000:
+                    return Time_30sec;
+                case 90000:
+                    return Time_90sec;
+                case 180000:
+                    return Time_180sec;
+                default:
+                    return null;
+            }
+        }
+        public int time(){return time;}
+    }//AlarmIntervalTime
     public enum MonitorSensitivity {
         High(1), Low(2);
 
@@ -228,6 +248,31 @@ public final class PrefDataManager {
 
         if(i >= 0 && i < defs.length && defs[i] == time) {
             setString(APP_PREF_SETTINGS, MonitorFragment.KEY_INTELL_ALARM_TIME, i + "");
+        }
+    }
+    public static long getAlarmIntervalTime() {
+        String defIndex = LauncherApplication.getContext()
+                .getResources().getString(R.string.def_alarm_interval_time);
+        String ret = getString(APP_PREF_SETTINGS, MonitorFragment.KEY_ALARM_INTERVAL_TIME, defIndex);
+        int index = Integer.parseInt(ret);
+        if(index < 0) {
+            return LauncherApplication.getContext()
+                    .getResources().getIntArray(R.array.array_alarm_interval_time)[Integer.parseInt(defIndex)];
+        } else {
+            return LauncherApplication.getContext()
+                    .getResources().getIntArray(R.array.array_alarm_interval_time)[index];
+        }
+    }
+    public static void setAlarmIntervalTime(long time) {
+        int[] defs = LauncherApplication.getContext()
+                .getResources().getIntArray(R.array.array_alarm_interval_time);
+        int i = 0;
+        for(; i < defs.length; i++) {
+            if(defs[i] == time) break;
+        }
+
+        if(i >= 0 && i < defs.length && defs[i] == time) {
+            setString(APP_PREF_SETTINGS, MonitorFragment.KEY_ALARM_INTERVAL_TIME, i + "");
         }
     }
     public static MonitorSensitivity getHumanMonitorSensi() {

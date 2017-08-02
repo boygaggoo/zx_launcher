@@ -16,6 +16,15 @@
         android:entryValues="@array/monitor_str_intellignet_alarm_time_values"
         android:defaultValue="@string/def_intelligent_alarm_time"/>
     <ListPreference
+        android:key="key_alarm_interval_time"
+        android:icon="@drawable/ic_menu_alarm_time"
+        android:layout="@layout/icon_preference_layout"
+        android:widgetLayout="@layout/widget_layout_more_arrow"
+        android:title="@string/monitor_str_alarm_interval_time"
+        android:entries="@array/monitor_str_alarm_interval_time_entry"
+        android:entryValues="@array/monitor_str_alarm_interval_time_values"
+        android:defaultValue="@string/def_alarm_interval_time"/>
+    <ListPreference
         android:key="key_monitoring_sensitivity"
         android:icon="@drawable/ic_menu_monitor_sens"
         android:layout="@layout/icon_preference_layout"

@@ -25,6 +25,7 @@ public class MonitorFragment extends ModuleBaseFragment
 
     public static final String KEY_HUMAN_MONIOTOR = "key_human_monitor";
     public static final String KEY_INTELL_ALARM_TIME = "key_intelligent_alarm_time";
+    public static final String KEY_ALARM_INTERVAL_TIME = "key_alarm_interval_time";
     public static final String KEY_MONITORING_SENS = "key_monitoring_sensitivity";
     public static final String KEY_ALARM_SOUND = "key_auto_alarm_sound";
     public static final String KEY_ALARM_VOLUME = "key_auto_alarm_volume";
@@ -50,6 +51,23 @@ public class MonitorFragment extends ModuleBaseFragment
     public void onResume() {
         super.onResume();
         setTitle(R.string.string_monitor);
+
+        boolean humanMonitorState =PrefDataManager.getHumanMonitorState();
+        if(humanMonitorState==true){
+                findPreference(KEY_INTELL_ALARM_TIME).setEnabled(true);
+                findPreference(KEY_ALARM_INTERVAL_TIME).setEnabled(true);
+                findPreference(KEY_MONITORING_SENS).setEnabled(true);
+                findPreference(KEY_ALARM_SOUND).setEnabled(true);
+                findPreference(KEY_ALARM_VOLUME).setEnabled(true);
+                findPreference(KEY_SHOOTING_MODE).setEnabled(true);
+        }else {
+                findPreference(KEY_INTELL_ALARM_TIME).setEnabled(false);
+                findPreference(KEY_ALARM_INTERVAL_TIME).setEnabled(false);
+                findPreference(KEY_MONITORING_SENS).setEnabled(false);
+                findPreference(KEY_ALARM_SOUND).setEnabled(false);
+                findPreference(KEY_ALARM_VOLUME).setEnabled(false);
+                findPreference(KEY_SHOOTING_MODE).setEnabled(false);
+        }
     }
 
     @Override
@@ -114,6 +132,7 @@ public class MonitorFragment extends ModuleBaseFragment
                     mSoundManager.updateAlarmConfig();
                 }
             }, 300);
+            PrefDataManager.setAlarmSound(Integer.parseInt((String)newValue));
         } else if(key.equals(KEY_ALARM_VOLUME)) {
             PrefDataManager.setAlarmSoundVolume(Integer.parseInt((String)newValue) / 10f);
             mSoundManager.stopTestSound();
@@ -127,6 +146,22 @@ public class MonitorFragment extends ModuleBaseFragment
             Intent intent = new Intent();
             intent.putExtra(HWSink.EXTRA_DRV_CFG_HUMAN_MONITOR_STATE, (boolean)newValue);
             HWSink.updateDriverConfig(intent);
+            if( (boolean)newValue==true ){
+                findPreference(KEY_INTELL_ALARM_TIME).setEnabled(true);
+                findPreference(KEY_ALARM_INTERVAL_TIME).setEnabled(true);
+                findPreference(KEY_MONITORING_SENS).setEnabled(true);
+                findPreference(KEY_ALARM_SOUND).setEnabled(true);
+                findPreference(KEY_ALARM_VOLUME).setEnabled(true);
+                findPreference(KEY_SHOOTING_MODE).setEnabled(true);
+            }else {
+                findPreference(KEY_INTELL_ALARM_TIME).setEnabled(false);
+                findPreference(KEY_ALARM_INTERVAL_TIME).setEnabled(false);
+                findPreference(KEY_MONITORING_SENS).setEnabled(false);
+                findPreference(KEY_ALARM_SOUND).setEnabled(false);
+                findPreference(KEY_ALARM_VOLUME).setEnabled(false);
+                findPreference(KEY_SHOOTING_MODE).setEnabled(false);
+            }
+            PrefDataManager.setHumanMonitorState((boolean)newValue);
         } else if(key.equals(KEY_MONITORING_SENS)) {
             int index = Integer.parseInt((String)newValue);
             int val = -1;
@@ -140,6 +175,7 @@ public class MonitorFragment extends ModuleBaseFragment
                 intent.putExtra(HWSink.EXTRA_DRV_CFG_MONITOR_SENSI, val);
                 HWSink.updateDriverConfig(intent);
             }
+            PrefDataManager.setHumanMonitorSensi(val);
         } else if(key.equals(KEY_INTELL_ALARM_TIME)) {
             int index = Integer.parseInt((String)newValue);
             int val = -1;
@@ -157,6 +193,23 @@ public class MonitorFragment extends ModuleBaseFragment
                 intent.putExtra(HWSink.EXTRA_DRV_CFG_MONITOR_SENSI, val);
                 HWSink.updateDriverConfig(intent);
             }
+            PrefDataManager.setAutoAlarmTime(val);
+        }else if(key.equals(KEY_ALARM_INTERVAL_TIME)){
+            int index = Integer.parseInt((String)newValue);
+            int val = -1;
+            if(index == 0) {
+                val = HWSink.ALARM_INTERVAL_TIME_30SEC;
+            } else if(index == 1) {
+                val = HWSink.ALARM_INTERVAL_TIME_90SEC;
+            } else if(index == 2) {
+                val = HWSink.ALARM_INTERVAL_TIME_180SEC;
+            }
+            if(val != -1) {
+                Intent intent = new Intent();
+                intent.putExtra(HWSink.EXTRA_DRV_CFG_ALARM_INTERVAL_TIME, val);
+                HWSink.updateDriverConfig(intent);
+            }
+            PrefDataManager.setAlarmIntervalTime(val);
         }
 
         if (preference instanceof ListPreference) {

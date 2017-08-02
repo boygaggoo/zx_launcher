@@ -66,6 +66,7 @@
 	<!-- Monitor Setting UI String -->
 	<string name="monitor_str_human_monitor">智能人体监测</string>
 	<string name="monitor_str_intelligent_alarm_time">智能报警时间</string>
+	<string name="monitor_str_alarm_interval_time">报警间隔时间</string>
 	<string name="monitor_str_monitoring_sensitivity">监控灵敏度</string>
 	<string name="monitor_str_auto_alarm_sound">自动报警铃声</string>
 	<string name="monitor_str_auto_alarm_volume">自动报警铃声音量</string>
@@ -79,7 +80,9 @@
 	<string name="str_item_25_sec">25秒</string>
 	<string name="str_item_30_sec">30秒</string>
 	<string name="str_item_1_min">1分钟</string>
+	<string name="str_item_90_sec">90秒</string>
 	<string name="str_item_2_min">2分钟</string>
+	<string name="str_item_180_sec">180秒</string>
 	<string name="str_item_5_min">5分钟</string>
 	<string name="str_item_10_min">10分钟</string>
 	<string name="str_item_30_min">30分钟</string>

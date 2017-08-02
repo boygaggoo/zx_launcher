@@ -134,6 +134,7 @@
     <!-- Monitor Setting UI String -->
     <string name="monitor_str_human_monitor">Human body monitoring</string>
     <string name="monitor_str_intelligent_alarm_time">Intelligent alarm time</string>
+    <string name="monitor_str_alarm_interval_time">Alarm interval time</string>
     <string name="monitor_str_monitoring_sensitivity">Monitoring sensitivity</string>
     <string name="monitor_str_auto_alarm_sound">Automatic alarm sound</string>
     <string name="monitor_str_auto_alarm_volume">Automatic alarm volume</string>
@@ -147,7 +148,9 @@
     <string name="str_item_25_sec">25 second</string>
     <string name="str_item_30_sec">30 second</string>
     <string name="str_item_1_min">1 minutes</string>
+    <string name="str_item_90_sec">90 second</string>
     <string name="str_item_2_min">2 minutes</string>
+    <string name="str_item_180_sec">180 second</string>
     <string name="str_item_5_min">5 minutes</string>
     <string name="str_item_10_min">10 minutes</string>
     <string name="str_item_30_min">30 minutes</string>
@@ -168,6 +171,22 @@
         <item>1</item>
         <item>2</item>
         <item>3</item>
+    </string-array>
+
+    <string-array name="monitor_str_alarm_interval_time_entry">
+        <item>@string/str_item_30_sec</item>
+        <item>@string/str_item_90_sec</item>
+        <item>@string/str_item_180_sec</item>
+    </string-array>
+    <integer-array name="array_alarm_interval_time" translatable="false">
+        <item>30000</item>
+        <item>90000</item>
+        <item>180000</item>
+    </integer-array>
+    <string-array name="monitor_str_alarm_interval_time_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
     </string-array>
 
     <string name="str_item_monitoring_sensitivity_height">Height</string>
