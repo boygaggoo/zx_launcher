@@ -5,11 +5,18 @@ import android.app.IntentService;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.Camera;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.ResultReceiver;
+import android.os.SystemClock;
 import android.util.Log;
 
 import com.ds05.launcher.CameraActivity_ZY;
 import com.ds05.launcher.MainActivity;
 import com.ds05.launcher.common.Constants;
+import com.ds05.launcher.common.manager.PrefDataManager;
+import com.ds05.launcher.common.utils.AppUtil;
 import com.ds05.launcher.net.SessionManager;
 import com.ds05.launcher.receiver.CameraReceiver;
 
@@ -24,7 +31,14 @@ import java.util.List;
 public class CameraService extends IntentService {
 
 	private static final String TAG = "CameraService";
+	private static final int ALARMVALIDTIME = 10000;
+	private static final int WAITCOUNT = 5;
+	private boolean isDoorBelling = false;
+	private boolean isFirstHumanMonitor = false;
+	private boolean isValidTime = false;
+	private boolean isIntervalTime = false;
 
+	private Handler mHandler = new Handler();
 	public CameraService(String name) {
 		super(name);
 
@@ -39,7 +53,7 @@ public class CameraService extends IntentService {
 
 		String action = intent.getAction();
 		if (Constants.BROADCAST_REPORT_SYSTEM_CONFIG.equals(action)) {
-
+			Log.d("ZXH","BROADCAST_REPORT_SYSTEM_CONFIG");
 			Constants.humanMonitorState = intent.getBooleanExtra("HumanMonitorState", true);
 			Constants.autoAlarmTime = intent.getLongExtra("AutoAlarmTime", 5000);
 			Constants.monitorSensitivity = intent.getIntExtra("MonitorSensitivity", 1);
@@ -57,10 +71,38 @@ public class CameraService extends IntentService {
 			Log.i(TAG, "收到当前的配置广播");
 		} else if (Constants.BROADCAST_NOTIFY_DOORBELL_PRESSED.equals(action)) {
 			// 门铃事件通知
+			if(isDoorBelling){
+				return;
+			}
+			isDoorBelling = true;
+			AppUtil.wakeUpAndUnlock(getApplicationContext());
 			String msg = "[" + System.currentTimeMillis() + ",T4," + Constants.SOFT_VERSION + "," + Constants.ZHONGYUN_LINCESE + "]";
 			IoBuffer buffer = IoBuffer.allocate(msg.length());
 			buffer.put(msg.getBytes());
 			SessionManager.getInstance().writeToServer(buffer);
+
+			int waitCaptureCount = 0;
+			while(PictureService.isCapturing){
+				SystemClock.sleep(100);
+				waitCaptureCount++;
+				if(waitCaptureCount >= WAITCOUNT){
+					Log.i(TAG, "wait capturing is timeout");
+					return;
+				}
+			}
+
+			int waitRecordCount = 0;
+			if(VideoService.getRecordStatus()){
+				stopRecording();
+			}
+			while(VideoService.getRecordStatus()){
+				SystemClock.sleep(200);
+				waitRecordCount++;
+				if(waitRecordCount >= WAITCOUNT){
+					Log.i(TAG, "wait recording is timeout");
+					return;
+				}
+			}
 
 			if(!isForeground(CameraService.this,"com.ds05.launcher.CameraActivity_ZY")){
 				Intent activity = new Intent(CameraService.this, CameraActivity_ZY.class);
@@ -68,12 +110,45 @@ public class CameraService extends IntentService {
 				activity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				startActivity(activity);
 			}
+
+			isDoorBelling = false;
 			Log.i(TAG, "收到门铃事件通知: " + msg);
 
 		} else if (Constants.BROADCAST_NOTIFY_HUMAN_MONITORING.equals(action)) {
 			// 人体监测通知
-			int humanStatus = intent.getIntExtra("HumanStatus", 0);
+			if(!PrefDataManager.getHumanMonitorState() || isIntervalTime){
+				isFirstHumanMonitor = false;
+				isValidTime = false;
+				return;
+			}
+			if(isForeground(CameraService.this,"com.ds05.launcher.CameraActivity_ZY")){
+				return;
+			}
 
+			if(!isFirstHumanMonitor){
+				isFirstHumanMonitor = true;
+				isValidTime = false;
+				long mAutoAlarmTime = PrefDataManager.getAutoAlarmTimeIndex();
+				mHandler.postDelayed(autoAlarmTimeRunnable, mAutoAlarmTime);
+			}
+
+			if(!isValidTime){
+				return;
+			}
+
+			mHandler.removeCallbacks(validTimeRunnable);
+			isIntervalTime = true;
+			isFirstHumanMonitor = false;
+			long mAlarmIntervalTime = PrefDataManager.getAlarmIntervalTime();
+			mHandler.postDelayed(intervalTimeRunnable, mAlarmIntervalTime);
+
+			if(PrefDataManager.getAlarmMode() == PrefDataManager.AlarmMode.Capture){
+				startCapture();
+			}else if(PrefDataManager.getAlarmMode() == PrefDataManager.AlarmMode.Recorder){
+				startRecording();
+			}
+
+			int humanStatus = intent.getIntExtra("HumanStatus", 0);
 			String msg = "[" + System.currentTimeMillis() + ",T5," + Constants.SOFT_VERSION + "," + Constants.ZHONGYUN_LINCESE + "," + humanStatus + "]";
 			IoBuffer buffer = IoBuffer.allocate(msg.length());
 			buffer.put(msg.getBytes());
@@ -89,7 +164,6 @@ public class CameraService extends IntentService {
 			String msg = "[" + System.currentTimeMillis() + ",T6," + Constants.SOFT_VERSION + "," + Constants.ZHONGYUN_LINCESE + "," + userid + "," + ssid + "," + pwd + "]";
 			IoBuffer buffer = IoBuffer.allocate(msg.length());
 			buffer.put(msg.getBytes());
-			Log.d("ZXH","###  writeToServer msg = " + msg);
 			SessionManager.getInstance().writeToServer(buffer);
 
 		} else if (Constants.BROADCAST_ACTION_OPEN_CAMERA.equals(action)) {
@@ -116,6 +190,63 @@ public class CameraService extends IntentService {
 		// 未知广播消息
 
 		CameraReceiver.completeWakefulIntent(intent);
+	}
+
+	Runnable autoAlarmTimeRunnable = new Runnable() {
+		@Override
+		public void run() {
+			isValidTime = true;
+			mHandler.postDelayed(validTimeRunnable, ALARMVALIDTIME);
+		}
+	};
+
+	Runnable validTimeRunnable = new Runnable() {
+		@Override
+		public void run() {
+			isValidTime = false;
+			isFirstHumanMonitor = false;
+		}
+	};
+
+	Runnable intervalTimeRunnable = new Runnable() {
+		@Override
+		public void run() {
+			isIntervalTime = false;
+		}
+	};
+
+
+	private void startCapture(){
+		ResultReceiver receiver = new ResultReceiver(new Handler()) {
+			@Override
+			protected void onReceiveResult(int resultCode, Bundle resultData) {
+				Log.d("ZXH","########## resultCode = " + resultCode);
+				Log.d("ZXH","########## resultData = " + resultData);
+			}
+		};
+		PictureService.startToStartCapture(this,  Camera.CameraInfo.CAMERA_FACING_BACK, receiver);
+	}
+
+	private void startRecording(){
+		ResultReceiver receiver = new ResultReceiver(new Handler()) {
+			@Override
+			protected void onReceiveResult(int resultCode, Bundle resultData) {
+				Log.d("ZXH","########## resultCode = " + resultCode);
+				Log.d("ZXH","########## resultData = " + resultData);
+			}
+		};
+		VideoService.startToStartRecording(this,  Camera.CameraInfo.CAMERA_FACING_BACK, receiver);
+	}
+
+	private void stopRecording() {
+		ResultReceiver receiver = new ResultReceiver(new Handler()) {
+			@Override
+			protected void onReceiveResult(int resultCode, Bundle resultData) {
+				Log.d("ZXH","########## resultCode = " + resultCode);
+				Log.d("ZXH","########## resultData = " + resultData);
+			}
+		};
+		VideoService.startToStopRecording(this, receiver);
 	}
 
 	private boolean isForeground(Context context, String className) {

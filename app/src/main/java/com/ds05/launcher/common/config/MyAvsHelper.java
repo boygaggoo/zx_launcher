@@ -88,6 +88,7 @@ public class MyAvsHelper extends AvsInitHelper {
 	@Override
 	public void onAuthResult(AuthState state, RvsError error) {
 		Log.i(TAG, "loginState = " + state+ ", error = " + error);
+
 		if (AuthState.SUCCESS == state) {
 			String cid = streamer.getCID();
 			Log.i(TAG, "cid = " + cid);

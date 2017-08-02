@@ -31,7 +31,6 @@ public class SessionManager {
 
     public void writeToServer(IoBuffer buffer){
         if(mSession!=null){
-            Log.d("ZXH1","###  writeToServer");
             buffer.flip();
             mSession.write(buffer);
         }else{

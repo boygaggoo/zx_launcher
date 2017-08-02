@@ -3,22 +3,17 @@ package com.ds05.launcher.service;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.PixelFormat;
-import android.hardware.Camera;
-import android.media.CamcorderProfile;
-import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.ResultReceiver;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import com.ds05.launcher.common.utils.Utils;
-
-import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by kabru on 2017/6/17.
@@ -45,13 +40,13 @@ public class VideoService extends Service {
 
     private static final String SELECTED_CAMERA_FOR_RECORDING = "cameraForRecording";
 
-    private Camera mCamera;
-    private MediaRecorder mMediaRecorder;
-
-    private boolean mRecording = false;
     private String mRecordingPath = null;
 
     public VideoService() {
+    }
+
+    public static boolean getRecordStatus(){
+        return CramerThread.isRecording;
     }
 
     public static void startToStartRecording(Context context, int cameraId, ResultReceiver resultReceiver) {
@@ -90,6 +85,24 @@ public class VideoService extends Service {
         return START_NOT_STICKY;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(wm != null){
+            wm.removeView(relLay);
+            wm = null;
+        }
+        if(thread != null && CramerThread.isRecording){
+            thread.stopRecord();
+        }
+    }
+
+    SurfaceView surfaceview;
+    WindowManager wm;
+    SurfaceHolder surfaceHolder; // //和surfaceView相关的
+    LinearLayout relLay;
+    CramerThread thread;
+
     private void handleStartRecordingCommand(Intent intent) {
         if (!Utils.isCameraExist(this)) {
             throw new IllegalStateException("There is no device, not possible to start recording");
@@ -97,117 +110,86 @@ public class VideoService extends Service {
 
         final ResultReceiver resultReceiver = intent.getParcelableExtra(RESULT_RECEIVER);
 
-        if (mRecording) {
+        if (CramerThread.isRecording) {
             resultReceiver.send(RECORD_RESULT_ALREADY_RECORDING, null);
             return;
         }
-        mRecording = true;
 
-        final int cameraId = intent.getIntExtra(SELECTED_CAMERA_FOR_RECORDING, Camera.CameraInfo.CAMERA_FACING_BACK);
-        mCamera = Utils.getCameraInstance(cameraId);
-
-        if (mCamera != null) {
-            SurfaceView sv = new SurfaceView(this);
-            WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-            WindowManager.LayoutParams params = new WindowManager.LayoutParams(1, 1,WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,  PixelFormat.TRANSLUCENT);
-            SurfaceHolder sh = sv.getHolder();
-            sv.setZOrderOnTop(true);
-            sh.setFormat(PixelFormat.TRANSPARENT);
-            sh.addCallback(new SurfaceHolder.Callback() {
-                @Override
-                public void surfaceCreated(SurfaceHolder holder) {
-                    Camera.Parameters params = mCamera.getParameters();
-                    mCamera.setParameters(params);
-                    Camera.Parameters p = mCamera.getParameters();
-                    List<Camera.Size> listSize;
-                    listSize = p.getSupportedPreviewSizes();
-                    Camera.Size mPreviewSize = listSize.get(2);
-                    Log.v(TAG, "preview width = " + mPreviewSize.width + " preview height = " + mPreviewSize.height);
-                    p.setPreviewSize(mPreviewSize.width, mPreviewSize.height);
-                    listSize = p.getSupportedPictureSizes();
-                    Camera.Size mPictureSize = listSize.get(2);
-                    Log.v(TAG, "capture width = " + mPictureSize.width  + " capture height = " + mPictureSize.height);
-                    p.setPictureSize(mPictureSize.width, mPictureSize.height);
-                    mCamera.setParameters(p);
-                    try {
-                        mCamera.setPreviewDisplay(holder);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    mCamera.startPreview();
-                    mCamera.unlock();
-                    mMediaRecorder = new MediaRecorder();
-                    mMediaRecorder.setCamera(mCamera);
-                    mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                    mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
-                    if (cameraId == Camera.CameraInfo.CAMERA_FACING_BACK) {
-                        mMediaRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH));
-                    } else {
-                        mMediaRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_480P));
-                    }
-                    mRecordingPath = Utils.getOutputMediaFile(Utils.MEDIA_TYPE_VIDEO).getPath();
-                    mMediaRecorder.setOutputFile(mRecordingPath);
-                    mMediaRecorder.setPreviewDisplay(holder.getSurface());
-
-                    try {
-                        mMediaRecorder.prepare();
-                    } catch (IllegalStateException e) {
-                        Log.d(TAG, "IllegalStateException when preparing MediaRecorder: " + e.getMessage());
-                    } catch (IOException e) {
-                        Log.d(TAG, "IOException when preparing MediaRecorder: " + e.getMessage());
-                    }
-                    mMediaRecorder.start();
-                    resultReceiver.send(RECORD_RESULT_OK, null);
-                    Log.d(TAG, "Recording is started");
+        wm = (WindowManager) getApplicationContext().getSystemService("window");
+        // 2.得到WindowManager.LayoutParams对象，为后续设置相关参数做准备：
+        WindowManager.LayoutParams wmParams = new WindowManager.LayoutParams();
+        // 3.设置相关的窗口布局参数，要实现悬浮窗口效果，要需要设置的参数有
+        // 3.1设置window type
+        wmParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+        // 3.2设置图片格式，效果为背景透明 //wmParams.format = PixelFormat.RGBA_8888;
+        wmParams.format = 1;
+        // 下面的flags属性的效果形同“锁定”。 悬浮窗不可触摸，不接受任何事件,同时不影响后面的事件响应。
+        wmParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+        // 4.// 设置悬浮窗口长宽数据
+        wmParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        wmParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        // 5. 调整悬浮窗口至中间
+        wmParams.gravity = Gravity.CENTER_HORIZONTAL | Gravity.CENTER;
+        // 6. 以屏幕左上角为原点，设置x、y初始值
+        wmParams.x = 0;
+        wmParams.y = 0;
+        // 7.将需要加到悬浮窗口中的View加入到窗口中了：
+        // 如果view没有被加入到某个父组件中，则加入WindowManager中
+        surfaceview = new SurfaceView(this);
+        surfaceHolder = surfaceview.getHolder();
+        WindowManager.LayoutParams params_sur = new WindowManager.LayoutParams();
+        params_sur.width = 1;
+        params_sur.height = 1;
+        params_sur.alpha = 255;
+        surfaceview.setLayoutParams(params_sur);
+        surfaceview.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        surfaceview.getHolder().addCallback(new SurfaceHolder.Callback() {
+            @Override
+            public void surfaceCreated(SurfaceHolder holder) {
+                Log.d("ZXH","###surfaceCreated holder= " + holder);
+                surfaceHolder = holder;
+                // //录像线程，当然也可以在别的地方启动，但是一定要在onCreate方法执行完成以及surfaceHolder被赋值以后启动
+                if(thread == null){
+                    thread = new CramerThread(VideoService.this, 10000, surfaceview, surfaceHolder);// 设置录制时间为10秒
                 }
+                thread.start();
+            }
 
-                @Override
-                public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-                }
+            @Override
+            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+                Log.d("ZXH","###surfaceChanged holder= " + holder);
+                surfaceHolder = holder;
+            }
 
-                @Override
-                public void surfaceDestroyed(SurfaceHolder holder) {
-                }
-            });
+            @Override
+            public void surfaceDestroyed(SurfaceHolder holder) {
+                Log.d("ZXH","###surfaceDestroyed");
+                surfaceview = null;
+                surfaceHolder = null;
+            }
+        });
 
+        relLay = new LinearLayout(this);
+        WindowManager.LayoutParams params_rel = new WindowManager.LayoutParams();
+        params_rel.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        params_rel.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        relLay.setLayoutParams(params_rel);
+        relLay.addView(surfaceview);
+        wm.addView(relLay, wmParams); // 创建View
 
-            wm.addView(sv, params);
-
-        } else {
-            Log.d(TAG, "Get Camera from service failed");
-            resultReceiver.send(RECORD_RESULT_GET_CAMERA_FAILED, null);
-        }
+        resultReceiver.send(RECORD_RESULT_OK, null);
+        Log.d(TAG, "Recording is started");
     }
 
+
     private void handleStopRecordingCommand(Intent intent) {
-        ResultReceiver resultReceiver = intent.getParcelableExtra(RESULT_RECEIVER);
-
-        if (!mRecording) {
-            // have not recorded
-            resultReceiver.send(RECORD_RESULT_NOT_RECORDING, null);
-            return;
-        }
-
-        try {
-            mMediaRecorder.stop();
-            mMediaRecorder.release();
-        } catch (RuntimeException e) {
-            mMediaRecorder.reset();
-            resultReceiver.send(RECORD_RESULT_UNSTOPPABLE, new Bundle());
-            return;
-        } finally {
-            mMediaRecorder = null;
-            mCamera.stopPreview();
-            mCamera.release();
-
-            mRecording = false;
-        }
-
-        Bundle b = new Bundle();
-        b.putString(VIDEO_PATH, mRecordingPath);
-        resultReceiver.send(RECORD_RESULT_OK, b);
-
+        final ResultReceiver resultReceiver = intent.getParcelableExtra(RESULT_RECEIVER);
         Log.d(TAG, "recording is finished.");
+        if(thread != null){
+            thread.stopRecord();
+        }
+        resultReceiver.send(RECORD_RESULT_OK, null);
     }
 
     @Override

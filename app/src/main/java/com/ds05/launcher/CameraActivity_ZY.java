@@ -14,7 +14,10 @@ import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.ds05.launcher.common.ConnectUtils;
 import com.ds05.launcher.common.Constants;
+import com.ds05.launcher.common.UploadFileTask;
+import com.ds05.launcher.common.utils.AppUtil;
 import com.ichano.MediaManagerService;
 import com.ichano.MediaSurfaceView;
 import com.ichano.rvs.streamer.constant.JpegType;
@@ -41,6 +44,7 @@ public class CameraActivity_ZY extends Activity {
     private Handler handler = new Handler();
     private boolean mNeedCapture = false;
     private Context mContext;
+    private String mFilePath;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,14 +86,6 @@ public class CameraActivity_ZY extends Activity {
 //        });
     }
 
-
-    // 使用系统当前日期加以调整作为照片的名称
-    private String getPhotoFileName() {
-        Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat dateFormat = new SimpleDateFormat( "'IMG'_yyyyMMdd_HHmmss");
-        return dateFormat.format(date) + ".jpg";
-    }
-
     public boolean saveMyBitmap(File f, Bitmap bmp) throws IOException {
         if (f.exists()) {
             f.delete();
@@ -117,12 +113,29 @@ public class CameraActivity_ZY extends Activity {
                     Toast.makeText(getApplicationContext(), "SD不存在，图片保存失败", Toast.LENGTH_SHORT).show();
                 }else{
                     Bitmap mBitmap = mMediaSurfaceView.capture(JpegType.NORMAL);
-                    Log.d("ZXH","########## mBitmap = " + mBitmap);
                     if(mBitmap != null){
-                        File f = new File(Environment.getExternalStorageDirectory() , getPhotoFileName());
+                        String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + Constants.DOORBELL_PATH;
+                        File dirFile = new File(dirPath);
+                        if (!dirFile.exists()) {
+                            dirFile.mkdirs();
+                        }
+
+                        mFilePath = dirPath + AppUtil.getPhotoFileName();
+                        Log.d("ZXH","########## file path = " + mFilePath);
+                        File f = new File(mFilePath);
                         boolean ret = saveMyBitmap(f,mBitmap);
                         if(ret){
-                            Log.d("ZXH","##########sendBroadcast ACTION_MEDIA_SCANNER_SCAN_FILE");
+                            if(ConnectUtils.NETWORK_IS_OK  && ConnectUtils.CONNECT_SERVER_STATUS){
+                                UploadFileTask uploadFileTask=new UploadFileTask(getApplicationContext());
+                                uploadFileTask.execute(mFilePath, UploadFileTask.IMAGETYPE);
+//                                        Intent  regIntent = new Intent(context, CameraService.class);
+//                                        regIntent.putExtra("FILENAME", ImageUtil.getFileNameNoEx(picPath.substring(picPath.lastIndexOf("/")+1))+".png");
+//                                        regIntent.setAction(BROADCAST_NOTIFY_HUMAN_MONITORING);
+//                                        startWakefulService(context, regIntent);
+                            }else{
+                                Toast.makeText(getApplicationContext(), "完成拍照,网络不可用,不进行网络发送。", Toast.LENGTH_SHORT).show();
+                            }
+
                             Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
                             Uri uri = Uri.fromFile(f);
                             intent.setData(uri);
