@@ -94,6 +94,7 @@ public final class PrefDataManager {
             }
         }
     }//MonitorSensitivity
+
     public enum AlarmMode {
         Recorder(1), Capture(0);
 

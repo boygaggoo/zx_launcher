@@ -1,6 +1,7 @@
 package com.ds05.launcher.service;
 
 import android.content.Intent;
+import android.util.Log;
 
 import com.ds05.launcher.LauncherApplication;
 
@@ -63,7 +64,7 @@ public final class HWSink {
     public static final int MONITOR_Recorder = 1;
     public static final int MONITOR_Capture = 0;
 
-    public static void updateDriverConfig(Intent intent) {
+        public static void updateDriverConfig(Intent intent) {
         intent.setAction(ACTION_CONFIG_DRIVER_PARAMS);
         LauncherApplication.getContext().sendBroadcast(intent);
     }

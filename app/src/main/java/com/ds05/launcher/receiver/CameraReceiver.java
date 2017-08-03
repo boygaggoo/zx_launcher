@@ -29,6 +29,7 @@ public class CameraReceiver extends WakefulBroadcastReceiver {
 		Bundle bundle = intent.getExtras();
 		Log.i(TAG, "收到广播消息："+intent.getAction());
 		this.context=context;
+		Log.i("ZXH", "onReceive：" + intent.getAction());
 
 		if((!ConnectUtils.NETWORK_IS_OK || !ConnectUtils.CONNECT_SERVER_STATUS) &&
 		!BROADCAST_NOTIFY_DOORBELL_PRESSED.equals(intent.getAction())){
@@ -38,7 +39,7 @@ public class CameraReceiver extends WakefulBroadcastReceiver {
 			//	context.startService(new Intent(LauncherApplication.getContext(), ConnectSocketService.class));
 
 			}
-			return;
+//			return;
 		}
 		Toast.makeText(context, "收到广播消息："+intent.getAction(), Toast.LENGTH_SHORT).show();
 

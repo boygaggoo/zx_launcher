@@ -317,8 +317,9 @@ public class MediaSurfaceView extends SurfaceView
 
 		audioHanlder = AudioIOHandler.getInstance(getContext());
 		audioHanlder.setAuidoCallback(this, PCM_INPUT_SIZE, PCM_OUTPUT_SIZE);
-		audioHanlder.startAudio(false, false);
-		
+		audioHanlder.startAudio(false, true);
+		audioHanlder.resumeAudioRecord();
+
 		if(screenOritation == Configuration.ORIENTATION_PORTRAIT){
 			mVideoEncoder = new VideoEncoder(videoHeight, videoWidth);
 		}else{
@@ -965,10 +966,10 @@ public class MediaSurfaceView extends SurfaceView
             }
 
 			BitmapFactory.Options options = new BitmapFactory.Options();
-			if (videoWidth == 640)
-				options.inSampleSize = 4;
-			else if (videoWidth == 320)
-				options.inSampleSize = 2;
+//			if (videoWidth == 640)
+//				options.inSampleSize = 4;
+//			else if (videoWidth == 320)
+//				options.inSampleSize = 2;
 
 			byte[] data = bos.toByteArray();
 			bos.reset();
@@ -1058,12 +1059,12 @@ public class MediaSurfaceView extends SurfaceView
 	 */
 	@Override
 	public void onAudioDataNotify(boolean needAudioData){
-		RvsLog.i(MediaSurfaceView.class, "onAudioDataNotify()", "need write:" + needAudioData);
-		if (needAudioData){
-			audioHanlder.resumeAudioRecord();
-		} else{
-			audioHanlder.pauseAudioRecord();
-		}
+//		RvsLog.i(MediaSurfaceView.class, "onAudioDataNotify()", "need write:" + needAudioData);
+//		if (needAudioData){
+//			audioHanlder.resumeAudioRecord();
+//		} else{
+//			audioHanlder.pauseAudioRecord();
+//		}
 	}
 
 	/**

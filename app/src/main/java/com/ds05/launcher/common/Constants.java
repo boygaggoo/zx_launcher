@@ -16,8 +16,7 @@ public class Constants {
 
     public static  String MAC_ADDRESS="ds000002";
 
-
-    public static  boolean mRecording=false;
+    public static  boolean mRecording = false;
     public static  boolean mHandlingEvent;
 
 
@@ -67,5 +66,9 @@ public class Constants {
 
 
     public static final String EXTRA_CAPTURE="extra_capture";
+
+    public static final String  DOORBELL_PATH = "/DS05/Camera/Doorbell/";
+    public static final String  ALARM_CAPTURE_PATH = "/DS05/Camera/Capture/";
+    public static final String  ALARM_VIDEO_PATH = "/DS05/Camera/Alarm/";
 
 }
