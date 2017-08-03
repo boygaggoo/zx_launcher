@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 
@@ -53,7 +54,7 @@ public class MonitorFragment extends ModuleBaseFragment
         setTitle(R.string.string_monitor);
 
         boolean humanMonitorState =PrefDataManager.getHumanMonitorState();
-        if(humanMonitorState==true){
+        if( humanMonitorState == true ){
                 findPreference(KEY_INTELL_ALARM_TIME).setEnabled(true);
                 findPreference(KEY_ALARM_INTERVAL_TIME).setEnabled(true);
                 findPreference(KEY_MONITORING_SENS).setEnabled(true);
@@ -74,6 +75,7 @@ public class MonitorFragment extends ModuleBaseFragment
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        findPreference(KEY_ALARM_INTERVAL_TIME).setOnPreferenceChangeListener(this);
         findPreference(KEY_HUMAN_MONIOTOR).setOnPreferenceChangeListener(this);
         findPreference(KEY_INTELL_ALARM_TIME).setOnPreferenceChangeListener(this);
         Preference preference;
@@ -133,6 +135,7 @@ public class MonitorFragment extends ModuleBaseFragment
                 }
             }, 300);
             PrefDataManager.setAlarmSound(Integer.parseInt((String)newValue));
+            Log.d("PP"," newValue_alarm_sound = " + newValue);
         } else if(key.equals(KEY_ALARM_VOLUME)) {
             PrefDataManager.setAlarmSoundVolume(Integer.parseInt((String)newValue) / 10f);
             mSoundManager.stopTestSound();
@@ -142,6 +145,7 @@ public class MonitorFragment extends ModuleBaseFragment
                     mSoundManager.updateAlarmConfig();
                 }
             }, 300);
+            Log.d("PP"," newValue_alarm_volume= " + newValue);
         } else if(key.equals(KEY_HUMAN_MONIOTOR)) {
             Intent intent = new Intent();
             intent.putExtra(HWSink.EXTRA_DRV_CFG_HUMAN_MONITOR_STATE, (boolean)newValue);
@@ -162,6 +166,7 @@ public class MonitorFragment extends ModuleBaseFragment
                 findPreference(KEY_SHOOTING_MODE).setEnabled(false);
             }
             PrefDataManager.setHumanMonitorState((boolean)newValue);
+            Log.d("PP"," newValue_monitor " + newValue);
         } else if(key.equals(KEY_MONITORING_SENS)) {
             int index = Integer.parseInt((String)newValue);
             int val = -1;
@@ -176,6 +181,7 @@ public class MonitorFragment extends ModuleBaseFragment
                 HWSink.updateDriverConfig(intent);
             }
             PrefDataManager.setHumanMonitorSensi(val);
+            Log.d("PP"," val_sens " + val);
         } else if(key.equals(KEY_INTELL_ALARM_TIME)) {
             int index = Integer.parseInt((String)newValue);
             int val = -1;
@@ -194,6 +200,7 @@ public class MonitorFragment extends ModuleBaseFragment
                 HWSink.updateDriverConfig(intent);
             }
             PrefDataManager.setAutoAlarmTime(val);
+            Log.d("PP"," val_alarm_time = " + val);
         }else if(key.equals(KEY_ALARM_INTERVAL_TIME)){
             int index = Integer.parseInt((String)newValue);
             int val = -1;
@@ -210,6 +217,22 @@ public class MonitorFragment extends ModuleBaseFragment
                 HWSink.updateDriverConfig(intent);
             }
             PrefDataManager.setAlarmIntervalTime(val);
+            Log.d("PP"," val_interval_time = " + val);
+        }else if(key.equals(KEY_SHOOTING_MODE)){
+            int index = Integer.parseInt((String)newValue);
+            int val = -1;
+            if(index == 0) {
+                val = HWSink.MONITOR_Capture;
+            } else if(index == 1) {
+                val = HWSink.MONITOR_Recorder;
+            }
+            if(val != -1) {
+                Intent intent = new Intent();
+                intent.putExtra(HWSink.EXTRA_DRV_CFG_SHOOTING_MODE, val);
+                HWSink.updateDriverConfig(intent);
+            }
+            PrefDataManager.setAlarmMode(val);
+            Log.d("PP"," val_shoot_mode = " + val);
         }
 
         if (preference instanceof ListPreference) {

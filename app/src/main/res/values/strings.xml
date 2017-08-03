@@ -220,12 +220,11 @@
     <string-array name="monitor_str_shooting_mode_entry">
         <item>@string/item_str_shooting_mode_3pic</item>
         <item>@string/item_str_shooting_mode_rec_10_sec</item>
-        <item>@string/item_str_shooting_mode_keep_rec</item>
+
     </string-array>
     <string-array name="monitor_str_shooting_mode_values" translatable="false">
         <item>0</item>
         <item>1</item>
-        <item>2</item>
     </string-array>
 
     <!-- System Setting UI String -->

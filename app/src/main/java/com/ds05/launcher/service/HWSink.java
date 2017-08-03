@@ -45,19 +45,23 @@ public final class HWSink {
     public static final String EXTRA_DRV_CFG_HUMAN_MONITOR_STATE = "HumanMonitorState";
     /** 报警间隔时间 */
     public static final String EXTRA_DRV_CFG_ALARM_INTERVAL_TIME = "AlarmIntervalTime";
-    public static final int ALARM_INTERVAL_TIME_30SEC = 30;
-    public static final int ALARM_INTERVAL_TIME_90SEC = 90;
-    public static final int ALARM_INTERVAL_TIME_180SEC = 180;
+    public static final int ALARM_INTERVAL_TIME_30SEC = 30000;
+    public static final int ALARM_INTERVAL_TIME_90SEC = 90000;
+    public static final int ALARM_INTERVAL_TIME_180SEC = 180000;
     /** 智能报警时间 */
     public static final String EXTRA_DRV_CFG_AUTO_ALARM_TIME = "AutoAlarmTime";
-    public static final int AUTO_ALARM_TIME_3SEC = 3;
-    public static final int AUTO_ALARM_TIME_8SEC = 8;
-    public static final int AUTO_ALARM_TIME_15SEC = 15;
-    public static final int AUTO_ALARM_TIME_25SEC = 25;
+    public static final int AUTO_ALARM_TIME_3SEC = 3000;
+    public static final int AUTO_ALARM_TIME_8SEC = 8000;
+    public static final int AUTO_ALARM_TIME_15SEC = 15000;
+    public static final int AUTO_ALARM_TIME_25SEC = 25000;
     /** 监控灵敏度 */
     public static final String EXTRA_DRV_CFG_MONITOR_SENSI = "MonitorSensitivity";
     public static final int MONITOR_SENSI_HIGHT = 1;
     public static final int MONITOR_SENSI_LOW = 2;
+    /**拍摄模式*/
+    public static final String EXTRA_DRV_CFG_SHOOTING_MODE = "ShootingMode";
+    public static final int MONITOR_Recorder = 1;
+    public static final int MONITOR_Capture = 0;
 
     public static void updateDriverConfig(Intent intent) {
         intent.setAction(ACTION_CONFIG_DRIVER_PARAMS);

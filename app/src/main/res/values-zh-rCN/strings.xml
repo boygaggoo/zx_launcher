@@ -94,7 +94,7 @@
 	<string name="str_item_auto_alarm_sound_alarm">警报声</string>
 	<string name="str_item_auto_alarm_sound_scream">尖啸声</string>
 
-	<string name="item_str_shooting_mode_3pic">连拍三张</string>
+	<string name="item_str_shooting_mode_3pic">拍摄一张</string>
 	<string name="item_str_shooting_mode_rec_10_sec">短录像(10s)模式</string>
 	<string name="item_str_shooting_mode_keep_rec">连续录像(侦测有人)</string>
 

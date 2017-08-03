@@ -3,6 +3,7 @@ package com.ds05.launcher.common.manager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.ds05.launcher.LauncherApplication;
 import com.ds05.launcher.R;
@@ -94,7 +95,7 @@ public final class PrefDataManager {
         }
     }//MonitorSensitivity
     public enum AlarmMode {
-        Recorder(1), Capture(2);
+        Recorder(1), Capture(0);
 
         private int mode;
         AlarmMode(int mode) {
@@ -105,10 +106,10 @@ public final class PrefDataManager {
         }
         public static AlarmMode get(int i) {
             switch(i) {
+                case 0:
+                    return Capture;
                 case 1:
                     return Recorder;
-                case 2:
-                    return Capture;
                 default:
                     return null;
             }
@@ -246,7 +247,11 @@ public final class PrefDataManager {
             if(defs[i] == time) break;
         }
 
+        Log.d("pp","########### time = " + time);
+        Log.d("pp","########### i = " + i);
+
         if(i >= 0 && i < defs.length && defs[i] == time) {
+            Log.d("pp","###########setString");
             setString(APP_PREF_SETTINGS, MonitorFragment.KEY_INTELL_ALARM_TIME, i + "");
         }
     }
@@ -315,10 +320,12 @@ public final class PrefDataManager {
     public static void setAlarmMode(int mode) {
         int index = -1;
         if(mode == AlarmMode.Capture.mode())
+            //index = 0;
             index = 0;
         else if(mode == AlarmMode.Recorder.mode())
-            index = 2;
-
+           // index = 2;
+            index = 1;
+        Log.d("pp"," index = " + index);
         if(index >= 0) {
             setString(APP_PREF_SETTINGS, MonitorFragment.KEY_SHOOTING_MODE, index + "");
         }
