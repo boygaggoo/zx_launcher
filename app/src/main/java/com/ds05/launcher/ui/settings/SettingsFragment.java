@@ -19,6 +19,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -78,25 +79,25 @@ public class SettingsFragment extends ModuleBaseFragment
 
         SwitchPreference energySaveingMode = (SwitchPreference) findPreference(KEY_ENERGY_SAVING_MODE);
         SwitchPreference wifiPref = (SwitchPreference) findPreference(KEY_WIFI);
-        wifiPref.setOnPreferenceChangeListener(this);
+        getPreferenceScreen().removePreference(wifiPref);
+       // wifiPref.setOnPreferenceChangeListener(this);
         energySaveingMode.setOnPreferenceChangeListener(this);
-
         wac = new WifiAutoConnectManager(mWifiManager);
 
         boolean isSavingMode = energySaveingMode.isChecked();
-        wifiPref.setEnabled(!isSavingMode);
+        //wifiPref.setEnabled(!isSavingMode);
         findPreference(KEY_BT).setEnabled(!isSavingMode);
         findPreference(KEY_INTELLIGNET_LOCK).setEnabled(!isSavingMode);
         if (isSavingMode) {
-            wifiPref.setChecked(false);
-            if (mWifiManager != null && mWifiManager.isWifiEnabled()) {
+           // wifiPref.setChecked(false);
+            /*if (mWifiManager != null && mWifiManager.isWifiEnabled()) {
                 mWifiManager.setWifiEnabled(false);
-            }
+            } */
             if (mBluetoothAdapter != null && mBluetoothAdapter.isEnabled()) {
                 mBluetoothAdapter.disable();
             }
         } else {
-            wifiPref.setChecked(mWifiManager.isWifiEnabled());
+           // wifiPref.setChecked(mWifiManager.isWifiEnabled());
         }
 
         if(mWifiManager == null) {
@@ -170,7 +171,9 @@ public class SettingsFragment extends ModuleBaseFragment
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else if (key.equals(KEY_WIFI)) {
-
+            Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         } else if (key.equals(KEY_BT)) {
 
         } else if (key.equals(KEY_INTELLIGNET_LOCK)) {
@@ -212,18 +215,18 @@ public class SettingsFragment extends ModuleBaseFragment
         String key = preference.getKey();
         if (key.equals(KEY_ENERGY_SAVING_MODE)) {
             SwitchPreference saveingPref = (SwitchPreference) preference;
-            SwitchPreference wifiPref = (SwitchPreference) findPreference(KEY_WIFI);
+            //SwitchPreference wifiPref = (SwitchPreference) findPreference(KEY_WIFI);
             boolean isChecked = (boolean) newValue;
             if (isChecked) {
-                wifiPref.setChecked(false);
-                if (mWifiManager != null && mWifiManager.isWifiEnabled()) {
-                    mWifiManager.setWifiEnabled(false);
-                }
+               // wifiPref.setChecked(false);
+                //if (mWifiManager != null && mWifiManager.isWifiEnabled()) {
+               //     mWifiManager.setWifiEnabled(false);
+               // }
                 if (mBluetoothAdapter != null && mBluetoothAdapter.isEnabled()) {
                     mBluetoothAdapter.disable();
                 }
             }
-            wifiPref.setEnabled(!isChecked);
+          //  wifiPref.setEnabled(!isChecked);
             Preference btPref = findPreference(KEY_BT);
             if(btPref != null) {
                 btPref.setEnabled(!isChecked);

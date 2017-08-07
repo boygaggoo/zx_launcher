@@ -44,7 +44,7 @@ public class MonitorFragment extends ModuleBaseFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.monitor_fragment);
-
+        //view.setBackgroundColor（getResources（).getColor（android.R.color.your_color））;
         mSoundManager = SoundManager.getInstance();
     }
 
