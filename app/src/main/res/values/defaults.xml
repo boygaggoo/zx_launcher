@@ -4,7 +4,7 @@
     <string name="def_intelligent_alarm_time" translatable="false">2</string>
     <string name="def_alarm_interval_time" translatable="false">1</string>
     <string name="def_mimonitoring_sensitivity" translatable="false">0</string>
-    <string name="def_auto_alarm_sound" translatable="false">0</string>
+    <string name="def_auto_alarm_sound" translatable="false">1</string>
     <string name="def_shooting_mode" translatable="false">0</string>
 
     <string name="def_screen_timeout" translatable="false">15000</string>
