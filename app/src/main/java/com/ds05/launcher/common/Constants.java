@@ -64,8 +64,11 @@ public class Constants {
 
     public static final String BROADCAST_ACTION_TEST_CAMERA="com.ds05.Broadcast.FromServer.Action.TEST_CAMERA";
 
+    public static final int CAPTURE_KEY = 66;
+    public static final int HOME_KEY = 27;
 
     public static final String EXTRA_CAPTURE="extra_capture";
+    public static final String EXTRA_CAPTURE_PATH="extra_capture_path";
 
     public static final String  DOORBELL_PATH = "/DS05/Camera/Doorbell/";
     public static final String  ALARM_CAPTURE_PATH = "/DS05/Camera/Capture/";

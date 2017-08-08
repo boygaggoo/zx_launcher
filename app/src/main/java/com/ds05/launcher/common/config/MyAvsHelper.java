@@ -32,6 +32,8 @@ public class MyAvsHelper extends AvsInitHelper {
 	public String[] userNameAndPwd;
 	public String deviceName;
 	public boolean haveLogin;
+	public static String zy_cid;
+
 
 	private static MyAvsHelper mAvs;
 
@@ -68,7 +70,7 @@ public class MyAvsHelper extends AvsInitHelper {
 	// 设置License，从网站注册获得
 	@Override
 	public String getLicense() {
-		
+
 		return  Constants.ZHONGYUN_LINCESE;
 	}
 
@@ -91,6 +93,7 @@ public class MyAvsHelper extends AvsInitHelper {
 
 		if (AuthState.SUCCESS == state) {
 			String cid = streamer.getCID();
+			zy_cid = cid;
 			Log.i(TAG, "cid = " + cid);
 			//mCidView.setText(cid);
 			String[] namePwd = streamer.getUserNameAndPwd();

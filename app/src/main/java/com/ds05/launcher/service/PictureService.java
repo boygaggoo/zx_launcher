@@ -84,6 +84,11 @@ public class PictureService  extends Service {
     }
 
     private void handleStopCaptureCommand(Intent intent) {
+        if(mCamera != null){
+            mCamera.release();
+            mCamera = null;
+        }
+        isCapturing = false;
     }
 
     private void handleStartCaptureCommand(Intent intent) {
@@ -226,8 +231,11 @@ public class PictureService  extends Service {
                 if (!dirFile.exists()) {
                     dirFile.mkdirs();
                 }
-                mFilePath = dirPath + AppUtil.getPhotoFileName();
+
+                String fileName = AppUtil.getPhotoFileName();
+                mFilePath = dirPath + fileName;
                 Log.d("ZXH","####onPictureTaken mFilePath = " +  mFilePath);
+                AppUtil.uploadHumanMonitorMsgToServerAndSound(getApplicationContext(), fileName);
                 File f = new File(mFilePath);
 
                 try {

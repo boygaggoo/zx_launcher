@@ -29,6 +29,7 @@ public class UploadFileTask extends AsyncTask<String, Void, String>{
 	@Override
 	protected void onPostExecute(String result) {
 		// 返回HTML页面的内容
+		Log.d("ZXH","##############result  = " + result);
 		if(UploadUtils.SUCCESS.equalsIgnoreCase(result)){
 			Toast.makeText(context, "上传成功!",Toast.LENGTH_LONG ).show();
 		}else{
@@ -48,6 +49,7 @@ public class UploadFileTask extends AsyncTask<String, Void, String>{
 	@Override
 	protected String doInBackground(String... params) {
 		//File file=new File(params[0]);
+		Log.d("ZXH","############## params[1] = " + params[1]);
 		if(IMAGETYPE.equals(params[1])){
 			Log.d("ZXH","###### upload IMAGETYPE");
 			Bitmap bitmap = ImageUtil.compressImageFromFile(params[0], 1024f);// 按尺寸压缩图片

@@ -42,6 +42,10 @@ import android.text.TextUtils;
 import android.view.WindowManager;
 
 import com.ds05.launcher.common.Constants;
+import com.ds05.launcher.net.SessionManager;
+import com.ds05.launcher.service.HWSink;
+
+import org.apache.mina.core.buffer.IoBuffer;
 
 /**
  * AppUtils是一个android工具类，主要包含一些常用的有关android调用的功能，比如拨打电话，判断网络，获取屏幕宽高等等
@@ -310,7 +314,26 @@ public class AppUtil {
     // 使用系统当前日期加以调整作为录像的名称
     public static String getVideoFileName() {
         Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat dateFormat = new SimpleDateFormat( "'IMG'_yyyyMMdd_HHmmss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat( "'AV'_yyyyMMdd_HHmmss");
         return dateFormat.format(date)  + "_" + Constants.ZHONGYUN_LINCESE + ".mp4";
+    }
+
+    public static void uploadHumanMonitorMsgToServerAndSound(Context context, String fileName) {
+        Intent broadcast = new Intent(HWSink.ACTION_HUMAN_MONITOR_NOTIFY);
+        broadcast.putExtra(HWSink.EXTRA_STATUS, HWSink.STATUS_HUMAN_IN);
+        context.sendBroadcast(broadcast,null);
+
+        String msg = "[" + System.currentTimeMillis() + ",T5," + Constants.SOFT_VERSION + "," + Constants.ZHONGYUN_LINCESE + "," + fileName + "]";
+        IoBuffer buffer = IoBuffer.allocate(msg.length());
+        buffer.put(msg.getBytes());
+        SessionManager.getInstance().writeToServer(buffer);
+    }
+
+    public static void uploadDoorbellMsgToServer(Context context, String fileName) {
+        AppUtil.wakeUpAndUnlock(context);
+        String msg = "[" + System.currentTimeMillis() + ",T4," + Constants.SOFT_VERSION + "," + Constants.ZHONGYUN_LINCESE + "," + fileName + "]";
+        IoBuffer buffer = IoBuffer.allocate(msg.length());
+        buffer.put(msg.getBytes());
+        SessionManager.getInstance().writeToServer(buffer);
     }
 }

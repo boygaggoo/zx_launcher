@@ -99,7 +99,10 @@ public class CramerThread extends Thread {
             dirFile.mkdirs();
         }
 
-        mFilePath = dirPath + AppUtil.getVideoFileName();
+        String fileName = AppUtil.getVideoFileName();
+        mFilePath = dirPath + fileName;
+        AppUtil.uploadHumanMonitorMsgToServerAndSound(mContext, fileName);
+
         f = new File(mFilePath);
         Log.d("ZXH","###f = " + f.getAbsolutePath());
         mediarecorder.setOutputFile(f.getAbsolutePath());

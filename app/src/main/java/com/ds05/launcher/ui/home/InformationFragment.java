@@ -15,9 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ds05.launcher.CameraActivity_ZY;
 import com.ds05.launcher.R;
+import com.ds05.launcher.common.config.MyAvsHelper;
 import com.ds05.launcher.common.manager.PrefDataManager;
 import com.ds05.launcher.weather.SinaWeather;
 import com.ds05.launcher.weather.Weather;
@@ -65,10 +67,11 @@ public class InformationFragment extends BaseFragment {
                // Intent intent = new Intent(getActivity(), CameraActivity.class);
 
                 Intent intent = new Intent(getActivity(), CameraActivity_ZY.class);
-
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                 startActivity(intent);
+                Toast.makeText(getActivity(), "当前设备CID ： "+ MyAvsHelper.zy_cid, Toast.LENGTH_LONG).show();
+
             }
         });
 

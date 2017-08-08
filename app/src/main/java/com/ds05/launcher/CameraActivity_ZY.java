@@ -52,10 +52,12 @@ public class CameraActivity_ZY extends Activity {
         mContext = this;
         Intent intent=getIntent();
         mNeedCapture = intent.getBooleanExtra(Constants.EXTRA_CAPTURE,false);
+        mFilePath = intent.getStringExtra(Constants.EXTRA_CAPTURE_PATH);
+
         instance = this;
         mMediaSurfaceView = (MediaSurfaceView) findViewById(R.id.cameraView);
         mMediaSurfaceView.openCamera(Configuration.ORIENTATION_LANDSCAPE);
-
+//        mMediaSurfaceView.flip();
         final int[] size = mMediaSurfaceView.getVideoSize();
         handler.postDelayed(finish, VISITOR_RING_TIME);
 
@@ -114,13 +116,15 @@ public class CameraActivity_ZY extends Activity {
                 }else{
                     Bitmap mBitmap = mMediaSurfaceView.capture(JpegType.NORMAL);
                     if(mBitmap != null){
-                        String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + Constants.DOORBELL_PATH;
-                        File dirFile = new File(dirPath);
-                        if (!dirFile.exists()) {
-                            dirFile.mkdirs();
-                        }
+//                        String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + Constants.DOORBELL_PATH;
+//                        File dirFile = new File(dirPath);
+//                        if (!dirFile.exists()) {
+//                            dirFile.mkdirs();
+//                        }
+//                        String fileName = AppUtil.getPhotoFileName();
+//                        mFilePath = dirPath + fileName;
+//                        AppUtil.uploadDoorbellMsgToServer(mContext, fileName);
 
-                        mFilePath = dirPath + AppUtil.getPhotoFileName();
                         Log.d("ZXH","########## file path = " + mFilePath);
                         File f = new File(mFilePath);
                         boolean ret = saveMyBitmap(f,mBitmap);
