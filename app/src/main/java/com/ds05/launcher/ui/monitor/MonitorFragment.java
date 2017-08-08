@@ -176,8 +176,14 @@ public class MonitorFragment extends ModuleBaseFragment
                 val = HWSink.MONITOR_SENSI_LOW;
             }
             if(val != -1) {
+                int mval = 0;
                 Intent intent = new Intent();
-                intent.putExtra(HWSink.EXTRA_DRV_CFG_MONITOR_SENSI, val);
+                if(val == 1){
+                    mval = 100;
+                }else if(val == 2){
+                    mval = 50;
+                }
+                intent.putExtra(HWSink.EXTRA_DRV_CFG_MONITOR_SENSI, mval);
                 HWSink.updateDriverConfig(intent);
             }
             PrefDataManager.setHumanMonitorSensi(val);
