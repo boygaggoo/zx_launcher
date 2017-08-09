@@ -1,11 +1,15 @@
 package com.ds05.launcher.ui.settings;
 
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.ds05.launcher.LauncherApplication;
 import com.ds05.launcher.ModuleBaseFragment;
 import com.ds05.launcher.R;
 
@@ -17,6 +21,8 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static org.weixvn.wae.webpage.net.proxy.UpdataUntil.TAG;
 
 /**
  * Created by Chongyang.Hu on 2017/1/18 0018.
@@ -31,6 +37,7 @@ public class VersionInformation extends ModuleBaseFragment {
     public static final String KEY_KERNEL_VERSION = "key_kernel_version";
     public static final String KEY_SYSTEM_VERSION = "key_system_version";
     public static final String KEY_SOFTWARE_VERSION = "key_software_version";
+    public static final String key_MACADDRESS = "key_MacAddress";
 
 
     private static final String FILENAME_PROC_VERSION = "/proc/version";
@@ -54,6 +61,7 @@ public class VersionInformation extends ModuleBaseFragment {
         String kernel = getFormattedKernelVersion();
         String systemVer = Build.DISPLAY;
         String softwareVersion = getVersionName();
+        String macaddress = getMacAddress();
 
         findPreference(KEY_MODEL).setSummary(model);
         findPreference(KEY_SERIAL_NUMBER).setSummary(serial);
@@ -62,7 +70,23 @@ public class VersionInformation extends ModuleBaseFragment {
         findPreference(KEY_KERNEL_VERSION).setSummary(kernel);
         findPreference(KEY_SYSTEM_VERSION).setSummary(systemVer);
         findPreference(KEY_SOFTWARE_VERSION).setSummary(softwareVersion);
+        findPreference(key_MACADDRESS).setSummary(macaddress);
     }
+
+
+
+     private String getMacAddress(){
+     String result = "";
+     String str = "";
+     WifiManager wifiManager = (WifiManager) LauncherApplication.getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+     WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+     str = wifiInfo.getMacAddress();
+     result = str.replaceAll(":","");
+     Log.i(TAG, "macAdd:" + result);
+     return result;
+     }
+
+
 
     private String getVersionName()
     {

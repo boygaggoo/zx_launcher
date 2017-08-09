@@ -62,6 +62,7 @@
 	<string name="string_kernel_version">内核版本</string>
 	<string name="string_system_version">系统版本</string>
 	<string name="string_software_version">软件版本</string>
+	<string name="string_MacAddress">产品SN号</string>
 
 	<!-- Monitor Setting UI String -->
 	<string name="monitor_str_human_monitor">智能人体监测</string>

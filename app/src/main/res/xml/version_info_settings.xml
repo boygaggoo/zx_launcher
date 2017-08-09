@@ -4,6 +4,9 @@
     android:key="key_model"
     android:title="@string/string_model"/>
     <Preference
+        android:key="key_MacAddress"
+        android:title="@string/string_MacAddress"/>
+    <Preference
         android:key="key_serial_number"
         android:title="@string/string_serial_number"/>
     <Preference
@@ -21,4 +24,5 @@
     <Preference
         android:key="key_software_version"
         android:title="@string/string_software_version"/>
+
 </PreferenceScreen>
