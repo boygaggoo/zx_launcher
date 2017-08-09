@@ -70,7 +70,6 @@ public class LauncherService extends Service {
         @Override
         public void handleMessage(Message msg) {
             Intent intent = new Intent();
-
             switch (msg.what) {
                 case EVT_PLAY_DOORBELL:
                     mSoundManager.stopAlarmSound();
@@ -162,8 +161,8 @@ public class LauncherService extends Service {
                     case HWSink.STATUS_HUMAN_IN: {
                         Log.d("DS05", "{LauncherService}{onReceive}STATUS_HUMAN_IN");
                         if (!mInternalHandler.hasMessages(EVT_PLAY_ALARM)) {
-                            long time = PrefDataManager.getAutoAlarmTime();
-                            mInternalHandler.sendEmptyMessageDelayed(EVT_PLAY_ALARM, time);
+//                            long time = PrefDataManager.getAutoAlarmTime();
+                            mInternalHandler.sendEmptyMessage(EVT_PLAY_ALARM);
                         }
                         break;
                     }

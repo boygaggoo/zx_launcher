@@ -10,8 +10,8 @@ import com.ds05.launcher.LauncherApplication;
  */
 
 public final class HWSink {
-    public static final String ACTION_DOORBELL_PRESSED = "com.ds05.launcher.service.ACTION.DoorbellPressed";
-    public static final String ACTION_HUMAN_MONITOR_NOTIFY = "com.ds05.launcher.service.ACTION.HumanMonitorNotify";
+    public static final String ACTION_DOORBELL_PRESSED = "com.ds05.launcher.service.ACTION.DoorbellPressed.Sound";
+    public static final String ACTION_HUMAN_MONITOR_NOTIFY = "com.ds05.launcher.service.ACTION.HumanMonitorNotify.Sound";
     public static final String ACTION_DISPLAY_CAMERA_UI = "com.ds05.launcher.service.ACTION.DisplayCameraUI";
     public static final String ACTION_STOP_CAMERA_NOTIFY = "com.ds05.launcher.service.ACTION.StopCameraNotify";
     public static final String ACTION_STOP_CAMERA_NOTIFY_RESP = "com.ds05.launcher.service.ACTION.StopCameraNotifyRESP";
