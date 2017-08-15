@@ -64,6 +64,13 @@ public class Constants {
 
     public static final String BROADCAST_ACTION_TEST_CAMERA="com.ds05.Broadcast.FromServer.Action.TEST_CAMERA";
 
+    //服务器下发配置信息
+    public static final String BROADCAST_ACTION_RECEIVE_CONFIG_FROM_SERVER="com.ds05.Broadcast.FromServer.Action.CONFIG";
+    //服务器响应“接收到配置信息上传”反馈
+    public static final String BROADCAST_ACTION_RESPONSE_UPLOAD_CONFIG="com.ds05.Broadcast.FromServer.Action.RESPONSE_UPLOAD_CONFIG";
+    public static final String MSG_FROM_SERVER="msg_from_server";
+
+
     public static final int CAPTURE_KEY = 66;
     public static final int HOME_KEY = 27;
 
@@ -73,5 +80,8 @@ public class Constants {
     public static final String  DOORBELL_PATH = "/DS05/Camera/Doorbell/";
     public static final String  ALARM_CAPTURE_PATH = "/DS05/Camera/Capture/";
     public static final String  ALARM_VIDEO_PATH = "/DS05/Camera/Alarm/";
+
+    public static final String  IMAGE_FILE_TYPE = "1";
+    public static final String  VIDEO_FILE_TYPE = "2";
 
 }

@@ -41,6 +41,7 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.WindowManager;
 
+import com.ds05.launcher.common.ConnectUtils;
 import com.ds05.launcher.common.Constants;
 import com.ds05.launcher.net.SessionManager;
 import com.ds05.launcher.service.HWSink;
@@ -318,12 +319,12 @@ public class AppUtil {
         return dateFormat.format(date)  + "_" + Constants.ZHONGYUN_LINCESE + ".mp4";
     }
 
-    public static void uploadHumanMonitorMsgToServerAndSound(Context context, String fileName) {
+    public static void uploadHumanMonitorMsgToServerAndSound(Context context, String fileName, String type) {
         Intent broadcast = new Intent(HWSink.ACTION_HUMAN_MONITOR_NOTIFY);
         broadcast.putExtra(HWSink.EXTRA_STATUS, HWSink.STATUS_HUMAN_IN);
         context.sendBroadcast(broadcast,null);
 
-        String msg = "[" + System.currentTimeMillis() + ",T5," + Constants.SOFT_VERSION + "," + Constants.ZHONGYUN_LINCESE + "," + fileName + "]";
+        String msg = "[" + System.currentTimeMillis() + ",T5," + Constants.SOFT_VERSION + "," + Constants.ZHONGYUN_LINCESE + "," + fileName + "," + type + "]";
         IoBuffer buffer = IoBuffer.allocate(msg.length());
         buffer.put(msg.getBytes());
         SessionManager.getInstance().writeToServer(buffer);
@@ -331,9 +332,39 @@ public class AppUtil {
 
     public static void uploadDoorbellMsgToServer(Context context, String fileName) {
         AppUtil.wakeUpAndUnlock(context);
-        String msg = "[" + System.currentTimeMillis() + ",T4," + Constants.SOFT_VERSION + "," + Constants.ZHONGYUN_LINCESE + "," + fileName + "]";
+        String msg = "[" + System.currentTimeMillis() + ",T4," + Constants.SOFT_VERSION + "," + Constants.ZHONGYUN_LINCESE + "," + fileName + "," + Constants.IMAGE_FILE_TYPE + "]";
         IoBuffer buffer = IoBuffer.allocate(msg.length());
         buffer.put(msg.getBytes());
         SessionManager.getInstance().writeToServer(buffer);
+    }
+
+    public static boolean uploadConfigMsgToServer(Context context) {
+        if(!ConnectUtils.NETWORK_IS_OK || !ConnectUtils.CONNECT_SERVER_STATUS){
+            return false;
+        }
+        AppUtil.wakeUpAndUnlock(context);
+        String msg = "[" + System.currentTimeMillis() + ",T3," + Constants.SOFT_VERSION + "," + Constants.ZHONGYUN_LINCESE + "]";
+        IoBuffer buffer = IoBuffer.allocate(msg.length());
+        buffer.put(msg.getBytes());
+        SessionManager.getInstance().writeToServer(buffer);
+        return true;
+    }
+
+    public static boolean respondReceiveConfigFromServer(Context context, boolean status) {
+        if(!ConnectUtils.NETWORK_IS_OK || !ConnectUtils.CONNECT_SERVER_STATUS){
+            return false;
+        }
+        String flag;
+        if(status){
+            flag = "True";
+        }else{
+            flag = "False";
+        }
+        AppUtil.wakeUpAndUnlock(context);
+        String msg = "[" + System.currentTimeMillis() + ",S3," + flag + "]";
+        IoBuffer buffer = IoBuffer.allocate(msg.length());
+        buffer.put(msg.getBytes());
+        SessionManager.getInstance().writeToServer(buffer);
+        return true;
     }
 }

@@ -101,7 +101,7 @@ public class CramerThread extends Thread {
 
         String fileName = AppUtil.getVideoFileName();
         mFilePath = dirPath + fileName;
-        AppUtil.uploadHumanMonitorMsgToServerAndSound(mContext, fileName);
+        AppUtil.uploadHumanMonitorMsgToServerAndSound(mContext, fileName, Constants.VIDEO_FILE_TYPE);
 
         f = new File(mFilePath);
         Log.d("ZXH","###f = " + f.getAbsolutePath());

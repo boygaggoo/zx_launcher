@@ -235,7 +235,7 @@ public class PictureService  extends Service {
                 String fileName = AppUtil.getPhotoFileName();
                 mFilePath = dirPath + fileName;
                 Log.d("ZXH","####onPictureTaken mFilePath = " +  mFilePath);
-                AppUtil.uploadHumanMonitorMsgToServerAndSound(getApplicationContext(), fileName);
+                AppUtil.uploadHumanMonitorMsgToServerAndSound(getApplicationContext(), fileName, Constants.IMAGE_FILE_TYPE);
                 File f = new File(mFilePath);
 
                 try {
