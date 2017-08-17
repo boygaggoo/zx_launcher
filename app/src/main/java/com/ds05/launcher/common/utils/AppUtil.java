@@ -359,15 +359,18 @@ public class AppUtil {
             alarmMode = 1;
         }
         int alarmsound = 0;
-        if(PrefDataManager.AutoAlarmSound.Silence.equals(PrefDataManager.getAlarmSoundVolume())){
-            alarmsound = 0;
-        }else if(PrefDataManager.AutoAlarmSound.Alarm.equals(PrefDataManager.getAlarmSoundVolume())){
+        Log.d("PPPP","PrefDataManager.getAlarmSoundVolume()="+PrefDataManager.getAlarmSound());
+        if(PrefDataManager.AutoAlarmSound.Silence.equals(PrefDataManager.getAlarmSound())){
             alarmsound = 1;
-        }else if(PrefDataManager.AutoAlarmSound.Scream.equals(PrefDataManager.getAlarmSoundVolume())){
+
+        }else if(PrefDataManager.AutoAlarmSound.Alarm.equals(PrefDataManager.getAlarmSound())){
             alarmsound = 2;
+        }else if(PrefDataManager.AutoAlarmSound.Scream.equals(PrefDataManager.getAlarmSound())){
+            alarmsound = 3;
         }
         int length = (int)PrefDataManager.getAlarmSoundVolume()*10;
-        String msg = "[" + System.currentTimeMillis() + ",T3," + Constants.SOFT_VERSION + "," + Constants.ZHONGYUN_LINCESE + "," + PrefDataManager.getHumanMonitorState() + "," + PrefDataManager.getAutoAlarmTime()+","+alarmSensi+","+ alarmMode +","+ 0 +","+ alarmsound +","+length+","+0+","+PrefDataManager.getAlarmIntervalTime()+"]";
+
+        String msg = "[" + System.currentTimeMillis() + ",T3," + Constants.SOFT_VERSION + "," + Constants.ZHONGYUN_LINCESE + "," + PrefDataManager.getHumanMonitorState() + "," + PrefDataManager.getAutoAlarmTime()+","+alarmSensi+","+ alarmMode +","+ 0 +","+ alarmsound +","+length+","+false+","+PrefDataManager.getAlarmIntervalTime()+"]";
         Log.d("PPP"," msg = " + msg);
 
         IoBuffer buffer = IoBuffer.allocate(msg.length());

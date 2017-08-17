@@ -117,18 +117,18 @@ public final class PrefDataManager {
         }
     }//AlarmMode
     public enum AutoAlarmSound {
-        Silence(1), Alarm(2), Scream(3);
+        Silence(0), Alarm(1), Scream(2);
         private int sound;
         AutoAlarmSound(int i) {
             sound = i;
         }
         public static AutoAlarmSound get(int i) {
             switch(i) {
-                case 1:
+                case 0:
                     return Silence;
-                case 2:
+                case 1:
                     return Alarm;
-                case 3:
+                case 2:
                     return Scream;
                 default:
                     return null;
@@ -313,10 +313,8 @@ public final class PrefDataManager {
         int tmp = Integer.parseInt(getString(APP_PREF_SETTINGS, MonitorFragment.KEY_SHOOTING_MODE, index));
         if(tmp == 0)
             return AlarmMode.Capture;
-        else if(tmp == 1 || tmp == 2)
-            return AlarmMode.Recorder;
         else
-            return null;
+            return AlarmMode.Recorder;
     }
     public static void setAlarmMode(int mode) {
         int index = -1;
