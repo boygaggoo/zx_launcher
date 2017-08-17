@@ -37,11 +37,11 @@ public class MinaHandler extends IoHandlerAdapter {
 			LauncherApplication.getContext().sendBroadcast(myIntent);
 		}else if(message.toString().equals("[S3]")){
 			myIntent.setAction(Constants.BROADCAST_ACTION_RECEIVE_CONFIG_FROM_SERVER);
-			myIntent.putExtra(Constants.MSG_FROM_SERVER,message.toString());
+			myIntent.putExtra(Constants.MSG_FROM_SERVER, message.toString());
 			LauncherApplication.getContext().sendBroadcast(myIntent);
 		}else if(message.toString().equals("[T3]")){
 			myIntent.setAction(Constants.BROADCAST_ACTION_RESPONSE_UPLOAD_CONFIG);
-			myIntent.putExtra(Constants.MSG_FROM_SERVER,message.toString());
+			myIntent.putExtra(Constants.MSG_FROM_SERVER, message.toString());
 			LauncherApplication.getContext().sendBroadcast(myIntent);
 		}
 

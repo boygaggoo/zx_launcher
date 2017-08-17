@@ -4,13 +4,22 @@
              android:layout_height="match_parent">
     <RelativeLayout
         android:id="@+id/camera_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 
         <com.ichano.MediaSurfaceView
             android:id="@+id/cameraView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/captureBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/capture_image"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"/>
     </RelativeLayout>
 
 </LinearLayout>

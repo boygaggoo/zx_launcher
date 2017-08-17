@@ -10,7 +10,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -45,6 +48,7 @@ public class CameraActivity_ZY extends Activity {
     private boolean mNeedCapture = false;
     private Context mContext;
     private String mFilePath;
+    private ImageView mCaptureBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +59,13 @@ public class CameraActivity_ZY extends Activity {
         mFilePath = intent.getStringExtra(Constants.EXTRA_CAPTURE_PATH);
 
         instance = this;
+        mCaptureBtn = (ImageView) findViewById(R.id.captureBtn);
+        mCaptureBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                manualCapture();
+            }
+        });
         mMediaSurfaceView = (MediaSurfaceView) findViewById(R.id.cameraView);
         mMediaSurfaceView.openCamera(Configuration.ORIENTATION_LANDSCAPE);
 //        mMediaSurfaceView.flip();
@@ -105,6 +116,38 @@ public class CameraActivity_ZY extends Activity {
         fOut.flush();
         fOut.close();
         return flag;
+    }
+
+    private void manualCapture(){
+        try {
+            if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+                Toast.makeText(getApplicationContext(), "SD不存在，图片保存失败", Toast.LENGTH_SHORT).show();
+            }else{
+                Bitmap mBitmap = mMediaSurfaceView.capture(JpegType.NORMAL);
+                if(mBitmap != null){
+                    String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + Constants.MANUAL_CAPTURE_PATH;
+                    File dirFile = new File(dirPath);
+                    if (!dirFile.exists()) {
+                        dirFile.mkdirs();
+                    }
+                    String fileName = AppUtil.getPhotoFileName();
+                    String mManualCaptureFilePath = dirPath + fileName;
+                    AppUtil.uploadDoorbellMsgToServer(mContext, fileName);
+
+                    Log.d("ZXH","########## file path = " + mManualCaptureFilePath);
+                    File f = new File(mManualCaptureFilePath);
+                    boolean ret = saveMyBitmap(f,mBitmap);
+                    if(ret){
+                        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                        Uri uri = Uri.fromFile(f);
+                        intent.setData(uri);
+                        mContext.sendBroadcast(intent);
+                    }
+                }
+            }
+        } catch (Exception e) {
+
+        }
     }
 
     private Runnable capture = new Runnable() {

@@ -77,9 +77,10 @@ public class Constants {
     public static final String EXTRA_CAPTURE="extra_capture";
     public static final String EXTRA_CAPTURE_PATH="extra_capture_path";
 
-    public static final String  DOORBELL_PATH = "/DS05/Camera/Doorbell/";
-    public static final String  ALARM_CAPTURE_PATH = "/DS05/Camera/Capture/";
-    public static final String  ALARM_VIDEO_PATH = "/DS05/Camera/Alarm/";
+    public static final String  MANUAL_CAPTURE_PATH = "/DS05/Camera/ManualCapture/";
+    public static final String  DOORBELL_PATH = "/DS05/Camera/DoorbellCapture/";
+    public static final String  ALARM_CAPTURE_PATH = "/DS05/Camera/AlarmCapture/";
+    public static final String  ALARM_VIDEO_PATH = "/DS05/Camera/AlarmVideo/";
 
     public static final String  IMAGE_FILE_TYPE = "1";
     public static final String  VIDEO_FILE_TYPE = "2";
