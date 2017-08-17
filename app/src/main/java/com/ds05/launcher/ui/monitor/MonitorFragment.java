@@ -12,6 +12,7 @@ import android.widget.SeekBar;
 import com.ds05.launcher.ModuleBaseFragment;
 import com.ds05.launcher.R;
 import com.ds05.launcher.common.manager.PrefDataManager;
+import com.ds05.launcher.common.utils.AppUtil;
 import com.ds05.launcher.service.HWSink;
 import com.ds05.launcher.service.SoundManager;
 import com.ds05.launcher.view.DialogSeekBarPreference;
@@ -134,7 +135,9 @@ public class MonitorFragment extends ModuleBaseFragment
                     mSoundManager.updateAlarmConfig();
                 }
             }, 300);
+
             PrefDataManager.setAlarmSound(Integer.parseInt((String)newValue));
+            AppUtil.uploadConfigMsgToServer(getActivity());
             Log.d("PP"," newValue_alarm_sound = " + newValue);
         } else if(key.equals(KEY_ALARM_VOLUME)) {
             PrefDataManager.setAlarmSoundVolume(Integer.parseInt((String)newValue) / 10f);
@@ -145,11 +148,13 @@ public class MonitorFragment extends ModuleBaseFragment
                     mSoundManager.updateAlarmConfig();
                 }
             }, 300);
+            AppUtil.uploadConfigMsgToServer(getActivity());
             Log.d("PP"," newValue_alarm_volume= " + newValue);
         } else if(key.equals(KEY_HUMAN_MONIOTOR)) {
             Intent intent = new Intent();
             intent.putExtra(HWSink.EXTRA_DRV_CFG_HUMAN_MONITOR_STATE, (boolean)newValue);
             HWSink.updateDriverConfig(intent);
+            AppUtil.uploadConfigMsgToServer(getActivity());
             if( (boolean)newValue==true ){
                 findPreference(KEY_INTELL_ALARM_TIME).setEnabled(true);
                 findPreference(KEY_ALARM_INTERVAL_TIME).setEnabled(true);
@@ -185,6 +190,7 @@ public class MonitorFragment extends ModuleBaseFragment
                 }
                 intent.putExtra(HWSink.EXTRA_DRV_CFG_MONITOR_SENSI, mval);
                 HWSink.updateDriverConfig(intent);
+                AppUtil.uploadConfigMsgToServer(getActivity());
             }
             PrefDataManager.setHumanMonitorSensi(val);
             Log.d("PP"," val_sens " + val);
@@ -204,6 +210,7 @@ public class MonitorFragment extends ModuleBaseFragment
                 Intent intent = new Intent();
                 intent.putExtra(HWSink.EXTRA_DRV_CFG_MONITOR_SENSI, val);
                 HWSink.updateDriverConfig(intent);
+                AppUtil.uploadConfigMsgToServer(getActivity());
             }
             PrefDataManager.setAutoAlarmTime(val);
             Log.d("PP"," val_alarm_time = " + val);
@@ -221,6 +228,7 @@ public class MonitorFragment extends ModuleBaseFragment
                 Intent intent = new Intent();
                 intent.putExtra(HWSink.EXTRA_DRV_CFG_ALARM_INTERVAL_TIME, val);
                 HWSink.updateDriverConfig(intent);
+                AppUtil.uploadConfigMsgToServer(getActivity());
             }
             PrefDataManager.setAlarmIntervalTime(val);
             Log.d("PP"," val_interval_time = " + val);
@@ -236,6 +244,7 @@ public class MonitorFragment extends ModuleBaseFragment
                 Intent intent = new Intent();
                 intent.putExtra(HWSink.EXTRA_DRV_CFG_SHOOTING_MODE, val);
                 HWSink.updateDriverConfig(intent);
+                AppUtil.uploadConfigMsgToServer(getActivity());
             }
             PrefDataManager.setAlarmMode(val);
             Log.d("PP"," val_shoot_mode = " + val);
