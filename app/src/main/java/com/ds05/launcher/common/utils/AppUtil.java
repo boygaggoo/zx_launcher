@@ -39,12 +39,15 @@ import android.os.PowerManager;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.ds05.launcher.common.ConnectUtils;
 import com.ds05.launcher.common.Constants;
+import com.ds05.launcher.common.manager.PrefDataManager;
 import com.ds05.launcher.net.SessionManager;
 import com.ds05.launcher.service.HWSink;
+import com.ds05.launcher.ui.monitor.MonitorFragment;
 
 import org.apache.mina.core.buffer.IoBuffer;
 
@@ -343,7 +346,30 @@ public class AppUtil {
             return false;
         }
         AppUtil.wakeUpAndUnlock(context);
-        String msg = "[" + System.currentTimeMillis() + ",T3," + Constants.SOFT_VERSION + "," + Constants.ZHONGYUN_LINCESE + "]";
+        int alarmSensi = 2;
+        if(PrefDataManager.MonitorSensitivity.High.equals(PrefDataManager.getHumanMonitorSensi())){
+            alarmSensi = 1;
+        }else {
+            alarmSensi = 2;
+        }
+        int alarmMode = 0;
+        if(PrefDataManager.AlarmMode.Capture.equals(PrefDataManager.getAlarmMode())){
+            alarmMode = 0;
+        }else if(PrefDataManager.AlarmMode.Recorder.equals(PrefDataManager.getAlarmMode())){
+            alarmMode = 1;
+        }
+        int alarmsound = 0;
+        if(PrefDataManager.AutoAlarmSound.Silence.equals(PrefDataManager.getAlarmSoundVolume())){
+            alarmsound = 0;
+        }else if(PrefDataManager.AutoAlarmSound.Alarm.equals(PrefDataManager.getAlarmSoundVolume())){
+            alarmsound = 1;
+        }else if(PrefDataManager.AutoAlarmSound.Scream.equals(PrefDataManager.getAlarmSoundVolume())){
+            alarmsound = 2;
+        }
+        int length = (int)PrefDataManager.getAlarmSoundVolume()*10;
+        String msg = "[" + System.currentTimeMillis() + ",T3," + Constants.SOFT_VERSION + "," + Constants.ZHONGYUN_LINCESE + "," + PrefDataManager.getHumanMonitorState() + "," + PrefDataManager.getAutoAlarmTime()+","+alarmSensi+","+ alarmMode +","+ 0 +","+ alarmsound +","+length+","+0+","+PrefDataManager.getAlarmIntervalTime()+"]";
+        Log.d("PPP"," msg = " + msg);
+
         IoBuffer buffer = IoBuffer.allocate(msg.length());
         buffer.put(msg.getBytes());
         SessionManager.getInstance().writeToServer(buffer);

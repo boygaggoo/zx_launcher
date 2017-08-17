@@ -143,6 +143,7 @@
         <service android:name=".service.ZhongyunService"/>
         <service android:name=".service.VideoService"/>
         <service android:name=".service.PictureService"/>
+        <service android:name=".service.RespondReceiveConfigFromServer"/>
         <activity
             android:name=".CameraActivity_ZY"
             android:configChanges="orientation|keyboardHidden|screenSize"
