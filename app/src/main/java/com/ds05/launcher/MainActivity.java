@@ -17,6 +17,7 @@ import android.view.WindowManager;
 
 import com.ds05.launcher.common.Constants;
 import com.ds05.launcher.common.config.MyAvsHelper;
+import com.ds05.launcher.service.RespondReceiveConfigFromServer;
 import com.ds05.launcher.ui.home.BaseFragment;
 import com.ds05.launcher.ui.home.DesktopFragment;
 import com.ds05.launcher.ui.settings.SettingsActivity;
@@ -41,6 +42,9 @@ public class MainActivity extends Activity {
 
         Intent service = new Intent(MainActivity.this, MediaManagerService.class);
         bindService(service, conn, BIND_AUTO_CREATE);
+
+        Intent serviceconfig = new Intent(MainActivity.this, RespondReceiveConfigFromServer.class);
+        bindService(serviceconfig,conn,BIND_AUTO_CREATE);
 
         getContentResolver().registerContentObserver(Uri.parse(BaseFragment.FRAG_SWITCH_AUTHORITIES), true, mObserver);
         FragmentTransaction ft = getFragmentManager().beginTransaction();

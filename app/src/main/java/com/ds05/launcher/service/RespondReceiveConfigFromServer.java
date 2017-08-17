@@ -37,6 +37,7 @@ public class RespondReceiveConfigFromServer extends Service {
                 float f = Float.parseFloat("dataStr[10]");
                 double a61 = (f*1.0)/10;
                 float a6 = (float)a61;
+
                 long a7 = Integer.getInteger(dataStr[12]).intValue();
                 PrefDataManager.setHumanMonitorState(a1);//boolean
                 PrefDataManager.setAutoAlarmTime(a2);//long
