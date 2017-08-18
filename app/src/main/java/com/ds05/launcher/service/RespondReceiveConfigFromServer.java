@@ -29,16 +29,16 @@ public class RespondReceiveConfigFromServer extends Service {
                 String dataStr[] = data.substring(1, data.length() - 1).split(",");
 
                 Boolean a1 = Boolean.valueOf(dataStr[4]);
-                long a2 = Integer.getInteger(dataStr[5]).intValue();
-                int a3 =  Integer.getInteger(dataStr[6]).intValue();
-                int a4 =  Integer.getInteger(dataStr[7]).intValue();
-                int a5 = Integer.getInteger(dataStr[9]).intValue();
+                long a2 = Integer.parseInt(dataStr[5]);
+                int a3 =  Integer.parseInt(dataStr[6]);
+                int a4 =  Integer.parseInt(dataStr[7]);
+                int a5 = Integer.parseInt(dataStr[9]);
 
                 float f = Float.parseFloat("dataStr[10]");
                 double a61 = (f*1.0)/10;
                 float a6 = (float)a61;
 
-                long a7 = Integer.getInteger(dataStr[12]).intValue();
+                long a7 = Integer.parseInt(dataStr[12]);
                 PrefDataManager.setHumanMonitorState(a1);//boolean
                 PrefDataManager.setAutoAlarmTime(a2);//long
                 PrefDataManager.setHumanMonitorSensi(a3);//int
