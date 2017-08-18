@@ -33,81 +33,81 @@ public class DesktopFragment extends BaseFragment
         photo = view.findViewById(R.id.id_photo);
         help = view.findViewById(R.id.id_help);
 
-        settings.setFocusable(true);
-        settings.setFocusableInTouchMode(true);
-        settings.requestFocus();
-        monitor.setFocusable(true);
-        monitor.setFocusableInTouchMode(true);
-        photo.setFocusable(true);
-        photo.setFocusableInTouchMode(true);
-        help.setFocusable(true);
-        help.setFocusableInTouchMode(true);
-
-        settings.setNextFocusDownId(R.id.id_help);
-        settings.setNextFocusUpId(R.id.id_photo);
-        settings.setNextFocusLeftId(R.id.id_photo);
-        settings.setNextFocusRightId(R.id.id_monitor);
-        monitor.setNextFocusDownId(R.id.id_photo);
-        monitor.setNextFocusUpId(R.id.id_help);
-        monitor.setNextFocusLeftId(R.id.id_settings);
-        monitor.setNextFocusRightId(R.id.id_help);
-        photo.setNextFocusDownId(R.id.id_settings);
-        photo.setNextFocusUpId(R.id.id_monitor);
-        photo.setNextFocusLeftId(R.id.id_help);
-        photo.setNextFocusRightId(R.id.id_settings);
-        help.setNextFocusDownId(R.id.id_monitor);
-        help.setNextFocusUpId(R.id.id_settings);
-        help.setNextFocusLeftId(R.id.id_monitor);
-        help.setNextFocusRightId(R.id.id_photo);
+//        settings.setFocusable(true);
+//        settings.setFocusableInTouchMode(true);
+//        settings.requestFocus();
+//        monitor.setFocusable(true);
+//        monitor.setFocusableInTouchMode(true);
+//        photo.setFocusable(true);
+//        photo.setFocusableInTouchMode(true);
+//        help.setFocusable(true);
+//        help.setFocusableInTouchMode(true);
+//
+//        settings.setNextFocusDownId(R.id.id_help);
+//        settings.setNextFocusUpId(R.id.id_photo);
+//        settings.setNextFocusLeftId(R.id.id_photo);
+//        settings.setNextFocusRightId(R.id.id_monitor);
+//        monitor.setNextFocusDownId(R.id.id_photo);
+//        monitor.setNextFocusUpId(R.id.id_help);
+//        monitor.setNextFocusLeftId(R.id.id_settings);
+//        monitor.setNextFocusRightId(R.id.id_help);
+//        photo.setNextFocusDownId(R.id.id_settings);
+//        photo.setNextFocusUpId(R.id.id_monitor);
+//        photo.setNextFocusLeftId(R.id.id_help);
+//        photo.setNextFocusRightId(R.id.id_settings);
+//        help.setNextFocusDownId(R.id.id_monitor);
+//        help.setNextFocusUpId(R.id.id_settings);
+//        help.setNextFocusLeftId(R.id.id_monitor);
+//        help.setNextFocusRightId(R.id.id_photo);
 
         settings.setOnClickListener(this);
         monitor.setOnClickListener(this);
         photo.setOnClickListener(this);
         help.setOnClickListener(this);
 
-        settings.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) return;
-                v.setNextFocusDownId(R.id.id_help);
-                v.setNextFocusUpId(R.id.id_photo);
-                v.setNextFocusLeftId(R.id.id_photo);
-                v.setNextFocusRightId(R.id.id_monitor);
-            }
-        });
-
-        monitor.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) return;
-                v.setNextFocusDownId(R.id.id_photo);
-                v.setNextFocusUpId(R.id.id_help);
-                v.setNextFocusLeftId(R.id.id_settings);
-                v.setNextFocusRightId(R.id.id_help);
-            }
-        });
-
-        photo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) return;
-                v.setNextFocusDownId(R.id.id_settings);
-                v.setNextFocusUpId(R.id.id_monitor);
-                v.setNextFocusLeftId(R.id.id_help);
-                v.setNextFocusRightId(R.id.id_settings);
-            }
-        });
-
-        help.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) return;
-                v.setNextFocusDownId(R.id.id_monitor);
-                v.setNextFocusUpId(R.id.id_settings);
-                v.setNextFocusLeftId(R.id.id_monitor);
-                v.setNextFocusRightId(R.id.id_photo);
-            }
-        });
+//        settings.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) return;
+//                v.setNextFocusDownId(R.id.id_help);
+//                v.setNextFocusUpId(R.id.id_photo);
+//                v.setNextFocusLeftId(R.id.id_photo);
+//                v.setNextFocusRightId(R.id.id_monitor);
+//            }
+//        });
+//
+//        monitor.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) return;
+//                v.setNextFocusDownId(R.id.id_photo);
+//                v.setNextFocusUpId(R.id.id_help);
+//                v.setNextFocusLeftId(R.id.id_settings);
+//                v.setNextFocusRightId(R.id.id_help);
+//            }
+//        });
+//
+//        photo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) return;
+//                v.setNextFocusDownId(R.id.id_settings);
+//                v.setNextFocusUpId(R.id.id_monitor);
+//                v.setNextFocusLeftId(R.id.id_help);
+//                v.setNextFocusRightId(R.id.id_settings);
+//            }
+//        });
+//
+//        help.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) return;
+//                v.setNextFocusDownId(R.id.id_monitor);
+//                v.setNextFocusUpId(R.id.id_settings);
+//                v.setNextFocusLeftId(R.id.id_monitor);
+//                v.setNextFocusRightId(R.id.id_photo);
+//            }
+//        });
     }
 
     @Override

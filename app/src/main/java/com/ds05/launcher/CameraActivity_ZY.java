@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -68,7 +69,9 @@ public class CameraActivity_ZY extends Activity {
         });
         mMediaSurfaceView = (MediaSurfaceView) findViewById(R.id.cameraView);
         mMediaSurfaceView.openCamera(Configuration.ORIENTATION_LANDSCAPE);
-//        mMediaSurfaceView.flip();
+        if(Build.MODEL != null && Build.MODEL.contains("KH")){
+            mMediaSurfaceView.flip();
+        }
         final int[] size = mMediaSurfaceView.getVideoSize();
         handler.postDelayed(finish, VISITOR_RING_TIME);
 
