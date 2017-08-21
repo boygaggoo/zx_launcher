@@ -11,6 +11,7 @@ import android.os.Message;
 import android.util.Log;
 
 import com.ds05.launcher.common.manager.PrefDataManager;
+import com.ds05.launcher.common.utils.AppUtil;
 import com.ds05.launcher.service.rs.RemoteServerSink;
 
 /**
@@ -139,6 +140,7 @@ public class LauncherService extends Service {
         IntentFilter filter = new IntentFilter();
         filter.addAction(HWSink.ACTION_DOORBELL_PRESSED);
         filter.addAction(HWSink.ACTION_HUMAN_MONITOR_NOTIFY);
+        filter.addAction(Intent.ACTION_BATTERY_CHANGED);
         registerReceiver(mReceiver, filter);
     }
 
@@ -175,6 +177,11 @@ public class LauncherService extends Service {
                     default:
                         Log.d("DS05", "{LauncherService}{onReceive}ACTION_HUMAN_MONITOR_NOTIFY");
                 }
+            }else if(action.equals(Intent.ACTION_BATTERY_CHANGED)){
+                int current=intent.getExtras().getInt("level");//获得当前电量
+                int total=intent.getExtras().getInt("scale");//获得总电量
+                int percent = current*100/total;
+                AppUtil.BATTERY_LEVEL = String.valueOf(percent);
             }
         }//onReceive
     };//BroadcastReceiver

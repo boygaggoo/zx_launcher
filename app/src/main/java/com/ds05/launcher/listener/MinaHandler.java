@@ -6,6 +6,7 @@ import android.util.Log;
 import com.ds05.launcher.LauncherApplication;
 import com.ds05.launcher.common.ConnectUtils;
 import com.ds05.launcher.common.Constants;
+import com.ds05.launcher.common.utils.AppUtil;
 import com.ds05.launcher.net.response.HeartBeatMsg;
 
 import org.apache.mina.core.service.IoHandlerAdapter;
@@ -66,9 +67,10 @@ public class MinaHandler extends IoHandlerAdapter {
 
 	@Override
 	public void sessionIdle(IoSession session, IdleStatus status) throws Exception {
+		Log.d("ZXH","############sessionIdle");
 		Log.i(TAG,ConnectUtils.stringNowTime() + " : 客户端调用sessionIdle");
 		if(session!=null){
-			String heartbeat="[T0,"+Constants.MAC_ADDRESS+","+ConnectUtils.stringNowTime()+"]";
+			String heartbeat="[T0,"+Constants.MAC_ADDRESS+","+ConnectUtils.stringNowTime()+","+ AppUtil.BATTERY_LEVEL+","+ AppUtil.getWifiLevel(LauncherApplication.getContext())+","+ AppUtil.getWifiSSID(LauncherApplication.getContext()) + "]";
 			session.write(new HeartBeatMsg(heartbeat));
 		}
 	}

@@ -78,7 +78,8 @@ public class CameraActivity_ZY extends Activity {
         if(mNeedCapture){
             handler.postDelayed(capture, CAPTURE_TIME);
         }
-
+//        AppUtil.getWifiSSID(this);
+//        Log.d("ZXH","wifi level = " + AppUtil.getWifiLevel(this));
 //        ViewTreeObserver viewTreeObserver = mMediaSurfaceView.getViewTreeObserver();
 //
 //        viewTreeObserver.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {

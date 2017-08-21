@@ -34,6 +34,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.BatteryManager;
 import android.os.Build;
 import android.os.PowerManager;
 import android.provider.Settings;
@@ -78,6 +79,8 @@ public class AppUtil {
 //
 //        context.startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber)));
 //    }
+
+    public static String BATTERY_LEVEL = "50";
 
     /**
      * 跳转至拨号界面
@@ -305,6 +308,31 @@ public class AppUtil {
             e.printStackTrace();
         }
         return version;
+    }
+
+    /**
+     * 获取当前设备的WiFi名称
+     *
+     * @param context 当前上下文对象
+     *
+     */
+    public static String getWifiSSID(Context context){
+        WifiManager wifiManager = (WifiManager) context.getSystemService(context.WIFI_SERVICE);
+        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        return wifiInfo.getSSID();
+    }
+
+    /**
+     * 获取当前设备的WiFi的信号强度
+     *
+     * @param context 当前上下文对象
+     *
+     */
+    public static String getWifiLevel(Context context){
+        WifiManager wifiManager = (WifiManager) context.getSystemService(context.WIFI_SERVICE);
+        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        int strength = WifiManager.calculateSignalLevel(wifiInfo.getRssi(), 5);
+        return String.valueOf(strength);
     }
 
 
