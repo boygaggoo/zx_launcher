@@ -27,7 +27,7 @@ public class RespondReceiveConfigFromServer extends Service {
             if (action.equals(Constants.BROADCAST_ACTION_RECEIVE_CONFIG_FROM_SERVER)) {
                 String data = intent.getStringExtra(Constants.MSG_FROM_SERVER);
                 String dataStr[] = data.substring(1, data.length() - 1).split(",");
-
+                Log.d("PP"," dataStr.length = " + dataStr.length);
                 Boolean a1 = Boolean.valueOf(dataStr[4]);
                 long a2 = Integer.parseInt(dataStr[5]);
                 int a3 =  Integer.parseInt(dataStr[6]);
@@ -38,7 +38,7 @@ public class RespondReceiveConfigFromServer extends Service {
                 double a61 = (f*1.0)/10;
                 float a6 = (float)a61;
 
-                long a7 = Integer.parseInt(dataStr[12]);
+                long a7 = Integer.parseInt(dataStr[13]);
                 PrefDataManager.setHumanMonitorState(a1);//boolean
                 PrefDataManager.setAutoAlarmTime(a2);//long
                 PrefDataManager.setHumanMonitorSensi(a3);//int

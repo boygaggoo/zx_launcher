@@ -195,6 +195,14 @@ public final class PrefDataManager {
         String index = pref.getString(DoorbellSettings.KEY_DOORBELL_SOUND, def);
         return Integer.parseInt(index);
     }
+    public static boolean getDoorbellLight(){
+        boolean def = LauncherApplication.getContext()
+                .getResources().getBoolean(R.bool.def_doorbell_light);
+        return getBoolean(APP_PREF_SETTINGS, DoorbellSettings.KEY_DOORBELL_LIGHT, def);
+    }
+    public static void setDoorbellLight(boolean state){
+        setBoolean(APP_PREF_SETTINGS, DoorbellSettings.KEY_DOORBELL_LIGHT, state);
+    }
     public static float getAlarmSoundVolume() {
         return getFloat(COMMON_PREF_DATA, ALARM_SOUND_VOLUME, 1.0f);
     }
