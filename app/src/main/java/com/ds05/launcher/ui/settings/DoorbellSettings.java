@@ -8,6 +8,7 @@ import android.widget.SeekBar;
 import com.ds05.launcher.ModuleBaseFragment;
 import com.ds05.launcher.R;
 import com.ds05.launcher.common.manager.PrefDataManager;
+import com.ds05.launcher.common.utils.AppUtil;
 import com.ds05.launcher.service.SoundManager;
 import com.ds05.launcher.view.DialogSeekBarPreference;
 import com.ds05.launcher.view.ListPreferenceExt;
@@ -71,6 +72,7 @@ public class DoorbellSettings extends ModuleBaseFragment
 
         if(key.equals(KEY_DOORBELL_LIGHT)) {
           //  PrefDataManager.setDoorbellLight();
+            AppUtil.uploadConfigMsgToServer(getActivity());
         } else if(key.equals(KEY_DOORBELL_SOUND)) {
             ListPreferenceExt pref = (ListPreferenceExt) preference;
             pref.setSummary(pref.getEntries()[Integer.parseInt((String) newValue)]);
@@ -81,7 +83,7 @@ public class DoorbellSettings extends ModuleBaseFragment
                     mSoundManager.updateDoorbellConfig();
                 }
             }, 300);
-
+            AppUtil.uploadConfigMsgToServer(getActivity());
             return true;
         } else if (key.equals(KEY_DOORBELL_VOLUME)) {
             PrefDataManager.setDoorbellVolume(Integer.parseInt((String) newValue) / 10f);
