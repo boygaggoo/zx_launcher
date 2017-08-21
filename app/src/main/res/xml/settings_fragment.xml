@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <SwitchPreference
-        android:key="key_Settings_energy_saving_mode"
-        android:icon="@drawable/ic_menu_energy_saving_mode"
+    <Preference
+        android:key="key_settings_scan_qr_code"
+        android:icon="@drawable/ic_menu_scan_qr_code"
         android:layout="@layout/icon_preference_layout"
-        android:disableDependentsState="true"
-        android:title="@string/settings_str_energy_saving_mode"/>
+        android:widgetLayout="@layout/widget_layout_more_arrow"
+        android:title="@string/settings_str_scan_qr_code"/>
     <SwitchPreference
         android:key="key_Settings_wifi"
         android:icon="@drawable/ic_menu_wifi"
@@ -30,17 +30,17 @@
         android:widgetLayout="@layout/widget_layout_more_arrow"
         android:title="@string/settings_str_camera_settings"/>
     <Preference
-        android:key="key_settings_scan_qr_code"
-        android:icon="@drawable/ic_menu_scan_qr_code"
-        android:layout="@layout/icon_preference_layout"
-        android:widgetLayout="@layout/widget_layout_more_arrow"
-        android:title="@string/settings_str_scan_qr_code"/>
-    <Preference
         android:key="key_settings_doorbell_settings"
         android:icon="@drawable/ic_menu_doorbell_settings"
         android:layout="@layout/icon_preference_layout"
         android:widgetLayout="@layout/widget_layout_more_arrow"
         android:title="@string/settings_str_doorbell_settings"/>
+    <SwitchPreference
+        android:key="key_Settings_energy_saving_mode"
+        android:icon="@drawable/ic_menu_energy_saving_mode"
+        android:layout="@layout/icon_preference_layout"
+        android:disableDependentsState="true"
+        android:title="@string/settings_str_energy_saving_mode"/>
     <Preference
         android:key="key_Settings_time_date"
         android:icon="@drawable/ic_menu_time_date"
