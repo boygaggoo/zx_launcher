@@ -219,25 +219,25 @@ public class CameraService extends IntentService {
 			String data = intent.getStringExtra(Constants.MSG_FROM_SERVER);
 			String dataStr[] = data.substring(1, data.length() - 1).split(",");
 			Log.d("PP"," dataStr.length = " + dataStr.length);
-			Boolean a1 = Boolean.valueOf(dataStr[4]);
-			long a2 = Integer.parseInt(dataStr[5]);
-			int a3 =  Integer.parseInt(dataStr[6]);
-			int a4 =  Integer.parseInt(dataStr[7]);
-			int a5 = Integer.parseInt(dataStr[9]);
+			Boolean humanMonitorState = Boolean.valueOf(dataStr[4]);
+			long autoAlarmTime = Integer.parseInt(dataStr[5]);
+			int humanMonitorSensi =  Integer.parseInt(dataStr[6]);
+			int alarmMode =  Integer.parseInt(dataStr[7]);
+			int alarmSound = Integer.parseInt(dataStr[9]);
 
 			float f = Float.parseFloat(dataStr[10]);
-			double a61 = (f*1.0)/10;
-			float a6 = (float)a61;
+			double temp = (f*1.0)/10;
+			float alarmSoundVolume = (float)temp;
 
-			long a7 = Integer.parseInt(dataStr[13]);
-			PrefDataManager.setHumanMonitorState(a1);//boolean
-			PrefDataManager.setAutoAlarmTime(a2);//long
-			PrefDataManager.setHumanMonitorSensi(a3);//int
-			PrefDataManager.setAlarmMode(a4);//int
-			PrefDataManager.setAlarmSound(a5);//int
-			PrefDataManager.setAlarmSoundVolume(a6);//float
-			PrefDataManager.setAlarmIntervalTime(a7);//long
-			Log.d("PP"," a2 = " + a2);
+			long alarmIntervalTime = Integer.parseInt(dataStr[13]);
+			PrefDataManager.setHumanMonitorState(humanMonitorState);//boolean
+			PrefDataManager.setAutoAlarmTime(autoAlarmTime);//long
+			PrefDataManager.setHumanMonitorSensi(humanMonitorSensi);//int
+			PrefDataManager.setAlarmMode(alarmMode);//int
+			PrefDataManager.setAlarmSound(alarmSound);//int
+			PrefDataManager.setAlarmSoundVolume(alarmSoundVolume);//float
+			PrefDataManager.setAlarmIntervalTime(alarmIntervalTime);//long
+
 			AppUtil.respondReceiveConfigFromServer(getApplicationContext(),true);
 		}  else {
 			Log.d(TAG, "收到未知消息，忽略处理: " + action);
