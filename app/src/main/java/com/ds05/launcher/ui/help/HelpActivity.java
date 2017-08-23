@@ -9,6 +9,7 @@ import com.ds05.launcher.CameraActivity_ZY;
 import com.ds05.launcher.R;
 import com.ds05.launcher.ModuleBaseActivity;
 import com.ds05.launcher.common.Constants;
+import com.ds05.launcher.ui.settings.SettingsFragment;
 
 /**
  * Created by Chongyang.Hu on 2017/1/1 0001.
@@ -20,6 +21,7 @@ public class HelpActivity extends ModuleBaseActivity {
     protected void onInit(Bundle savedInstanceState) {
         showTitleBar();
         setTitle(R.string.string_help_info);
+        replaceFragment(new HelpFragment());
     }
 
     @Override

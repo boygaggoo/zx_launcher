@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.ds05.launcher"
-          android:versionCode="2"
+          android:versionCode="000506"
           android:versionName="DS05 Launcher v0.5.6">
 
     <uses-sdk
@@ -185,6 +185,8 @@
                 <action android:name="com.ds05.Broadcast.FromServer.Action.CLOSE_CAMERA" />
                 <action android:name="com.ds05.Broadcast.ToServer.NOTIFY_QRCODE_RESULT" />
                 <action android:name="com.ds05.Broadcast.FromServer.Action.TEST_CAMERA" />
+                <action android:name="com.ds05.Broadcast.FromServer.Action.REBOOT" />
+                <action android:name="com.ds05.Broadcast.FromServer.Action.CONFIG" />
             </intent-filter>
         </receiver>
 

@@ -49,7 +49,8 @@ public class CameraActivity_ZY extends Activity {
     private boolean mNeedCapture = false;
     private Context mContext;
     private String mFilePath;
-    private ImageView mCaptureBtn;
+    private ImageView mCaptureBtn,mBackBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,8 +68,17 @@ public class CameraActivity_ZY extends Activity {
                 manualCapture();
             }
         });
+
+        mBackBtn = (ImageView) findViewById(R.id.backBtn);
+        mBackBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         mMediaSurfaceView = (MediaSurfaceView) findViewById(R.id.cameraView);
         mMediaSurfaceView.openCamera(Configuration.ORIENTATION_LANDSCAPE);
+        mMediaSurfaceView.enableTimeWatermark(true);
         if(Build.MODEL != null && Build.MODEL.contains("KH")){
             mMediaSurfaceView.flip();
         }

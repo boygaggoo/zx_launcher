@@ -13,6 +13,16 @@
             android:layout_height="match_parent" />
 
         <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_btn_image"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"/>
+
+        <ImageView
             android:id="@+id/captureBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

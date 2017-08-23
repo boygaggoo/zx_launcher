@@ -12,7 +12,7 @@ public class Constants {
     public static int alarmSound=2;
     public static int alarmSoundVolume=2;
 
-    public static final String SOFT_VERSION="v1.0.1";
+    public static String SOFT_VERSION="v1.0.1";
 
     public static  String MAC_ADDRESS="ds000002";
 
@@ -69,7 +69,8 @@ public class Constants {
     //服务器响应“接收到配置信息上传”反馈
     public static final String BROADCAST_ACTION_RESPONSE_UPLOAD_CONFIG="com.ds05.Broadcast.FromServer.Action.RESPONSE_UPLOAD_CONFIG";
     public static final String MSG_FROM_SERVER="msg_from_server";
-
+    //服务器下发重新请求
+    public static final String BROADCAST_ACTION_RECEIVE_REBOOT_FROM_SERVER="com.ds05.Broadcast.FromServer.Action.REBOOT";
 
     public static final int CAPTURE_KEY = 66;
     public static final int HOME_KEY = 27;

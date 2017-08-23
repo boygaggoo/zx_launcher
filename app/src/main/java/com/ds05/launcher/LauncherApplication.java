@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.ds05.launcher.common.ConnectUtils;
 import com.ds05.launcher.common.Constants;
+import com.ds05.launcher.common.utils.AppUtil;
 import com.ds05.launcher.common.utils.MacUtils;
 import com.ds05.launcher.common.manager.PrefDataManager;
 import com.ds05.launcher.service.ConnectSocketService;
@@ -59,6 +60,8 @@ public class LauncherApplication extends Application  {
             startService(new Intent(LauncherApplication.getContext(), ConnectSocketService.class));
 //            startService(new Intent(LauncherApplication.getContext(), ZhongyunService.class));
         }
+
+        Constants.SOFT_VERSION = AppUtil.getAppVersionName(mContext);
     }
 
 

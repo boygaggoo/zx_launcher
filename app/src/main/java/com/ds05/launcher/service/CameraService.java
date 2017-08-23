@@ -9,6 +9,7 @@ import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.os.ResultReceiver;
 import android.os.SystemClock;
 import android.util.Log;
@@ -178,6 +179,7 @@ public class CameraService extends IntentService {
 		} else if (Constants.BROADCAST_NOTIFY_QRCODE_RESULT.equals(action)) {
 			//Log.i(TAG, "收到消息，############################################################################################################################################收到扫二维码广播消息");
 			// 二维码码
+			Log.d("ZXH","############## QR");
 			String userid = intent.getStringExtra("QRCodeResult_UserId");
 			String ssid = intent.getStringExtra("QRCodeResult_WifiSSID");
 			String pwd = intent.getStringExtra("QRCodeResult_WifiPassword");
@@ -204,7 +206,40 @@ public class CameraService extends IntentService {
 
 			Log.i(TAG, "收到消息，############################################################################################################################################测试camera");
 
-		} else {
+		} else if (Constants.BROADCAST_ACTION_RECEIVE_REBOOT_FROM_SERVER.equals(action)) {
+			Log.i(TAG, "收到消息，重启camera");
+			String msg = "[" + System.currentTimeMillis() + ",S10," + "True" + "]";
+			IoBuffer buffer = IoBuffer.allocate(msg.length());
+			buffer.put(msg.getBytes());
+			SessionManager.getInstance().writeToServer(buffer);
+			PowerManager pm = (PowerManager)getApplicationContext().getSystemService(Context.POWER_SERVICE);
+			pm.reboot(null);
+		} else if (Constants.BROADCAST_ACTION_RECEIVE_CONFIG_FROM_SERVER.equals(action)) {
+			Log.i(TAG, "收到消息，配置信息");
+			String data = intent.getStringExtra(Constants.MSG_FROM_SERVER);
+			String dataStr[] = data.substring(1, data.length() - 1).split(",");
+			Log.d("PP"," dataStr.length = " + dataStr.length);
+			Boolean a1 = Boolean.valueOf(dataStr[4]);
+			long a2 = Integer.parseInt(dataStr[5]);
+			int a3 =  Integer.parseInt(dataStr[6]);
+			int a4 =  Integer.parseInt(dataStr[7]);
+			int a5 = Integer.parseInt(dataStr[9]);
+
+			float f = Float.parseFloat(dataStr[10]);
+			double a61 = (f*1.0)/10;
+			float a6 = (float)a61;
+
+			long a7 = Integer.parseInt(dataStr[13]);
+			PrefDataManager.setHumanMonitorState(a1);//boolean
+			PrefDataManager.setAutoAlarmTime(a2);//long
+			PrefDataManager.setHumanMonitorSensi(a3);//int
+			PrefDataManager.setAlarmMode(a4);//int
+			PrefDataManager.setAlarmSound(a5);//int
+			PrefDataManager.setAlarmSoundVolume(a6);//float
+			PrefDataManager.setAlarmIntervalTime(a7);//long
+			Log.d("PP"," a2 = " + a2);
+			AppUtil.respondReceiveConfigFromServer(getApplicationContext(),true);
+		}  else {
 			Log.d(TAG, "收到未知消息，忽略处理: " + action);
 		}
 		// 未知广播消息

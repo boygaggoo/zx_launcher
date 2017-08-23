@@ -43,8 +43,8 @@ public class MainActivity extends Activity {
         Intent service = new Intent(MainActivity.this, MediaManagerService.class);
         bindService(service, conn, BIND_AUTO_CREATE);
 
-        Intent serviceconfig = new Intent(MainActivity.this, RespondReceiveConfigFromServer.class);
-        bindService(serviceconfig,conn,BIND_AUTO_CREATE);
+//        Intent serviceconfig = new Intent(MainActivity.this, RespondReceiveConfigFromServer.class);
+//        bindService(serviceconfig,conn,BIND_AUTO_CREATE);
 
         getContentResolver().registerContentObserver(Uri.parse(BaseFragment.FRAG_SWITCH_AUTHORITIES), true, mObserver);
         FragmentTransaction ft = getFragmentManager().beginTransaction();

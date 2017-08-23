@@ -57,7 +57,7 @@ public class SettingsFragment extends ModuleBaseFragment
     public static final String KEY_HOME_SETTINGS = "key_Settings_home_settings";
     public static final String KEY_RESET_FACTORY = "key_Settings_reset_factory";
     public static final String KEY_VERSION = "key_Settings_version";
-    private static final int TIMEOUT = 18;
+    private static final int TIMEOUT = 30;
 
     private static final int NETWORKCONNECTED = 0;
     private static final int NETWORKDISCONNECTED = 1;

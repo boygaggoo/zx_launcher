@@ -44,6 +44,10 @@ public class MinaHandler extends IoHandlerAdapter {
 			myIntent.setAction(Constants.BROADCAST_ACTION_RESPONSE_UPLOAD_CONFIG);
 			myIntent.putExtra(Constants.MSG_FROM_SERVER, message.toString());
 			LauncherApplication.getContext().sendBroadcast(myIntent);
+		}else if(message.toString().equals("[S10]")){
+			myIntent.setAction(Constants.BROADCAST_ACTION_RESPONSE_UPLOAD_CONFIG);
+			myIntent.putExtra(Constants.MSG_FROM_SERVER, message.toString());
+			LauncherApplication.getContext().sendBroadcast(myIntent);
 		}
 
 

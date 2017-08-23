@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -47,13 +48,15 @@ public class CramerThread extends Thread {
     private String mFilePath;
     private Context mContext;
     public static boolean isRecording = false;
+    private Handler mHandler;
 
     public CramerThread(Context context, long recordTime, SurfaceView surfaceview,
                         SurfaceHolder surfaceHolder) {
         mContext = context;
         this.recordTime = recordTime;  
         this.surfaceview = surfaceview;  
-        this.surfaceHolder = surfaceHolder;  
+        this.surfaceHolder = surfaceHolder;
+        mHandler = new Handler(Looper.getMainLooper());
     }  
   
     @Override  
@@ -99,9 +102,14 @@ public class CramerThread extends Thread {
             dirFile.mkdirs();
         }
 
-        String fileName = AppUtil.getVideoFileName();
+        final String fileName = AppUtil.getVideoFileName();
         mFilePath = dirPath + fileName;
-        AppUtil.uploadHumanMonitorMsgToServerAndSound(mContext, fileName, Constants.VIDEO_FILE_TYPE);
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                AppUtil.uploadHumanMonitorMsgToServerAndSound(mContext, fileName, Constants.VIDEO_FILE_TYPE);
+            }
+        });
 
         f = new File(mFilePath);
         Log.d("ZXH","###f = " + f.getAbsolutePath());
