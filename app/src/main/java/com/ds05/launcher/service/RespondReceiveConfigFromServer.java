@@ -34,7 +34,7 @@ public class RespondReceiveConfigFromServer extends Service {
                 int a4 =  Integer.parseInt(dataStr[7]);
                 int a5 = Integer.parseInt(dataStr[9]);
 
-                float f = Float.parseFloat("dataStr[10]");
+                float f = Float.parseFloat(dataStr[10]);
                 double a61 = (f*1.0)/10;
                 float a6 = (float)a61;
 
