@@ -67,6 +67,8 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.GET_TASKS"/>
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
+    <uses-permission android:name="android.permission.INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.DELETE_PACKAGES" />
 
     <application
         android:name=".LauncherApplication"
@@ -186,7 +188,8 @@
                 <action android:name="com.ds05.Broadcast.ToServer.NOTIFY_QRCODE_RESULT" />
                 <action android:name="com.ds05.Broadcast.FromServer.Action.TEST_CAMERA" />
                 <action android:name="com.ds05.Broadcast.FromServer.Action.REBOOT" />
-                <action android:name="com.ds05.Broadcast.FromServer.Action.CONFIG" />
+
+
             </intent-filter>
         </receiver>
 
@@ -198,7 +201,9 @@
         <service
             android:name="com.ichano.MediaManagerService">
         </service>
-
+        <service
+            android:name="com.ds05.launcher.service.UpdateVersionInfoService">
+        </service>
     </application>
 
 </manifest>

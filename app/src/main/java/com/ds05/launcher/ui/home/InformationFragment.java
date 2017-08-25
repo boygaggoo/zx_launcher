@@ -19,10 +19,14 @@ import android.widget.Toast;
 
 import com.ds05.launcher.CameraActivity_ZY;
 import com.ds05.launcher.R;
+import com.ds05.launcher.common.Constants;
 import com.ds05.launcher.common.config.MyAvsHelper;
 import com.ds05.launcher.common.manager.PrefDataManager;
 import com.ds05.launcher.weather.SinaWeather;
 import com.ds05.launcher.weather.Weather;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Chongyang.Hu on 2017/1/8 0008.
@@ -43,6 +47,7 @@ public class InformationFragment extends BaseFragment {
     private Bundle mWeatherData = null;
 
     private boolean mIsExceptionWeather = false;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,7 +70,10 @@ public class InformationFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                // Intent intent = new Intent(getActivity(), CameraActivity.class);
-
+                if(!Constants.cameraIsDestroy){
+                    Toast.makeText(getActivity(), "打开摄像头太频繁，2秒后再试", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 Intent intent = new Intent(getActivity(), CameraActivity_ZY.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);

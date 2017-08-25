@@ -398,7 +398,7 @@ public class AppUtil {
         }
         int length = (int)PrefDataManager.getAlarmSoundVolume()*10;
 
-        String msg = "[" + System.currentTimeMillis() + ",T3," + Constants.SOFT_VERSION + "," + Constants.ZHONGYUN_LINCESE + "," + PrefDataManager.getHumanMonitorState() + "," + PrefDataManager.getAutoAlarmTime()+","+alarmSensi+","+ alarmMode +","+ 0 +","+ alarmsound +","+length+","+PrefDataManager.getDoorbellLight()+","+PrefDataManager.getDoorbellSoundIndex()+","+PrefDataManager.getAlarmIntervalTime()+"]";
+        String msg = "[" + System.currentTimeMillis() + ",T3," + Constants.SOFT_VERSION + "," + Constants.ZHONGYUN_LINCESE + "," + PrefDataManager.getHumanMonitorState() + "," + PrefDataManager.getAutoAlarmTime()+","+alarmSensi+","+ alarmMode +","+ 1 +","+ alarmsound +","+length+","+PrefDataManager.getDoorbellLight()+","+PrefDataManager.getDoorbellSoundIndex()+","+PrefDataManager.getAlarmIntervalTime()+"]";
         Log.d("PPP"," msg = " + msg);
 
         IoBuffer buffer = IoBuffer.allocate(msg.length());

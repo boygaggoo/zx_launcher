@@ -183,6 +183,7 @@ public class CameraService extends IntentService {
 			String userid = intent.getStringExtra("QRCodeResult_UserId");
 			String ssid = intent.getStringExtra("QRCodeResult_WifiSSID");
 			String pwd = intent.getStringExtra("QRCodeResult_WifiPassword");
+			Constants.userId = userid;
 			String msg = "[" + System.currentTimeMillis() + ",T6," + Constants.SOFT_VERSION + "," + Constants.ZHONGYUN_LINCESE + "," + userid + "," + ssid + "," + pwd + "]";
 			IoBuffer buffer = IoBuffer.allocate(msg.length());
 			buffer.put(msg.getBytes());
@@ -212,8 +213,13 @@ public class CameraService extends IntentService {
 			IoBuffer buffer = IoBuffer.allocate(msg.length());
 			buffer.put(msg.getBytes());
 			SessionManager.getInstance().writeToServer(buffer);
-			PowerManager pm = (PowerManager)getApplicationContext().getSystemService(Context.POWER_SERVICE);
-			pm.reboot(null);
+			mHandler.postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					PowerManager pm = (PowerManager)getApplicationContext().getSystemService(Context.POWER_SERVICE);
+					pm.reboot(null);
+				}
+			}, 1000);
 		} else if (Constants.BROADCAST_ACTION_RECEIVE_CONFIG_FROM_SERVER.equals(action)) {
 			Log.i(TAG, "收到消息，配置信息");
 			String data = intent.getStringExtra(Constants.MSG_FROM_SERVER);

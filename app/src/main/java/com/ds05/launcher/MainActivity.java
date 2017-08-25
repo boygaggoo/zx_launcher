@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import com.ds05.launcher.common.Constants;
 import com.ds05.launcher.common.config.MyAvsHelper;
 import com.ds05.launcher.service.RespondReceiveConfigFromServer;
+import com.ds05.launcher.service.UpdateVersionInfoService;
 import com.ds05.launcher.ui.home.BaseFragment;
 import com.ds05.launcher.ui.home.DesktopFragment;
 import com.ds05.launcher.ui.settings.SettingsActivity;
@@ -45,6 +46,7 @@ public class MainActivity extends Activity {
 
 //        Intent serviceconfig = new Intent(MainActivity.this, RespondReceiveConfigFromServer.class);
 //        bindService(serviceconfig,conn,BIND_AUTO_CREATE);
+//        startService(new Intent(this, UpdateVersionInfoService.class));
 
         getContentResolver().registerContentObserver(Uri.parse(BaseFragment.FRAG_SWITCH_AUTHORITIES), true, mObserver);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -53,6 +55,7 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onDestroy() {
+//        stopService(new Intent(this, UpdateVersionInfoService.class));
         getContentResolver().unregisterContentObserver(mObserver);
         unbindService(conn);
         mMyAvsHelper.logout();

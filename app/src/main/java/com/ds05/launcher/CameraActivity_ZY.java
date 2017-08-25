@@ -88,6 +88,7 @@ public class CameraActivity_ZY extends Activity {
         if(mNeedCapture){
             handler.postDelayed(capture, CAPTURE_TIME);
         }
+        Constants.cameraIsDestroy = false;
 //        AppUtil.getWifiSSID(this);
 //        Log.d("ZXH","wifi level = " + AppUtil.getWifiLevel(this));
 //        ViewTreeObserver viewTreeObserver = mMediaSurfaceView.getViewTreeObserver();
@@ -228,10 +229,12 @@ public class CameraActivity_ZY extends Activity {
     @Override
     protected void onDestroy() {
         // TODO Auto-generated method stub
+
         super.onDestroy();
         handler.removeCallbacks(finish);
         handler.removeCallbacks(capture);
         mMediaSurfaceView.closeCamera();
+        Constants.cameraIsDestroy = true;
     }
 
 }

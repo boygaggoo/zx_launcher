@@ -20,6 +20,8 @@ import com.ds05.launcher.R;
 import com.ds05.launcher.common.LunarCalendar;
 
 import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class HomeDisplayFragment extends Fragment {
     private TextClock mTextColock;
@@ -27,6 +29,7 @@ public class HomeDisplayFragment extends Fragment {
     private LunarCalendar mLunar;
 
     private Activity mAct;
+
 
     @Override
     public void onResume() {
@@ -155,4 +158,5 @@ public class HomeDisplayFragment extends Fragment {
             }
         }.start();
     }
+
 }

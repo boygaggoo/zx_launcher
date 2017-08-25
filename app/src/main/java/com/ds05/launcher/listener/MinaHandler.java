@@ -25,7 +25,6 @@ public class MinaHandler extends IoHandlerAdapter {
 	@Override
 	public void messageReceived(IoSession session, Object message) throws Exception {
 		//Log.i(TAG,ConnectUtils.stringNowTime() + " : ￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥客户端收到消息："+message);
-		Log.d("ZXH","MinaHandler ########################message.toString() =  " + message.toString());
 		Intent myIntent = new Intent();
 		if(message.toString().equals("[S7]")){
 			myIntent.setAction(Constants.BROADCAST_ACTION_OPEN_CAMERA);
@@ -71,10 +70,9 @@ public class MinaHandler extends IoHandlerAdapter {
 
 	@Override
 	public void sessionIdle(IoSession session, IdleStatus status) throws Exception {
-		Log.d("ZXH","############sessionIdle");
 		Log.i(TAG,ConnectUtils.stringNowTime() + " : 客户端调用sessionIdle");
 		if(session!=null){
-			String heartbeat="[T0,"+Constants.MAC_ADDRESS+","+ConnectUtils.stringNowTime()+","+ AppUtil.BATTERY_LEVEL+","+ AppUtil.getWifiLevel(LauncherApplication.getContext())+","+ AppUtil.getWifiSSID(LauncherApplication.getContext()) + "]";
+			String heartbeat="[T0,"+Constants.ZHONGYUN_LINCESE+","+ System.currentTimeMillis() +","+ AppUtil.BATTERY_LEVEL+","+ AppUtil.getWifiLevel(LauncherApplication.getContext())+","+ AppUtil.getWifiSSID(LauncherApplication.getContext()) + "]";
 			session.write(new HeartBeatMsg(heartbeat));
 		}
 	}

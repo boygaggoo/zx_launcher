@@ -18,6 +18,8 @@ public class Constants {
 
     public static  boolean mRecording = false;
     public static  boolean mHandlingEvent;
+    public static String userId = "";
+    public static  boolean cameraIsDestroy = true;
 
 
     public static final String APP_HEARBEAT_ACTION = "com.zhongyun.android.intent.app_heartbeat";
@@ -86,4 +88,5 @@ public class Constants {
     public static final String  IMAGE_FILE_TYPE = "1";
     public static final String  VIDEO_FILE_TYPE = "2";
 
+    public static final String UPDATE_URL = "http://update.sxpai.cn:9090/checkLauncherUpdate/version";
 }
