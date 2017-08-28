@@ -101,7 +101,7 @@ public class InformationFragment extends BaseFragment {
                 + "isShowQRCode:" + PrefDataManager.isShowQRCode()
                 + " , isShowWeather:" + PrefDataManager.isShowWeather());
         if(!PrefDataManager.isShowQRCode()) {
-            mLogoView.setVisibility(View.VISIBLE);
+            mLogoView.setVisibility(View.GONE);
         } else {
             mLogoView.setVisibility(View.GONE);
         }
@@ -125,7 +125,7 @@ public class InformationFragment extends BaseFragment {
 
         if(!mViewCreateFlag && mLogoView != null) {
             if (PrefDataManager.isShowQRCode()) {
-                mLogoView.setVisibility(View.VISIBLE);
+                mLogoView.setVisibility(View.GONE);
             } else {
                 mLogoView.setVisibility(View.GONE);
             }

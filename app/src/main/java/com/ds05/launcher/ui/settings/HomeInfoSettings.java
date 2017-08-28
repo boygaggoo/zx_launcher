@@ -27,6 +27,9 @@ public class HomeInfoSettings extends ModuleBaseFragment implements Preference.O
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.home_info_settings_frag);
 
+        SwitchPreference showQrcode = (SwitchPreference) findPreference(KEY_SHOW_QRCODE);
+        getPreferenceScreen().removePreference(showQrcode);
+
         findPreference(KEY_SHOW_WEATHER).setOnPreferenceChangeListener(this);
     }
 
