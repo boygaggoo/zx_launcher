@@ -7,12 +7,18 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
 import com.ds05.launcher.common.manager.PrefDataManager;
 import com.ds05.launcher.common.utils.AppUtil;
+import com.ds05.launcher.common.utils.FileUtils;
 import com.ds05.launcher.service.rs.RemoteServerSink;
+
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Chongyang.Hu on 2017/1/7 0007.
@@ -22,6 +28,9 @@ public class LauncherService extends Service {
 
     private InternalHandler mInternalHandler = new InternalHandler();
     private RemoteServerSink mRemoteServerSink;
+    Timer checkTimer;
+    TimerTask checkTask;
+    private Handler mHandler;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -41,6 +50,23 @@ public class LauncherService extends Service {
         mRemoteServerSink.createSink();
 
         mInternalHandler.sendEmptyMessageDelayed(EVT_CONFIG_DRIVER_PARAMS, 1 * 1000);
+
+        mHandler = new Handler(Looper.getMainLooper());
+        checkTimer  = new Timer();
+        checkTask = new TimerTask() {
+            @Override
+            public void run() {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(checkTime(0,5)){
+                            FileUtils.checkStorageSpace(getApplicationContext());
+                        }
+                    }
+                });
+            }
+        };
+        checkTimer.scheduleAtFixedRate(checkTask,0, 29*60*60*1000);
     }
 
     @Override
@@ -185,4 +211,19 @@ public class LauncherService extends Service {
             }
         }//onReceive
     };//BroadcastReceiver
+
+    private boolean checkTime(int begin, int end){
+        Calendar cal = Calendar.getInstance();// 当前日期
+        int hour = cal.get(Calendar.HOUR_OF_DAY);// 获取小时
+        int minute = cal.get(Calendar.MINUTE);// 获取分钟
+        int minuteOfDay = hour * 60 + minute;// 从0:00分开是到目前为止的分钟数
+
+        int beginTime = begin * 60;
+        int endTime   = end * 60;
+
+        if(minuteOfDay >= beginTime && minuteOfDay <= endTime){
+            return true;
+        }
+        return false;
+    }
 }

@@ -22,6 +22,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
@@ -236,10 +237,18 @@ public class CommUtil {
 	//安装更新文件
 	static String apkName;
 	public static String local_apk_url = "DS05/downLoad";
-
+	private static boolean flag = false;
 
 	public static String installApkBySilent(){
-		String apkAbsolutePath = Environment.getExternalStorageDirectory().getAbsolutePath().concat("/").concat(local_apk_url).concat("/").concat(apkName);
+		Log.d("ZXH","##############installApkBySilent ");
+
+		if(flag){
+			Log.d("ZXH","##############return null ");
+			return null;
+		}
+		flag = true;
+//		String apkAbsolutePath = Environment.getExternalStorageDirectory().getAbsolutePath().concat("/").concat(local_apk_url).concat("/").concat(apkName);
+		String apkAbsolutePath = Environment.getExternalStorageDirectory().getAbsolutePath().concat("/").concat(local_apk_url).concat("/").concat("DS05 Launcher1.apk");
 		String[] args = { "pm", "install", "-r", apkAbsolutePath };
 		String result = "";
 		ProcessBuilder processBuilder = new ProcessBuilder(args);
@@ -280,6 +289,8 @@ public class CommUtil {
 				process.destroy();
 			}
 		}
+		flag = false;
+		Log.d("ZXH","##############return result = " + result);
 		return result;
 	}
 

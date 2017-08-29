@@ -1,18 +1,29 @@
 package com.ds05.launcher.ui.home;
 
+import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import com.ds05.launcher.R;
+import com.ds05.launcher.common.Constants;
+import com.ds05.launcher.common.utils.FileUtils;
 import com.ds05.launcher.ui.help.HelpActivity;
-import com.ds05.launcher.ui.media.MediaActivity;
 import com.ds05.launcher.ui.monitor.MonitorActivity;
 import com.ds05.launcher.ui.settings.SettingsActivity;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DesktopFragment extends BaseFragment
         implements OnClickListener {
@@ -118,6 +129,8 @@ public class DesktopFragment extends BaseFragment
                 break;
             case R.id.id_help:
                 startActivity(new Intent(getContext(), HelpActivity.class));
+//                Log.d("ZXH","##############help installApkBySilent ");
+//                CommUtil.installApkBySilent();
                 break;
             case R.id.id_monitor:
                 startActivity(new Intent(getContext(), MonitorActivity.class));

@@ -9,7 +9,7 @@
     <color name="title_bar_back_color">#DDFFFFFF</color>
 
     <!-- HOME weather UI color -->
-    <color name="weather_text_color">#555555</color>
+    <color name="weather_text_color">#ff000000</color>
 
     <!-- QR Code Resource -->
     <color name="contents_text">#ff000000</color>

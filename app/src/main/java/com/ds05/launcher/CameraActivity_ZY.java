@@ -22,6 +22,7 @@ import com.ds05.launcher.common.ConnectUtils;
 import com.ds05.launcher.common.Constants;
 import com.ds05.launcher.common.UploadFileTask;
 import com.ds05.launcher.common.utils.AppUtil;
+import com.ds05.launcher.common.utils.FileUtils;
 import com.ichano.MediaManagerService;
 import com.ichano.MediaSurfaceView;
 import com.ichano.rvs.streamer.constant.JpegType;
@@ -78,7 +79,7 @@ public class CameraActivity_ZY extends Activity {
         });
         mMediaSurfaceView = (MediaSurfaceView) findViewById(R.id.cameraView);
         mMediaSurfaceView.openCamera(Configuration.ORIENTATION_LANDSCAPE);
-        mMediaSurfaceView.enableTimeWatermark(true);
+//        mMediaSurfaceView.enableTimeWatermark(true);
         if(Build.MODEL != null && Build.MODEL.contains("KH")){
             mMediaSurfaceView.flip();
         }

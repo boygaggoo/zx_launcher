@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">DS05 Launcher1</string>
-	<string name="string_system_settings">系统设置1</string>
+    <string name="app_name">DS05 Launcher</string>
+	<string name="string_system_settings">系统设置</string>
 	<string name="string_help_info">帮助信息</string>
 	<string name="string_monitor">智能监控</string>
 	<string name="string_photo">影像信息</string>
