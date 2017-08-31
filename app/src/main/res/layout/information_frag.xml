@@ -57,7 +57,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:text="@string/string_home_day_weather"
-                    android:textColor="@color/weather_text_color"/>
+                    android:textColor="@color/weather_text_color"
+                    android:textSize="@dimen/dimen_weather_time_text_size"/>
                 <ImageView
                     android:id="@+id/id_day_weather_img"
                     android:layout_width="wrap_content"
@@ -86,7 +87,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:text="@string/string_home_night_weather"
-                    android:textColor="@color/weather_text_color"/>
+                    android:textColor="@color/weather_text_color"
+                    android:textSize="@dimen/dimen_weather_time_text_size"/>
                 <ImageView
                     android:id="@+id/id_night_weather_img"
                     android:layout_width="wrap_content"
@@ -116,5 +118,6 @@
         android:padding="10dp"
         android:src="@drawable/qrcode"
         android:background="@drawable/home_info_bg"
-        android:orientation="vertical" />
+        android:orientation="vertical"
+        android:visibility="gone"/>
 </LinearLayout>

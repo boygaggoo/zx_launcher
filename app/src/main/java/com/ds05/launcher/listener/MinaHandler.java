@@ -72,7 +72,7 @@ public class MinaHandler extends IoHandlerAdapter {
 	public void sessionIdle(IoSession session, IdleStatus status) throws Exception {
 		Log.i(TAG,ConnectUtils.stringNowTime() + " : 客户端调用sessionIdle");
 		if(session!=null){
-			String heartbeat="[T0,"+Constants.ZHONGYUN_LINCESE+","+ System.currentTimeMillis() +","+ AppUtil.BATTERY_LEVEL+","+ AppUtil.getWifiLevel(LauncherApplication.getContext())+","+ AppUtil.getWifiSSID(LauncherApplication.getContext()) + "]";
+			String heartbeat="[" + System.currentTimeMillis() +  ",T0,"+ Constants.SOFT_VERSION +","+ AppUtil.getZYLicense() +","+ AppUtil.BATTERY_LEVEL+","+ AppUtil.getWifiLevel(LauncherApplication.getContext())+","+ AppUtil.getWifiSSID(LauncherApplication.getContext()) + "]";
 			session.write(new HeartBeatMsg(heartbeat));
 		}
 	}

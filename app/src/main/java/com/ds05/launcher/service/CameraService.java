@@ -184,7 +184,7 @@ public class CameraService extends IntentService {
 			String ssid = intent.getStringExtra("QRCodeResult_WifiSSID");
 			String pwd = intent.getStringExtra("QRCodeResult_WifiPassword");
 			Constants.userId = userid;
-			String msg = "[" + System.currentTimeMillis() + ",T6," + Constants.SOFT_VERSION + "," + Constants.ZHONGYUN_LINCESE + "," + userid + "," + ssid + "," + pwd + "]";
+			String msg = "[" + System.currentTimeMillis() + ",T6," + Constants.SOFT_VERSION + "," + AppUtil.getZYLicense() + "," + userid + "," + ssid + "," + pwd + "]";
 			IoBuffer buffer = IoBuffer.allocate(msg.length());
 			buffer.put(msg.getBytes());
 			SessionManager.getInstance().writeToServer(buffer);

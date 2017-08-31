@@ -19,6 +19,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.ds05.launcher.common.Constants;
+import com.ds05.launcher.common.utils.AppUtil;
 import com.ichano.rvs.streamer.constant.AuthState;
 import com.ichano.rvs.streamer.constant.RemoteViewerState;
 import com.ichano.rvs.streamer.constant.RvsError;
@@ -71,7 +72,7 @@ public class MyAvsHelper extends AvsInitHelper {
 	@Override
 	public String getLicense() {
 
-		return  Constants.ZHONGYUN_LINCESE;
+		return  AppUtil.getZYLicense();
 	}
 
 	// 最多允许多少观看同时连接

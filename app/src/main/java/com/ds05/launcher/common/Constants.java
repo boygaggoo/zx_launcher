@@ -1,9 +1,6 @@
 package com.ds05.launcher.common;
 
 public class Constants {
-	
-	public static String ZHONGYUN_LINCESE="ds000002";
-
     public static boolean humanMonitorState=true;
     public static long autoAlarmTime=5000;
     public static int monitorSensitivity=1;
@@ -13,8 +10,6 @@ public class Constants {
     public static int alarmSoundVolume=2;
 
     public static String SOFT_VERSION="v1.0.1";
-
-    public static  String MAC_ADDRESS="ds000002";
 
     public static  boolean mRecording = false;
     public static  boolean mHandlingEvent;

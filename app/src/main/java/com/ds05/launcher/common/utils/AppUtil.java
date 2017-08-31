@@ -51,6 +51,7 @@ import com.ds05.launcher.service.HWSink;
 import com.ds05.launcher.ui.monitor.MonitorFragment;
 
 import org.apache.mina.core.buffer.IoBuffer;
+import org.jsoup.helper.StringUtil;
 
 /**
  * AppUtils是一个android工具类，主要包含一些常用的有关android调用的功能，比如拨打电话，判断网络，获取屏幕宽高等等
@@ -339,15 +340,15 @@ public class AppUtil {
     // 使用系统当前日期加以调整作为照片的名称
     public static String getPhotoFileName() {
         Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat dateFormat = new SimpleDateFormat( "'IMG'_yyyyMMdd_HHmmss");
-        return dateFormat.format(date)  + "_" + Constants.ZHONGYUN_LINCESE + ".png";
+        SimpleDateFormat dateFormat = new SimpleDateFormat( "yyyyMMdd_HHmmss");
+        return dateFormat.format(date)  + "_" + AppUtil.getZYLicense() + ".png";
     }
 
     // 使用系统当前日期加以调整作为录像的名称
     public static String getVideoFileName() {
         Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat dateFormat = new SimpleDateFormat( "'AV'_yyyyMMdd_HHmmss");
-        return dateFormat.format(date)  + "_" + Constants.ZHONGYUN_LINCESE + ".mp4";
+        SimpleDateFormat dateFormat = new SimpleDateFormat( "yyyyMMdd_HHmmss");
+        return dateFormat.format(date)  + "_" + AppUtil.getZYLicense() + ".mp4";
     }
 
     public static void uploadHumanMonitorMsgToServerAndSound(Context context, String fileName, String type) {
@@ -355,7 +356,7 @@ public class AppUtil {
         broadcast.putExtra(HWSink.EXTRA_STATUS, HWSink.STATUS_HUMAN_IN);
         context.sendBroadcast(broadcast,null);
 
-        String msg = "[" + System.currentTimeMillis() + ",T5," + Constants.SOFT_VERSION + "," + Constants.ZHONGYUN_LINCESE + "," + fileName + "," + type + "]";
+        String msg = "[" + System.currentTimeMillis() + ",T5," + Constants.SOFT_VERSION + "," + AppUtil.getZYLicense() + "," + fileName + "," + type + "]";
         IoBuffer buffer = IoBuffer.allocate(msg.length());
         buffer.put(msg.getBytes());
         SessionManager.getInstance().writeToServer(buffer);
@@ -363,7 +364,7 @@ public class AppUtil {
 
     public static void uploadDoorbellMsgToServer(Context context, String fileName) {
         AppUtil.wakeUpAndUnlock(context);
-        String msg = "[" + System.currentTimeMillis() + ",T4," + Constants.SOFT_VERSION + "," + Constants.ZHONGYUN_LINCESE + "," + fileName + "," + Constants.IMAGE_FILE_TYPE + "]";
+        String msg = "[" + System.currentTimeMillis() + ",T4," + Constants.SOFT_VERSION + "," + AppUtil.getZYLicense() + "," + fileName + "," + Constants.IMAGE_FILE_TYPE + "]";
         IoBuffer buffer = IoBuffer.allocate(msg.length());
         buffer.put(msg.getBytes());
         SessionManager.getInstance().writeToServer(buffer);
@@ -398,7 +399,7 @@ public class AppUtil {
         }
         int length = (int)PrefDataManager.getAlarmSoundVolume()*10;
 
-        String msg = "[" + System.currentTimeMillis() + ",T3," + Constants.SOFT_VERSION + "," + Constants.ZHONGYUN_LINCESE + "," + PrefDataManager.getHumanMonitorState() + "," + PrefDataManager.getAutoAlarmTime()+","+alarmSensi+","+ alarmMode +","+ 1 +","+ alarmsound +","+length+","+PrefDataManager.getDoorbellLight()+","+PrefDataManager.getDoorbellSoundIndex()+","+PrefDataManager.getAlarmIntervalTime()+"]";
+        String msg = "[" + System.currentTimeMillis() + ",T3," + Constants.SOFT_VERSION + "," + AppUtil.getZYLicense() + "," + PrefDataManager.getHumanMonitorState() + "," + PrefDataManager.getAutoAlarmTime()+","+alarmSensi+","+ alarmMode +","+ 1 +","+ alarmsound +","+length+","+PrefDataManager.getDoorbellLight()+","+PrefDataManager.getDoorbellSoundIndex()+","+PrefDataManager.getAlarmIntervalTime()+"]";
         Log.d("PPP"," msg = " + msg);
 
         IoBuffer buffer = IoBuffer.allocate(msg.length());
@@ -423,5 +424,18 @@ public class AppUtil {
         buffer.put(msg.getBytes());
         SessionManager.getInstance().writeToServer(buffer);
         return true;
+    }
+
+    private static String zy_license = null;
+    public static String getZYLicense(){
+        if(zy_license != null){
+            return zy_license;
+        }
+        String mac = MacUtils.getMac();
+        if(!StringUtil.isBlank(mac)){
+            zy_license = mac.replaceAll(":","");
+            return zy_license;
+        }
+        return "";
     }
 }

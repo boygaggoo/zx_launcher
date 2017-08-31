@@ -32,7 +32,6 @@ public class LauncherApplication extends Application  {
     @Override
     public void onCreate() {
         super.onCreate();
-
         Log.i(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> LauncherApplication onCreate<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 
         mContext = getApplicationContext();
@@ -43,10 +42,11 @@ public class LauncherApplication extends Application  {
             wifiManager.setWifiEnabled(true);
         }
 
-        Constants.MAC_ADDRESS= MacUtils.getMac();
-        if(!StringUtil.isBlank(Constants.MAC_ADDRESS)){
-            Constants.ZHONGYUN_LINCESE=Constants.MAC_ADDRESS.replaceAll(":","");
-        }
+//        Constants.MAC_ADDRESS= MacUtils.getMac();
+//        if(!StringUtil.isBlank(Constants.MAC_ADDRESS)){
+//            Constants.ZHONGYUN_LINCESE=Constants.MAC_ADDRESS.replaceAll(":","");
+//            Log.d("ZXH","############### Constants.ZHONGYUN_LINCESE = " + Constants.ZHONGYUN_LINCESE);
+//        }
 
         EngineManager.getInstance().setContext(getApplicationContext()).setDB(null);
         startService(new Intent(LauncherApplication.getContext(), LauncherService.class));

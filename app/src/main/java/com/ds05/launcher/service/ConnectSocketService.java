@@ -114,7 +114,7 @@ public class ConnectSocketService extends Service {
                     }
                     int length = (int)PrefDataManager.getAlarmSoundVolume()*10;
 
-                    String msg = "[" + System.currentTimeMillis() + ",T1," + Constants.SOFT_VERSION + "," + Constants.ZHONGYUN_LINCESE + "," + PrefDataManager.getHumanMonitorState() + "," +
+                    String msg = "[" + System.currentTimeMillis() + ",T1," + Constants.SOFT_VERSION + "," + AppUtil.getZYLicense() + "," + PrefDataManager.getHumanMonitorState() + "," +
                             PrefDataManager.getAutoAlarmTime() + "," + alarmSensi+","+ alarmMode +","+ 1 +","+ alarmsound +","+length+","+PrefDataManager.getDoorbellLight()+","+
                             PrefDataManager.getDoorbellSoundIndex()+","+PrefDataManager.getAlarmIntervalTime()+","+ AppUtil.BATTERY_LEVEL + "," + AppUtil.getWifiSSID(LauncherApplication.getContext()) + "]";
                     IoBuffer buffer = IoBuffer.allocate(msg.length());

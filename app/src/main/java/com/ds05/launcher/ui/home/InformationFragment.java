@@ -130,6 +130,7 @@ public class InformationFragment extends BaseFragment {
                 mLogoView.setVisibility(View.GONE);
             }
         }
+
         if(!mViewCreateFlag && mWeatherView != null) {
             if (PrefDataManager.isShowWeather()) {
                 mWeatherView.setVisibility(mIsExceptionWeather ? View.GONE : View.VISIBLE);
@@ -147,7 +148,7 @@ public class InformationFragment extends BaseFragment {
     }
 
     private void updateWeatherInfo(Bundle data) {
-        Log.d("DS05", "InformationFragment updateWeatherInfo:" + data.toString());
+        Log.d("ZXH", "InformationFragment updateWeatherInfo:" + data.toString());
         String city = data.getString(Weather.BUNDLE_CITY);
         String dayWeather = data.getString(Weather.BUNDLE_DAY_WEATHER);
         String nightWeather = data.getString(Weather.BUNDLE_NIGHT_WEATHER);
@@ -169,8 +170,8 @@ public class InformationFragment extends BaseFragment {
         if(PrefDataManager.isShowQRCode()) {
             dayBmp = BitmapFactory.decodeFile(SinaWeather.IMAGE_PATH + dayImg);
             nightBmp = BitmapFactory.decodeFile(SinaWeather.IMAGE_PATH + nightImg);
-            dayInfo = dayWeather + "\n" + dayTempr + "℃" + "\n" + dayWindDirection + "\n" + dayWindPower + "级";
-            nightInfo = nightWeather + "\n" + nightTempr + "℃" + "\n" + nightWindDirection + "\n" + nightWindPower + "级";
+            dayInfo = dayWeather + "\n" + dayTempr + "℃";// + "\n" + dayWindDirection + "\n" + dayWindPower + "级";
+            nightInfo = nightWeather + "\n" + nightTempr + "℃";// + "\n" + nightWindDirection + "\n" + nightWindPower + "级";
             mWeaterCity.setVisibility(View.VISIBLE);
             mDayHeader.setText(R.string.string_home_day_weather);
             mNightHeader.setText(R.string.string_home_night_weather);
@@ -215,8 +216,8 @@ public class InformationFragment extends BaseFragment {
     private Handler mInternalHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            Log.d("DS05", "InformationFragment handleMessage:" + msg.what);
-            switch (msg.what) {
+            Log.d("ZXH", "InformationFragment handleMessage:" + msg.what);
+                switch (msg.what) {
                 case EVT_WEATHER_UPDATE: {
                     if(msg.obj != null) {
                         mWeatherData = (Bundle) msg.obj;
@@ -238,8 +239,8 @@ public class InformationFragment extends BaseFragment {
     private void registerReceiver() {
         IntentFilter fillter = new IntentFilter();
         if(PrefDataManager.isShowWeather()) {
-            fillter.addAction(Weather.ACTION_WEATHER_UPDATE);
         }
+        fillter.addAction(Weather.ACTION_WEATHER_UPDATE);
         getContext().registerReceiver(mReceiver, fillter);
     }
     private void unregisterReceiver() {

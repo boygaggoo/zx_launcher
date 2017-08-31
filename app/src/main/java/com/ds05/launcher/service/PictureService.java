@@ -17,6 +17,7 @@ import com.ds05.launcher.common.ConnectUtils;
 import com.ds05.launcher.common.Constants;
 import com.ds05.launcher.common.UploadFileTask;
 import com.ds05.launcher.common.utils.AppUtil;
+import com.ds05.launcher.common.utils.FileUtils;
 import com.ds05.launcher.common.utils.Utils;
 
 import java.io.File;
