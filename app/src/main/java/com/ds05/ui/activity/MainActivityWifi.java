@@ -280,11 +280,14 @@ public class MainActivityWifi extends Activity implements  View.OnClickListener{
 
             switch (msg.what) {
                 case REFRESH_CONN:
-                    activity.getWifiListInfo();
-                    activity.mAdapter.setDatas(activity.list);
-                    activity.mAdapter.notifyDataSetChanged();
-                    break;
+                    if(activity == null){
 
+                    }else {
+                        activity.getWifiListInfo();
+                        activity.mAdapter.setDatas(activity.list);
+                        activity.mAdapter.notifyDataSetChanged();
+                        break;
+                    }
                 default:
                     break;
             }
