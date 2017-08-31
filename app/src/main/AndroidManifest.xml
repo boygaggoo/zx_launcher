@@ -137,6 +137,11 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+        <activity android:name="com.ds05.ui.activity.MainActivityWifi">
+
+        </activity>
+
+
 
         <service android:name=".service.LauncherService"/>
         <service android:name=".service.WeatherService"/>

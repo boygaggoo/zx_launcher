@@ -13,13 +13,11 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
-import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -29,8 +27,8 @@ import com.ds05.launcher.ModuleBaseFragment;
 import com.ds05.launcher.R;
 import com.ds05.launcher.common.ConnectUtils;
 import com.ds05.launcher.common.utils.ToastUtil;
-import com.ds05.launcher.common.utils.WifiUtils;
 import com.ds05.launcher.qrcode.QRCodeScanActivity;
+import com.ds05.ui.activity.MainActivityWifi;
 
 import java.util.Locale;
 
@@ -171,7 +169,9 @@ public class SettingsFragment extends ModuleBaseFragment
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else if (key.equals(KEY_WIFI)) {
-            Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+//            Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+            Intent intent = new Intent();
+            intent.setClass(getActivity(), MainActivityWifi.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else if (key.equals(KEY_BT)) {

@@ -17,8 +17,6 @@ import android.view.WindowManager;
 
 import com.ds05.launcher.common.Constants;
 import com.ds05.launcher.common.config.MyAvsHelper;
-import com.ds05.launcher.service.RespondReceiveConfigFromServer;
-import com.ds05.launcher.service.UpdateVersionInfoService;
 import com.ds05.launcher.ui.home.BaseFragment;
 import com.ds05.launcher.ui.home.DesktopFragment;
 import com.ds05.launcher.ui.settings.SettingsActivity;
@@ -26,7 +24,7 @@ import com.ichano.MediaManagerService;
 
 public class MainActivity extends Activity {
 
-    private final static String TAG = "MainActivity";
+    private final static String TAG = "MainActivityWifi";
     private MyAvsHelper mMyAvsHelper;
     private boolean isBound = false;
 
@@ -44,7 +42,7 @@ public class MainActivity extends Activity {
         Intent service = new Intent(MainActivity.this, MediaManagerService.class);
         bindService(service, conn, BIND_AUTO_CREATE);
 
-//        Intent serviceconfig = new Intent(MainActivity.this, RespondReceiveConfigFromServer.class);
+//        Intent serviceconfig = new Intent(MainActivityWifi.this, RespondReceiveConfigFromServer.class);
 //        bindService(serviceconfig,conn,BIND_AUTO_CREATE);
 //        startService(new Intent(this, UpdateVersionInfoService.class));
 
@@ -64,7 +62,7 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        Log.d("MainActivity", "按返回键也没什么用的，不要按了。");
+        Log.d("MainActivityWifi", "按返回键也没什么用的，不要按了。");
 
     }
 
