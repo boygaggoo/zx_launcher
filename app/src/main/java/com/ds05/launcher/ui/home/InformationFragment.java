@@ -167,7 +167,7 @@ public class InformationFragment extends BaseFragment {
         mWeaterCity.setText(city);
         Bitmap dayBmp, nightBmp;
         String dayInfo = "", nightInfo = "";
-        if(PrefDataManager.isShowQRCode()) {
+//        if(PrefDataManager.isShowQRCode()) {
             dayBmp = BitmapFactory.decodeFile(SinaWeather.IMAGE_PATH + dayImg);
             nightBmp = BitmapFactory.decodeFile(SinaWeather.IMAGE_PATH + nightImg);
             dayInfo = dayWeather + "\n" + dayTempr + "℃";// + "\n" + dayWindDirection + "\n" + dayWindPower + "级";
@@ -175,15 +175,15 @@ public class InformationFragment extends BaseFragment {
             mWeaterCity.setVisibility(View.VISIBLE);
             mDayHeader.setText(R.string.string_home_day_weather);
             mNightHeader.setText(R.string.string_home_night_weather);
-        } else {
-            dayBmp = BitmapFactory.decodeFile(SinaWeather.IMAGE_PATH_180_180 + dayImg);
-            nightBmp = BitmapFactory.decodeFile(SinaWeather.IMAGE_PATH_180_180 + nightImg);
-            dayInfo = dayWeather + " " + dayTempr + "℃" + "\n" + dayWindDirection + " " + dayWindPower + "级";
-            nightInfo = nightWeather + " " + nightTempr + "℃" + "\n" + nightWindDirection + " " + nightWindPower + "级";
-            mWeaterCity.setVisibility(View.GONE);
-            mDayHeader.setText(city + " - " + getString(R.string.string_home_day_weather));
-            mNightHeader.setText(city + " - " + getString(R.string.string_home_night_weather));
-        }
+//        } else {
+//            dayBmp = BitmapFactory.decodeFile(SinaWeather.IMAGE_PATH_180_180 + dayImg);
+//            nightBmp = BitmapFactory.decodeFile(SinaWeather.IMAGE_PATH_180_180 + nightImg);
+//            dayInfo = dayWeather + " " + dayTempr + "℃" + "\n" + dayWindDirection + " " + dayWindPower + "级";
+//            nightInfo = nightWeather + " " + nightTempr + "℃" + "\n" + nightWindDirection + " " + nightWindPower + "级";
+//            mWeaterCity.setVisibility(View.GONE);
+//            mDayHeader.setText(city + " - " + getString(R.string.string_home_day_weather));
+//            mNightHeader.setText(city + " - " + getString(R.string.string_home_night_weather));
+//        }
 
         mDayWeatherImg.setImageBitmap(dayBmp);
         mNightWeatherImg.setImageBitmap(nightBmp);
