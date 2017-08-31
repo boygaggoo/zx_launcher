@@ -75,6 +75,7 @@ public class SettingsFragment extends ModuleBaseFragment
         mWifiManager = (WifiManager) LauncherApplication.getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
+        findPreference(KEY_ENERGY_SAVING_MODE).setEnabled(false);
         SwitchPreference energySaveingMode = (SwitchPreference) findPreference(KEY_ENERGY_SAVING_MODE);
         SwitchPreference wifiPref = (SwitchPreference) findPreference(KEY_WIFI);
         getPreferenceScreen().removePreference(wifiPref);
