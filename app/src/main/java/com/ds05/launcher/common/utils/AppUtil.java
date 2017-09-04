@@ -43,6 +43,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.WindowManager;
 
+import com.ds05.launcher.LauncherApplication;
 import com.ds05.launcher.common.ConnectUtils;
 import com.ds05.launcher.common.Constants;
 import com.ds05.launcher.common.manager.PrefDataManager;
@@ -52,6 +53,8 @@ import com.ds05.launcher.ui.monitor.MonitorFragment;
 
 import org.apache.mina.core.buffer.IoBuffer;
 import org.jsoup.helper.StringUtil;
+
+import static org.weixvn.wae.webpage.net.proxy.UpdataUntil.TAG;
 
 /**
  * AppUtils是一个android工具类，主要包含一些常用的有关android调用的功能，比如拨打电话，判断网络，获取屏幕宽高等等
@@ -426,14 +429,25 @@ public class AppUtil {
         return true;
     }
 
+    private static String getMacAddress(){
+        String result = "";
+        String str = "";
+        WifiManager wifiManager = (WifiManager) LauncherApplication.getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        str = wifiInfo.getMacAddress();
+        result = str.replaceAll(":","");
+        Log.i(TAG, "macAdd:" + result);
+        return result;
+    }
+
     private static String zy_license = null;
     public static String getZYLicense(){
         if(zy_license != null){
             return zy_license;
         }
-        String mac = MacUtils.getMac();
+        String mac = getMacAddress();
         if(!StringUtil.isBlank(mac)){
-            zy_license = mac.replaceAll(":","");
+            zy_license = mac;
             return zy_license;
         }
         return "";

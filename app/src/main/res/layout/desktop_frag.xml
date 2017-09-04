@@ -30,9 +30,8 @@
             android:layout_weight="1"/>
     </LinearLayout>
 
-    <fragment
+    <FrameLayout
         android:id="@+id/fragment"
-        class="com.ds05.launcher.ui.home.HomeDisplayFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3"/>

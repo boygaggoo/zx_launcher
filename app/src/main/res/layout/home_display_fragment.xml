@@ -34,9 +34,8 @@
         android:textColor="@color/color_date_color"
         android:text="2016-12-29 星期四 十二月初一"/>
 
-    <fragment
+    <FrameLayout
         android:id="@+id/id_info_frag"
-        android:name="com.ds05.launcher.ui.home.InformationFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/id_date_view"/>

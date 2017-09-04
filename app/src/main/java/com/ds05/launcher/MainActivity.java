@@ -1,6 +1,8 @@
 package com.ds05.launcher;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -47,8 +49,16 @@ public class MainActivity extends Activity {
 //        startService(new Intent(this, UpdateVersionInfoService.class));
 
         getContentResolver().registerContentObserver(Uri.parse(BaseFragment.FRAG_SWITCH_AUTHORITIES), true, mObserver);
+
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.add(R.id.container, new DesktopFragment()).commit();
+
+
+        Fragment fragment = getFragmentManager().findFragmentById(R.id.container);
+        if(fragment != null){
+
+        }else{
+            ft.add(R.id.container, new DesktopFragment()).commit();
+        }
     }
 
     @Override

@@ -20,8 +20,6 @@ import com.ds05.launcher.R;
 import com.ds05.launcher.common.LunarCalendar;
 
 import java.util.Calendar;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class HomeDisplayFragment extends Fragment {
     private TextClock mTextColock;
@@ -48,12 +46,15 @@ public class HomeDisplayFragment extends Fragment {
     @Override
     public void onDestroyView() {
         Log.d("DS05", "HomeDisplayFragment  onDestroyView");
-        FragmentManager fragmentManager = getFragmentManager();
-        InformationFragment informationFragment = (InformationFragment)fragmentManager.findFragmentById(R.id.id_info_frag);
-        if(informationFragment != null && fragmentManager != null && !fragmentManager.isDestroyed()) {
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.remove(informationFragment).commit();
+        if(!isUnregister){
+            unregisterReceiver();
         }
+//        FragmentManager fragmentManager = getFragmentManager();
+//        InformationFragment informationFragment = (InformationFragment)fragmentManager.findFragmentById(R.id.id_info_frag);
+//        if(informationFragment != null && fragmentManager != null && !fragmentManager.isDestroyed()) {
+//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//            fragmentTransaction.remove(informationFragment).commit();
+//        }
         super.onDestroyView();
     }
 
@@ -64,6 +65,22 @@ public class HomeDisplayFragment extends Fragment {
         mLunar = new LunarCalendar();
         mTextColock = (TextClock) view.findViewById(R.id.id_time_view);
         mDateView = (TextView) view.findViewById(R.id.id_date_view);
+
+//        FragmentManager manager = getFragmentManager();
+//        FragmentTransaction transaction = manager.beginTransaction();
+//        InformationFragment fragment = new InformationFragment();
+//        transaction.add(R.id.id_info_frag, fragment);
+//        transaction.commit();
+
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        Fragment fragment = manager.findFragmentById(R.id.id_info_frag);
+        if(fragment != null){
+
+        }else{
+            transaction.add(R.id.id_info_frag, new InformationFragment());
+            transaction.commit();
+        }
 /*
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,11 +100,12 @@ public class HomeDisplayFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-
         unregisterReceiver();
     }
 
+    private boolean isUnregister = true;
     private void registerReceiver() {
+        isUnregister = false;
         IntentFilter fillter = new IntentFilter();
         fillter.addAction(Intent.ACTION_TIME_TICK);
 
@@ -95,6 +113,7 @@ public class HomeDisplayFragment extends Fragment {
     }
 
     private void unregisterReceiver() {
+        isUnregister = true;
         mAct.unregisterReceiver(mReceiver);
     }
 
