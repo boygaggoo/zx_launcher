@@ -1,12 +1,10 @@
 package com.ds05.launcher.net;
 
+import com.ds05.launcher.LauncherApplication;
+import com.ds05.launcher.common.utils.ToastUtil;
+
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
-
-import android.util.Log;
-import android.widget.Toast;
-
-import com.ds05.launcher.LauncherApplication;
 
 public class SessionManager {
 	private static SessionManager mInstance=null;
@@ -34,7 +32,8 @@ public class SessionManager {
             buffer.flip();
             mSession.write(buffer);
         }else{
-            Toast.makeText( LauncherApplication.getContext(), "向服务器发送失败", Toast.LENGTH_SHORT).show();
+            //Toast.makeText( LauncherApplication.getContext(), "向服务器发送失败", Toast.LENGTH_SHORT).show();
+            ToastUtil.showToast(LauncherApplication.getContext(), "向服务器发送失败");
         }
     }
 

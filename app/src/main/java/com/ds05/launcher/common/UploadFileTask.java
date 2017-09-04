@@ -4,14 +4,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.ds05.launcher.common.utils.ImageUtil;
+import com.ds05.launcher.common.utils.ToastUtil;
 import com.ds05.launcher.common.utils.UploadUtils;
 
 import java.io.File;
-
-import static com.ds05.launcher.common.utils.ImageUtil.getFileNameNoEx;
 
 public class UploadFileTask extends AsyncTask<String, Void, String>{
 
@@ -31,9 +29,11 @@ public class UploadFileTask extends AsyncTask<String, Void, String>{
 		// 返回HTML页面的内容
 		Log.d("ZXH","##############result  = " + result);
 		if(UploadUtils.SUCCESS.equalsIgnoreCase(result)){
-			Toast.makeText(context, "上传成功!",Toast.LENGTH_LONG ).show();
+			//Toast.makeText(context, "上传成功!",Toast.LENGTH_LONG ).show();
+			ToastUtil.showToast(context, "上传成功!");
 		}else{
-			Toast.makeText(context, "上传失败!",Toast.LENGTH_LONG ).show();
+			//Toast.makeText(context, "上传失败!",Toast.LENGTH_LONG ).show();
+			ToastUtil.showToast(context, "上传失败!");
 		}
 	}
 

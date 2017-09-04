@@ -9,9 +9,9 @@ import android.os.Handler;
 import android.os.ResultReceiver;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.ds05.launcher.common.ConnectUtils;
+import com.ds05.launcher.common.utils.ToastUtil;
 import com.ds05.launcher.service.CameraService;
 import com.ds05.launcher.service.PictureService;
 import com.ds05.launcher.service.VideoService;
@@ -33,7 +33,8 @@ public class CameraReceiver extends WakefulBroadcastReceiver {
 
 		if((!ConnectUtils.NETWORK_IS_OK || !ConnectUtils.CONNECT_SERVER_STATUS) &&
 		!BROADCAST_NOTIFY_DOORBELL_PRESSED.equals(intent.getAction())){
-			Toast.makeText(context, "收到广播消息,但是网络不可用,不进行网络发送。"+ConnectUtils.NETWORK_IS_OK +" ,"+ConnectUtils.CONNECT_SERVER_STATUS, Toast.LENGTH_SHORT).show();
+			//Toast.makeText(context, "收到广播消息,但是网络不可用,不进行网络发送。"+ConnectUtils.NETWORK_IS_OK +" ,"+ConnectUtils.CONNECT_SERVER_STATUS, Toast.LENGTH_SHORT).show();
+			ToastUtil.showToast(context,"收到广播消息,但是网络不可用,不进行网络发送。");
 			if(ConnectUtils.NETWORK_IS_OK && !ConnectUtils.CONNECT_SERVER_STATUS && linkstart){
 				linkstart=false;
 			//	context.startService(new Intent(LauncherApplication.getContext(), ConnectSocketService.class));
@@ -41,8 +42,8 @@ public class CameraReceiver extends WakefulBroadcastReceiver {
 			}
 //			return;
 		}
-		Toast.makeText(context, "收到广播消息："+intent.getAction(), Toast.LENGTH_SHORT).show();
-
+		//Toast.makeText(context, "收到广播消息："+intent.getAction(), Toast.LENGTH_SHORT).show();
+		ToastUtil.showToast(context,"收到广播消息："+intent.getAction());
 		if("com.ds05.Broadcast.FromServer.Action.TEST_CAMERA".equals(intent.getAction())){
 //			if (mRecording) {
 //				mRecording=false;
@@ -112,10 +113,12 @@ public class CameraReceiver extends WakefulBroadcastReceiver {
 
 	private void handleStartRecordingResult(int resultCode, Bundle resultData) {
 		if (resultCode == VideoService.RECORD_RESULT_OK) {
-			Toast.makeText(this.context, "Start recording...", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(this.context, "Start recording...", Toast.LENGTH_SHORT).show();
+			ToastUtil.showToast(this.context, "Start recording...");
 		} else {
 			// start recording failed.
-			Toast.makeText(this.context, "Start recording failed...", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(this.context, "Start recording failed...", Toast.LENGTH_SHORT).show();
+			ToastUtil.showToast(this.context, "Start recording failed...");
 		}
 	}
 
@@ -123,11 +126,14 @@ public class CameraReceiver extends WakefulBroadcastReceiver {
 		if (resultCode == VideoService.RECORD_RESULT_OK) {
 			String videoPath = resultData.getString(VideoService.VIDEO_PATH);
 			Log.i("videoPath",videoPath);
-			Toast.makeText(this.context, "Record succeed, file saved in " + videoPath,Toast.LENGTH_LONG).show();
+			//Toast.makeText(this.context, "Record succeed, file saved in " + videoPath,Toast.LENGTH_LONG).show();
+			ToastUtil.showToast(this.context, "Record succeed, file saved in ");
 		} else if (resultCode == VideoService.RECORD_RESULT_UNSTOPPABLE) {
-			Toast.makeText(this.context, "Stop recording failed...", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(this.context, "Stop recording failed...", Toast.LENGTH_SHORT).show();
+			ToastUtil.showToast(this.context, "Stop recording failed...");
 		} else {
-			Toast.makeText(this.context, "Recording failed...", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(this.context, "Recording failed...", Toast.LENGTH_SHORT).show();
+			ToastUtil.showToast(this.context, "Recording failed...");
 		}
 	}
 }

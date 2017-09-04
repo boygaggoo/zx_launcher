@@ -1,6 +1,11 @@
 package com.ds05.launcher.listener;
 
-import java.net.InetSocketAddress;
+import android.util.Log;
+
+import com.ds05.launcher.LauncherApplication;
+import com.ds05.launcher.common.ConnectUtils;
+import com.ds05.launcher.common.utils.ToastUtil;
+import com.ds05.launcher.net.SessionManager;
 
 import org.apache.mina.core.future.ConnectFuture;
 import org.apache.mina.core.service.IoService;
@@ -9,14 +14,7 @@ import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.transport.socket.nio.NioSocketConnector;
 
-
-
-import android.util.Log;
-import android.widget.Toast;
-
-import com.ds05.launcher.LauncherApplication;
-import com.ds05.launcher.common.ConnectUtils;
-import com.ds05.launcher.net.SessionManager;
+import java.net.InetSocketAddress;
 
 public class HeartBeatListener implements IoServiceListener {
 	
@@ -66,7 +64,8 @@ public class HeartBeatListener implements IoServiceListener {
 		int count = 0;// 记录尝试重连的次数
 		while (true) {
 			if(ConnectUtils.NETWORK_IS_OK==false){
-				Toast.makeText(LauncherApplication.getContext(), "当前网络不可用", Toast.LENGTH_SHORT).show();
+				//Toast.makeText(LauncherApplication.getContext(), "当前网络不可用", Toast.LENGTH_SHORT).show();
+				ToastUtil.showToast(LauncherApplication.getContext(), "当前网络不可用");
 				Log.i(TAG," >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>当前网络不可用<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 				count = 0;
 			}else{

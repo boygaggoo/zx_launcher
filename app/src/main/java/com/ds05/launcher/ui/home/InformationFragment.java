@@ -22,11 +22,9 @@ import com.ds05.launcher.R;
 import com.ds05.launcher.common.Constants;
 import com.ds05.launcher.common.config.MyAvsHelper;
 import com.ds05.launcher.common.manager.PrefDataManager;
+import com.ds05.launcher.common.utils.ToastUtil;
 import com.ds05.launcher.weather.SinaWeather;
 import com.ds05.launcher.weather.Weather;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by Chongyang.Hu on 2017/1/8 0008.
@@ -78,7 +76,8 @@ public class InformationFragment extends BaseFragment {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                 startActivity(intent);
-                Toast.makeText(getActivity(), "当前设备CID ： "+ MyAvsHelper.zy_cid, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), "当前设备CID ： "+ MyAvsHelper.zy_cid, Toast.LENGTH_LONG).show();
+                ToastUtil.showToast(getActivity(), "当前设备CID ： "+ MyAvsHelper.zy_cid);
 
             }
         });
