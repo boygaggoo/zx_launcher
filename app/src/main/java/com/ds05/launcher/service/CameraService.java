@@ -13,11 +13,9 @@ import android.os.PowerManager;
 import android.os.ResultReceiver;
 import android.os.SystemClock;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.ds05.launcher.CameraActivity_ZY;
 import com.ds05.launcher.MainActivity;
-import com.ds05.launcher.common.ConnectUtils;
 import com.ds05.launcher.common.Constants;
 import com.ds05.launcher.common.manager.PrefDataManager;
 import com.ds05.launcher.common.utils.AppUtil;
@@ -221,6 +219,7 @@ public class CameraService extends IntentService {
 				}
 			}, 1000);
 		} else if (Constants.BROADCAST_ACTION_RECEIVE_CONFIG_FROM_SERVER.equals(action)) {
+			Log.d("FPP","action");
 			Log.i(TAG, "收到消息，配置信息");
 			String data = intent.getStringExtra(Constants.MSG_FROM_SERVER);
 			String dataStr[] = data.substring(1, data.length() - 1).split(",");
@@ -243,7 +242,7 @@ public class CameraService extends IntentService {
 			PrefDataManager.setAlarmSound(alarmSound);//int
 			PrefDataManager.setAlarmSoundVolume(alarmSoundVolume);//float
 			PrefDataManager.setAlarmIntervalTime(alarmIntervalTime);//long
-
+			AppUtil.uploadConfigMsgToServer(getApplicationContext());
 			AppUtil.respondReceiveConfigFromServer(getApplicationContext(),true);
 		}  else {
 			Log.d(TAG, "收到未知消息，忽略处理: " + action);

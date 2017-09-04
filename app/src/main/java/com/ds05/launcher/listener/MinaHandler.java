@@ -25,25 +25,26 @@ public class MinaHandler extends IoHandlerAdapter {
 	@Override
 	public void messageReceived(IoSession session, Object message) throws Exception {
 		//Log.i(TAG,ConnectUtils.stringNowTime() + " : ￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥客户端收到消息："+message);
+		Log.d("FPP","messageReceived="+message.toString());
 		Intent myIntent = new Intent();
-		if(message.toString().equals("[S7]")){
+		if(message.toString().contains("S7")){
 			myIntent.setAction(Constants.BROADCAST_ACTION_OPEN_CAMERA);
 			LauncherApplication.getContext().sendBroadcast(myIntent);
-		}else if(message.toString().equals("[S8]")){
+		}else if(message.toString().contains("S8")){
 			myIntent.setAction(Constants.BROADCAST_ACTION_CLOSE_CAMERA);
 			LauncherApplication.getContext().sendBroadcast(myIntent);
-		}else if(message.toString().equals("[S9]")){
+		}else if(message.toString().contains("S9")){
 			myIntent.setAction(Constants.BROADCAST_ACTION_TEST_CAMERA);
 			LauncherApplication.getContext().sendBroadcast(myIntent);
-		}else if(message.toString().equals("[S3]")){
+		}else if(message.toString().contains("S3")){
 			myIntent.setAction(Constants.BROADCAST_ACTION_RECEIVE_CONFIG_FROM_SERVER);
 			myIntent.putExtra(Constants.MSG_FROM_SERVER, message.toString());
 			LauncherApplication.getContext().sendBroadcast(myIntent);
-		}else if(message.toString().equals("[T3]")){
+		}else if(message.toString().contains("T3")){
 			myIntent.setAction(Constants.BROADCAST_ACTION_RESPONSE_UPLOAD_CONFIG);
 			myIntent.putExtra(Constants.MSG_FROM_SERVER, message.toString());
 			LauncherApplication.getContext().sendBroadcast(myIntent);
-		}else if(message.toString().equals("[S10]")){
+		}else if(message.toString().contains("S10")){
 			myIntent.setAction(Constants.BROADCAST_ACTION_RESPONSE_UPLOAD_CONFIG);
 			myIntent.putExtra(Constants.MSG_FROM_SERVER, message.toString());
 			LauncherApplication.getContext().sendBroadcast(myIntent);

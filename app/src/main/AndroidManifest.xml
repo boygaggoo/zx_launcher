@@ -194,7 +194,9 @@
                 <action android:name="com.ds05.Broadcast.ToServer.NOTIFY_QRCODE_RESULT" />
                 <action android:name="com.ds05.Broadcast.FromServer.Action.TEST_CAMERA" />
                 <action android:name="com.ds05.Broadcast.FromServer.Action.REBOOT" />
-
+                <action android:name="com.ds05.Broadcast.FromServer.Action.CONFIG"/>
+                <action android:name="com.ds05.Broadcast.FromServer.Action.RESPONSE_UPLOAD_CONFIG"/>
+                <action android:name="com.ds05.Broadcast.FromServer.Action.RESPONSE_UPLOAD_CONFIG"/>
 
             </intent-filter>
         </receiver>
