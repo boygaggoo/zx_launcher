@@ -44,6 +44,7 @@ public class MonitorFragment extends ModuleBaseFragment
     public static final String KEY_ALARM_VOLUME = "key_auto_alarm_volume";
     public static final String KEY_SHOOTING_MODE = "key_shooting_mode";
 
+
     private static final String[] KEYS = {
             KEY_INTELL_ALARM_TIME,
             KEY_MONITORING_SENS,

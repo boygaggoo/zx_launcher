@@ -13,6 +13,11 @@ import com.ds05.launcher.service.SoundManager;
 import com.ds05.launcher.view.DialogSeekBarPreference;
 import com.ds05.launcher.view.ListPreferenceExt;
 
+import static com.ds05.launcher.common.manager.PrefDataManager.DoorbellSound.ding_dang;
+import static com.ds05.launcher.common.manager.PrefDataManager.DoorbellSound.ding_dong;
+import static com.ds05.launcher.common.manager.PrefDataManager.DoorbellSound.dong_dong;
+import static com.ds05.launcher.common.manager.PrefDataManager.DoorbellSound.ji_cu_qiao_men;
+
 /**
  * Created by Chongyang.Hu on 2017/1/16 0016.
  */
@@ -29,6 +34,8 @@ public class DoorbellSettings extends ModuleBaseFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.doorbell_settings);
+
+
 
         mSoundManager = SoundManager.getInstance();
 
@@ -58,6 +65,19 @@ public class DoorbellSettings extends ModuleBaseFragment
         });
         volumePref.setMax(10);
         volumePref.setProgress((int)(PrefDataManager.getDoorbellVolume() * 10));
+
+        int doorbellsound = 0;
+        if(PrefDataManager.getDoorbellSoundIndex() == ding_dang.sound_door()){
+            doorbellsound = 0;
+        }else if(PrefDataManager.getDoorbellSoundIndex() == ding_dong.sound_door()){
+            doorbellsound = 1;
+        }else if(PrefDataManager.getDoorbellSoundIndex() == dong_dong.sound_door()){
+            doorbellsound = 2;
+        }else if(PrefDataManager.getDoorbellSoundIndex() == ji_cu_qiao_men.sound_door()){
+            doorbellsound = 3;
+        }
+        ListPreferenceExt doorBellSoundPref = (ListPreferenceExt) findPreference(KEY_DOORBELL_SOUND);
+        doorBellSoundPref.setValueIndex(doorbellsound);
     }
 
     @Override
@@ -83,6 +103,7 @@ public class DoorbellSettings extends ModuleBaseFragment
                     mSoundManager.updateDoorbellConfig();
                 }
             }, 300);
+            PrefDataManager.getDoorbellSoundIndex();
             AppUtil.uploadConfigMsgToServer(getActivity());
             return true;
         } else if (key.equals(KEY_DOORBELL_VOLUME)) {

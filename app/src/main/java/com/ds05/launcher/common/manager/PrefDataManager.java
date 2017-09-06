@@ -138,6 +138,28 @@ public final class PrefDataManager {
             return sound;
         }
     }//AutoAlarmSound
+    public enum DoorbellSound{
+        ding_dang(0),ding_dong(1),dong_dong(2),ji_cu_qiao_men(3);
+        private int sound_door;
+        DoorbellSound(int i){
+            sound_door = i;
+        }
+        public static DoorbellSound get(int i){
+            switch (i){
+                case 0:
+                    return ding_dang;
+                case 1:
+                    return ding_dong;
+                case 2:
+                    return dong_dong;
+                case 3:
+                    return ji_cu_qiao_men;
+                default:
+                    return null;
+            }
+        }
+        public int sound_door(){return sound_door;}
+    }
 
 
     public static long getWeatherUpdateInterval() {
@@ -195,6 +217,23 @@ public final class PrefDataManager {
         String index = pref.getString(DoorbellSettings.KEY_DOORBELL_SOUND, def);
         return Integer.parseInt(index);
     }
+    public static void setDoorbellSoundIndex(int i) {
+        int index = -1;
+        if(i == DoorbellSound.ding_dang.sound_door()) {
+            index = 0;
+        } else if(i == DoorbellSound.ding_dong.sound_door()) {
+            index = 1;
+        } else if(i == DoorbellSound.dong_dong.sound_door()) {
+            index = 2;
+        } else if(i == DoorbellSound.ji_cu_qiao_men.sound_door()){
+            index = 3;
+        }
+
+        if(index >= 0) {
+            setString(APP_PREF_SETTINGS, DoorbellSettings.KEY_DOORBELL_SOUND, index + "");
+        }
+    }
+
     public static boolean getDoorbellLight(){
         boolean def = LauncherApplication.getContext()
                 .getResources().getBoolean(R.bool.def_doorbell_light);

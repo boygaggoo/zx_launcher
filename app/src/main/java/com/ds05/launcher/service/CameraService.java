@@ -120,7 +120,7 @@ public class CameraService extends IntentService {
 				String fileName = AppUtil.getPhotoFileName();
 				String filePath = dirPath + fileName;
 
-				AppUtil.uploadDoorbellMsgToServer(this, fileName);
+ 				AppUtil.uploadDoorbellMsgToServer(this, fileName);
 				Intent activity = new Intent(CameraService.this, CameraActivity_ZY.class);
 				activity.putExtra(Constants.EXTRA_CAPTURE,true);
 				activity.putExtra(Constants.EXTRA_CAPTURE_PATH,filePath);
@@ -219,9 +219,10 @@ public class CameraService extends IntentService {
 				}
 			}, 1000);
 		} else if (Constants.BROADCAST_ACTION_RECEIVE_CONFIG_FROM_SERVER.equals(action)) {
-			Log.d("FPP","action");
 			Log.i(TAG, "收到消息，配置信息");
 			String data = intent.getStringExtra(Constants.MSG_FROM_SERVER);
+			Log.d("FPP","action data = " + data);
+
 			String dataStr[] = data.substring(1, data.length() - 1).split(",");
 			Log.d("PP"," dataStr.length = " + dataStr.length);
 			Boolean humanMonitorState = Boolean.valueOf(dataStr[4]);
@@ -234,6 +235,9 @@ public class CameraService extends IntentService {
 			double temp = (f*1.0)/10;
 			float alarmSoundVolume = (float)temp;
 
+			Boolean doorbellLight = Boolean.valueOf(dataStr[11]);
+			int doorbellSound = Integer.parseInt(dataStr[12]);
+
 			long alarmIntervalTime = Integer.parseInt(dataStr[13]);
 			PrefDataManager.setHumanMonitorState(humanMonitorState);//boolean
 			PrefDataManager.setAutoAlarmTime(autoAlarmTime);//long
@@ -242,6 +246,8 @@ public class CameraService extends IntentService {
 			PrefDataManager.setAlarmSound(alarmSound);//int
 			PrefDataManager.setAlarmSoundVolume(alarmSoundVolume);//float
 			PrefDataManager.setAlarmIntervalTime(alarmIntervalTime);//long
+			PrefDataManager.setDoorbellLight(doorbellLight);
+			PrefDataManager.setDoorbellSoundIndex(doorbellSound);
 			AppUtil.uploadConfigMsgToServer(getApplicationContext());
 			AppUtil.respondReceiveConfigFromServer(getApplicationContext(),true);
 		}  else {
