@@ -24,7 +24,7 @@ public class ZhongyunService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.i(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ZhongyunService onCreate<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-        ConnectUtils.mMyAvsHelper = new MyAvsHelper(getApplicationContext());
+        ConnectUtils.mMyAvsHelper = MyAvsHelper.getInstance(getApplicationContext());
         ConnectUtils.mMyAvsHelper.login();
     }
 }

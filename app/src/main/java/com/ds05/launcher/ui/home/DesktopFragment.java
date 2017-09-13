@@ -13,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import com.ds05.launcher.R;
+import com.ds05.launcher.common.CommUtil;
 import com.ds05.launcher.ui.help.HelpActivity;
 import com.ds05.launcher.ui.monitor.MonitorActivity;
 import com.ds05.launcher.ui.settings.SettingsActivity;

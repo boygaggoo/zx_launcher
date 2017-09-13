@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -154,6 +155,8 @@ public class CameraActivity_ZY extends Activity {
                     File f = new File(mManualCaptureFilePath);
                     boolean ret = saveMyBitmap(f,mBitmap);
                     if(ret){
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.manual_capture), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
                         Uri uri = Uri.fromFile(f);
                         intent.setData(uri);
@@ -226,6 +229,23 @@ public class CameraActivity_ZY extends Activity {
             }
         }
     };
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Log.d("ZXH","######### keyCode = " + keyCode);
+        if(keyCode == Constants.HOME_KEY){
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            finish();
+            startActivity(intent);
+            return true;
+        }else if(keyCode ==  Constants.CAPTURE_KEY){
+            manualCapture();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     @Override
     protected void onDestroy() {

@@ -19,10 +19,13 @@ import android.view.WindowManager;
 
 import com.ds05.launcher.common.Constants;
 import com.ds05.launcher.common.config.MyAvsHelper;
+import com.ds05.launcher.common.utils.AppUtil;
 import com.ds05.launcher.ui.home.BaseFragment;
 import com.ds05.launcher.ui.home.DesktopFragment;
 import com.ds05.launcher.ui.settings.SettingsActivity;
 import com.ichano.MediaManagerService;
+
+import org.jsoup.helper.StringUtil;
 
 public class MainActivity extends Activity {
 
@@ -38,8 +41,10 @@ public class MainActivity extends Activity {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
 
-        mMyAvsHelper = new MyAvsHelper(this);
-        mMyAvsHelper.login();
+        mMyAvsHelper = MyAvsHelper.getInstance(getApplicationContext());
+        if(!StringUtil.isBlank(AppUtil.getZYLicense())){
+            mMyAvsHelper.login();
+        }
 
         Intent service = new Intent(MainActivity.this, MediaManagerService.class);
         bindService(service, conn, BIND_AUTO_CREATE);

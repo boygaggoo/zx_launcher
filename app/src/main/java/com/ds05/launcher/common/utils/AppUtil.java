@@ -435,14 +435,16 @@ public class AppUtil {
         WifiManager wifiManager = (WifiManager) LauncherApplication.getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         str = wifiInfo.getMacAddress();
-        result = str.replaceAll(":","");
+        if(str != null){
+            result = str.replaceAll(":","");
+        }
         Log.i(TAG, "macAdd:" + result);
         return result;
     }
 
     private static String zy_license = null;
     public static String getZYLicense(){
-        if(zy_license != null){
+        if(!StringUtil.isBlank(zy_license)){
             return zy_license;
         }
         String mac = getMacAddress();

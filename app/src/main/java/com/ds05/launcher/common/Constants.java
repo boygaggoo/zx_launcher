@@ -69,7 +69,7 @@ public class Constants {
     //服务器下发重新请求
     public static final String BROADCAST_ACTION_RECEIVE_REBOOT_FROM_SERVER="com.ds05.Broadcast.FromServer.Action.REBOOT";
 
-    public static final int CAPTURE_KEY = 66;
+    public static final int CAPTURE_KEY = 19;
     public static final int HOME_KEY = 27;
 
     public static final String EXTRA_CAPTURE="extra_capture";

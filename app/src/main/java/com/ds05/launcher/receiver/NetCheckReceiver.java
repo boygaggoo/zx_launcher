@@ -8,9 +8,13 @@ import android.net.ConnectivityManager;
 import android.util.Log;
 
 import com.ds05.launcher.common.ConnectUtils;
+import com.ds05.launcher.common.config.MyAvsHelper;
+import com.ds05.launcher.common.utils.AppUtil;
 import com.ds05.launcher.common.utils.ToastUtil;
 import com.ds05.launcher.service.ConnectSocketService;
 import com.ds05.launcher.service.ZhongyunService;
+
+import org.jsoup.helper.StringUtil;
 
 public class NetCheckReceiver extends BroadcastReceiver {
 
@@ -31,7 +35,7 @@ public class NetCheckReceiver extends BroadcastReceiver {
 				ConnectUtils.isConnectintSocket=false;
                 Log.e(TAG, "########################################################################   網絡不可用："+ConnectUtils.NETWORK_IS_OK);
 				context.stopService(new Intent(context, ConnectSocketService.class));
-				context.stopService(new Intent(context, ZhongyunService.class));
+//				context.stopService(new Intent(context, ZhongyunService.class));
 			} else {
 				ToastUtil.showToast(context,"網絡可用");
 				ConnectUtils.NETWORK_IS_OK = true;
@@ -40,7 +44,11 @@ public class NetCheckReceiver extends BroadcastReceiver {
 				if(ConnectUtils.CONNECT_SERVER_STATUS==false && ConnectUtils.isConnectintSocket==false){
 					ConnectUtils.isConnectintSocket=true;
 					context.startService(new Intent(context, ConnectSocketService.class));
-					context.startService(new Intent(context, ZhongyunService.class));
+//					context.startService(new Intent(context, ZhongyunService.class));
+				}
+				MyAvsHelper mMyAvsHelper = MyAvsHelper.getInstance(context);
+				if(!StringUtil.isBlank(AppUtil.getZYLicense())){
+					mMyAvsHelper.login();
 				}
 			}
 		}

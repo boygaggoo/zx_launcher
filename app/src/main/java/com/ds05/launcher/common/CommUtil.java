@@ -241,14 +241,12 @@ public class CommUtil {
 
 	public static String installApkBySilent(){
 		Log.d("ZXH","##############installApkBySilent ");
-
 		if(flag){
-			Log.d("ZXH","##############return null ");
 			return null;
 		}
 		flag = true;
-//		String apkAbsolutePath = Environment.getExternalStorageDirectory().getAbsolutePath().concat("/").concat(local_apk_url).concat("/").concat(apkName);
-		String apkAbsolutePath = Environment.getExternalStorageDirectory().getAbsolutePath().concat("/").concat(local_apk_url).concat("/").concat("DS05 Launcher1.apk");
+		String apkAbsolutePath = Environment.getExternalStorageDirectory().getAbsolutePath().concat("/").concat(local_apk_url).concat("/").concat(apkName);
+//		String apkAbsolutePath = Environment.getExternalStorageDirectory().getAbsolutePath().concat("/").concat(local_apk_url).concat("/").concat("DS05 Launcher1.apk");
 		String[] args = { "pm", "install", "-r", apkAbsolutePath };
 		String result = "";
 		ProcessBuilder processBuilder = new ProcessBuilder(args);

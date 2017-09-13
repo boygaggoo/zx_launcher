@@ -55,7 +55,6 @@ public class UpdateVersionInfoService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		mHandler = new Handler(Looper.getMainLooper());
-		Log.d("ZXH","########### onStartCommand");
 
 		checkTimer  = new Timer();
 		checkTask = new TimerTask() {
@@ -64,14 +63,15 @@ public class UpdateVersionInfoService extends Service {
 				mHandler.post(new Runnable() {
 					@Override
 					public void run() {
-						if(checkTime(0,1)){
+						if(checkTime(0,5)){
+							updateInfo();
 						}
-						updateInfo();
+
 					}
 				});
 			}
 		};
-		checkTimer.scheduleAtFixedRate(checkTask,0, 50*60*1000);
+		checkTimer.scheduleAtFixedRate(checkTask,0, 4*60*60*1000);
 		return START_NOT_STICKY;
 	}
 
@@ -93,7 +93,6 @@ public class UpdateVersionInfoService extends Service {
 			@Override
 			public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 				try{
-					Log.d("ZXH","########### onSuccess");
 					String content = new String(responseBody);
 					UpdateDataBean bean = JsonSerializer.deSerialize(content, UpdateDataBean.class);
 					PackageManager pm = getPackageManager();
@@ -154,7 +153,6 @@ public class UpdateVersionInfoService extends Service {
 					task.cancel();
 					break;
 				case DownloadManager.STATUS_SUCCESSFUL:
-					Log.d("ZXH","########### STATUS_SUCCESSFUL");
 					task.cancel();
 					installApk();
 					break;
@@ -165,8 +163,7 @@ public class UpdateVersionInfoService extends Service {
 
 	private void installApk(){
 		downloadstatus = false;
-		String ret = CommUtil.installApkBySilent();
-		Log.d("ZXH","########## ret = " + ret);
+		CommUtil.installApkBySilent();
 	}
 
 	private boolean checkTime(int begin, int end){

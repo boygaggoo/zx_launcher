@@ -323,5 +323,6 @@
     <string name="cancel">取消</string>
     <string name="conn_status">连接状态</string>
     <string name="ip_address">IP地址</string>
+    <string name="manual_capture">抓拍成功</string>
 
 </resources>

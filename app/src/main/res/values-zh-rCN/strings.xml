@@ -165,4 +165,5 @@
 	<string name="waiting">wifi连接中，请等待…</string>
 	<string name="wifi_connected">wifi连接成功</string>
 	<string name="not_configure_wifi">网络可用无需配网，正在绑定</string>
+
 </resources>
