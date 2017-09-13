@@ -125,6 +125,10 @@
     <!-- Version information -->
     <string name="string_model">Model</string>
     <string name="string_serial_number">Serial number</string>
+    <string name="string_video_serial_number">Video Serial number</string>
+    <string name="string_video_state">video state</string>
+    <string name="string_video_state_online">online</string>
+    <string name="string_video_state_offline">offline</string>
     <string name="string_android_version">Android version</string>
     <string name="string_base_band_version">Baseband version</string>
     <string name="string_kernel_version">Kernel version</string>

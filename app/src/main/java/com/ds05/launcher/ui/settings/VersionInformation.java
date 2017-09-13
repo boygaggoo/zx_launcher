@@ -7,17 +7,17 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.util.Log;
 
 import com.ds05.launcher.LauncherApplication;
 import com.ds05.launcher.ModuleBaseFragment;
 import com.ds05.launcher.R;
+import com.ds05.launcher.common.config.MyAvsHelper;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,6 +38,8 @@ public class VersionInformation extends ModuleBaseFragment {
     public static final String KEY_SYSTEM_VERSION = "key_system_version";
     public static final String KEY_SOFTWARE_VERSION = "key_software_version";
     public static final String key_MACADDRESS = "key_MacAddress";
+    public static final String KEY_VIDEO_SERIAL_NUMBER ="key_video_serial_number";
+    public static final String KEY_VIDEO_STATE = "key_video_state";
 
 
     private static final String FILENAME_PROC_VERSION = "/proc/version";
@@ -45,7 +47,10 @@ public class VersionInformation extends ModuleBaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         addPreferencesFromResource(R.xml.version_info_settings);
+        Preference serialNumber =  findPreference(KEY_SERIAL_NUMBER);
+        getPreferenceScreen().removePreference(serialNumber);
     }
 
     @Override
@@ -55,7 +60,9 @@ public class VersionInformation extends ModuleBaseFragment {
 
 
         String model = Build.MODEL;
-        String serial = Build.SERIAL;
+        //String serial = Build.SERIAL;
+        String videoserialnumber = MyAvsHelper.zy_cid;
+        boolean videostate = MyAvsHelper.haveLogin;
         String androidVer = Build.VERSION.RELEASE;
         String baseband = getBasebandVer();
         String kernel = getFormattedKernelVersion();
@@ -64,13 +71,22 @@ public class VersionInformation extends ModuleBaseFragment {
         String macaddress = getMacAddress();
 
         findPreference(KEY_MODEL).setSummary(model);
-        findPreference(KEY_SERIAL_NUMBER).setSummary(serial);
+       // findPreference(KEY_SERIAL_NUMBER).setSummary(serial);
+        findPreference(KEY_VIDEO_SERIAL_NUMBER).setSummary(videoserialnumber);
+       // findPreference(KEY_VIDEO_STATE).setSummary(videostate);
         findPreference(KEY_ANDROID_VERSION).setSummary(androidVer);
         findPreference(KEY_BASEBAND_VERSION).setSummary(baseband);
         findPreference(KEY_KERNEL_VERSION).setSummary(kernel);
         findPreference(KEY_SYSTEM_VERSION).setSummary(systemVer);
         findPreference(KEY_SOFTWARE_VERSION).setSummary(softwareVersion);
         findPreference(key_MACADDRESS).setSummary(macaddress);
+
+        if(videostate == true){
+            //findPreference(KEY_VIDEO_STATE).setSummary(this.getResources().getString(R.string.string_video_state_online));
+            findPreference(KEY_VIDEO_STATE).setSummary(R.string.string_video_state_online);
+        }else if(videostate == false){
+            findPreference(KEY_VIDEO_STATE).setSummary(R.string.string_video_state_offline);
+        }
     }
 
 

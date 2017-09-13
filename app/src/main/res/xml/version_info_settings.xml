@@ -10,6 +10,12 @@
         android:key="key_serial_number"
         android:title="@string/string_serial_number"/>
     <Preference
+        android:key="key_video_serial_number"
+        android:title="@string/string_video_serial_number"/>
+    <Preference
+        android:key="key_video_state"
+        android:title="@string/string_video_state"/>
+    <Preference
         android:key="key_android_version"
         android:title="@string/string_android_version"/>
     <Preference

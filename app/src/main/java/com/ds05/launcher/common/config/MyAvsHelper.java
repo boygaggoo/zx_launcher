@@ -18,7 +18,6 @@ package com.ds05.launcher.common.config;
 import android.content.Context;
 import android.util.Log;
 
-import com.ds05.launcher.common.Constants;
 import com.ds05.launcher.common.utils.AppUtil;
 import com.ichano.rvs.streamer.constant.AuthState;
 import com.ichano.rvs.streamer.constant.RemoteViewerState;
@@ -32,7 +31,7 @@ public class MyAvsHelper extends AvsInitHelper {
 
 	public String[] userNameAndPwd;
 	public String deviceName;
-	public boolean haveLogin;
+	public static boolean haveLogin;
 	public static String zy_cid;
 
 

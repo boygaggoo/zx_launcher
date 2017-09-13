@@ -57,6 +57,10 @@
 	<!-- Version information -->
 	<string name="string_model">型号</string>
 	<string name="string_serial_number">序列号</string>
+	<string name="string_video_serial_number">视频序列号</string>
+	<string name="string_video_state">视频状态</string>
+	<string name="string_video_state_online">在线</string>
+	<string name="string_video_state_offline">未连接</string>
 	<string name="string_android_version">Android版本</string>
 	<string name="string_base_band_version">基带版本</string>
 	<string name="string_kernel_version">内核版本</string>
