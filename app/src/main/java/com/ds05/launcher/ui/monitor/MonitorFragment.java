@@ -70,16 +70,17 @@ public class MonitorFragment extends ModuleBaseFragment
         SwitchPreference humanmonitorSwitchPreference = (SwitchPreference)findPreference(KEY_HUMAN_MONIOTOR);
         humanmonitorSwitchPreference.setChecked(PrefDataManager.getHumanMonitorState());
 
-        if((PrefDataManager.getAutoAlarmTimeIndex())==3000){
+        if((PrefDataManager.getAutoAlarmTime())==3000){
             alarmTime = 0;
-        }else if((PrefDataManager.getAutoAlarmTimeIndex()) == 8000){
+        }else if((PrefDataManager.getAutoAlarmTime()) == 8000){
             alarmTime = 1;
-        }else if((PrefDataManager.getAutoAlarmTimeIndex()) == 15000){
+        }else if((PrefDataManager.getAutoAlarmTime()) == 15000){
             alarmTime = 2;
-        }else if((PrefDataManager.getAutoAlarmTimeIndex()) == 25000){
+        }else if((PrefDataManager.getAutoAlarmTime()) == 25000){
             alarmTime = 3;
         }
         ListPreference alarmListPreference = (ListPreference) findPreference(KEY_INTELL_ALARM_TIME);
+        Log.d("PP","############# alarmTime = " + alarmTime);
         alarmListPreference.setValueIndex(alarmTime);//length = 4;
 
         if((PrefDataManager.getAlarmIntervalTime()) == 30000){
