@@ -71,7 +71,7 @@ public class HeartBeatListener implements IoServiceListener {
 			}else{
 				try {
 					count++;// 重连次数加1
-					ConnectFuture future = connector.connect(new InetSocketAddress(ConnectUtils.HOST, ConnectUtils.PORT));
+					ConnectFuture future = connector.connect(new InetSocketAddress(ConnectUtils.getHost(), ConnectUtils.PORT));
 					future.awaitUninterruptibly();// 一直阻塞住等待连接成功
 					IoSession session = future.getSession();// 获取Session对象
 					if (session.isConnected()) {

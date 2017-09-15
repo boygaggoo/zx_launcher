@@ -44,7 +44,7 @@ public class ConnectSocketService extends Service {
     class HeartBeatThread extends Thread {
         @Override
         public void run() {
-            initClientMina(ConnectUtils.HOST, ConnectUtils.PORT);
+            initClientMina(ConnectUtils.getHost(), ConnectUtils.PORT);
         }
     }
 
@@ -81,7 +81,7 @@ public class ConnectSocketService extends Service {
             try {
                 count++;
                 // 执行到这里表示客户端刚刚启动需要连接服务器,第一次连接服务器的话是没有尝试次数限制的，但是随后的断线重连就有次数限制了
-                ConnectFuture future = connector.connect(new InetSocketAddress(ConnectUtils.HOST, ConnectUtils.PORT));
+                ConnectFuture future = connector.connect(new InetSocketAddress(ConnectUtils.getHost(), ConnectUtils.PORT));
                 future.awaitUninterruptibly();// 一直阻塞,直到连接建立
                 IoSession session = future.getSession();// 获取Session对象
                 if (session.isConnected()) {

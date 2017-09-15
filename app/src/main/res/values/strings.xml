@@ -324,5 +324,9 @@
     <string name="conn_status">连接状态</string>
     <string name="ip_address">IP地址</string>
     <string name="manual_capture">抓拍成功</string>
-
+    <string name="choose_server">选择服务器类型</string>
+    <string-array name="server_type">
+        <item>正式服务器</item>
+        <item>测试服务器</item>
+    </string-array>
 </resources>

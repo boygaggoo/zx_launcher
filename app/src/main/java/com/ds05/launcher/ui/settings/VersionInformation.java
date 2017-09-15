@@ -1,19 +1,25 @@
 package com.ds05.launcher.ui.settings;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.Preference;
+import android.preference.PreferenceScreen;
+import android.preference.SwitchPreference;
 import android.util.Log;
 
 import com.ds05.launcher.LauncherApplication;
 import com.ds05.launcher.ModuleBaseFragment;
 import com.ds05.launcher.R;
 import com.ds05.launcher.common.config.MyAvsHelper;
+import com.ds05.launcher.common.manager.PrefDataManager;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -28,7 +34,7 @@ import static org.weixvn.wae.webpage.net.proxy.UpdataUntil.TAG;
  * Created by Chongyang.Hu on 2017/1/18 0018.
  */
 
-public class VersionInformation extends ModuleBaseFragment {
+public class VersionInformation extends ModuleBaseFragment{
 
     public static final String KEY_MODEL = "key_model";
     public static final String KEY_SERIAL_NUMBER = "key_serial_number";
@@ -176,5 +182,40 @@ public class VersionInformation extends ModuleBaseFragment {
         return m.group(1) + "\n" +                 // 3.0.31-g6fb96c9
                 m.group(2) + " " + m.group(3) + "\n" + // x@y.com #1
                 m.group(4);                            // Thu Jun 28 11:02:39 PDT 2012
+    }
+
+    AlertDialog mDialog;
+    long[] mHints = new long[5];
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        String key = preference.getKey();
+        if (key.equals(KEY_SOFTWARE_VERSION)) {
+            System.arraycopy(mHints, 1, mHints, 0, mHints.length - 1);
+            mHints[mHints.length - 1] = SystemClock.uptimeMillis();
+            if (SystemClock.uptimeMillis() - mHints[0] <= 1000) {
+                if(mDialog != null && mDialog.isShowing()){
+                    return true;
+                }
+
+                int val = PrefDataManager.getServerType();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(R.string.choose_server);
+
+                DialogInterface.OnClickListener btnListener = new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int which) {
+                                PrefDataManager.setServerType(which);
+                            }
+                        };
+                String[] category_names;
+                category_names= getActivity().getResources().getStringArray(R.array.server_type);
+                builder.setSingleChoiceItems(category_names, val, btnListener);
+                builder.setPositiveButton("确定", null);
+                mDialog = builder.create();
+                mDialog.show();
+            }
+        }
+        return true;
     }
 }

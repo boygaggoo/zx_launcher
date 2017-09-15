@@ -26,6 +26,7 @@ public final class PrefDataManager {
 
     public static final String ALARM_SOUND_VOLUME = "alarm_sound_volume";
     public static final String DOORBELL_VOLUME = "doorbell_volume";
+    public static final String SERVER_TYPE = "server_type";
 
     public enum AutoAlarmTime {
         Time_3sec(3000), Time_8sec(8000), Time_15sec(15000), Time_25sec(25000);
@@ -500,5 +501,15 @@ public final class PrefDataManager {
         SharedPreferences sp = LauncherApplication.getContext()
                 .getSharedPreferences(file, Context.MODE_PRIVATE);
         return sp.getBoolean(key, def);
+    }
+
+    public static int getServerType() {
+        return getInt(COMMON_PREF_DATA, SERVER_TYPE, 0);
+    }
+    public static void setServerType(int val) {
+        if(val < 0 || val > 1) {
+            throw new IllegalArgumentException("Invalide volume: " + val);
+        }
+        setInt(COMMON_PREF_DATA, SERVER_TYPE, val);
     }
 }
