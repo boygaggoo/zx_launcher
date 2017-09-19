@@ -52,7 +52,7 @@ public class HelpFragment extends ModuleBaseFragment implements ViewPager.OnPage
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
 
         //载入图片资源ID
-        imgIdArray = new int[]{R.drawable.help01, R.drawable.help02, R.drawable.help03};
+        imgIdArray = new int[]{R.drawable.help01, R.drawable.help02, R.drawable.help03,R.drawable.help04};
 
 
         //将点点加入到ViewGroup中
