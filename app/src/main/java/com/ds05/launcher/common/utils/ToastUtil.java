@@ -36,6 +36,9 @@ public class ToastUtil {
      * @param message 消息
      */
     public static void showToast(Context context, String message) {
+        if(true){
+            return;
+        }
         if (toast == null) {
             toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
             time = System.currentTimeMillis();

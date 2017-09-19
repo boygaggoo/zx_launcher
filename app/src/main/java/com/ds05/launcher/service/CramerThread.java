@@ -62,12 +62,13 @@ public class CramerThread extends Thread {
   
     @Override  
     public void run() {  
-        /** * 开始录像 */  
+        /** * 开始录像 */
+        Log.d("ZXH","################# CramerThread start");
         startRecord();  
         /** * 启动定时器，到规定时间recordTime后执行停止录像任务 */  
 //        Timer timer = new Timer();
 //        timer.schedule(new TimerThread(), recordTime);
-  
+        Log.d("ZXH","################# CramerThread end");
     }
   
     /** * 开始录像 */  
@@ -150,6 +151,10 @@ public class CramerThread extends Thread {
             mediarecorder = null;
         }
         isRecording = false;
+        Intent broadcast = new Intent(HWSink.ACTION_HUMAN_MONITOR_NOTIFY);
+        broadcast.putExtra(HWSink.EXTRA_STATUS, HWSink.STATUS_HUMAN_IN);
+        mContext.sendBroadcast(broadcast,null);
+
         if(ConnectUtils.NETWORK_IS_OK  && ConnectUtils.CONNECT_SERVER_STATUS){
             UploadFileTask uploadFileTask=new UploadFileTask(mContext);
             uploadFileTask.execute(mFilePath, UploadFileTask.VIDEOTYPE);

@@ -252,28 +252,32 @@ public class PictureService  extends Service {
                             if (mPictureCount>mPictureCountMax){
                                 Toast.makeText(getApplicationContext(),"为了节约内存，连拍张数不要超过"+mPictureCountMax+"张", Toast.LENGTH_SHORT).show();
                             }else {
-                                if (++pic_count<mPictureCount){
-                                    //连拍三张
-                                    mPicturePaths.add(mFilePath);
-
-                                    PictureService.startToStopCapture(getApplicationContext(),  new ResultReceiver(new Handler()) {
-                                        @Override
-                                        protected void onReceiveResult(int resultCode, Bundle resultData) {
-                                        }
-                                    });
-
-
-                                    PictureService.startToStartCapture(getApplicationContext(),  Camera.CameraInfo.CAMERA_FACING_FRONT, new ResultReceiver(new Handler()) {
-                                        @Override
-                                        protected void onReceiveResult(int resultCode, Bundle resultData) {
-                                        }
-                                    });
-                                }else {
+//                                if (++pic_count<mPictureCount){
+//                                    //连拍三张
+//                                    mPicturePaths.add(mFilePath);
+//
+//                                    PictureService.startToStopCapture(getApplicationContext(),  new ResultReceiver(new Handler()) {
+//                                        @Override
+//                                        protected void onReceiveResult(int resultCode, Bundle resultData) {
+//                                        }
+//                                    });
+//
+//
+//                                    PictureService.startToStartCapture(getApplicationContext(),  Camera.CameraInfo.CAMERA_FACING_FRONT, new ResultReceiver(new Handler()) {
+//                                        @Override
+//                                        protected void onReceiveResult(int resultCode, Bundle resultData) {
+//                                        }
+//                                    });
+//                                }else {
 
 //                                    mPicturePaths.add(mPath);//最后一张图片加入集合
                                     //Intent intent = new Intent().putStringArrayListExtra(Contast.PICTURE_PATHS, mPicturePaths);
                                     //setResult(RESULT_OK,intent);
                                     fileOutputStream.close();
+                                    Intent broadcast = new Intent(HWSink.ACTION_HUMAN_MONITOR_NOTIFY);
+                                    broadcast.putExtra(HWSink.EXTRA_STATUS, HWSink.STATUS_HUMAN_IN);
+                                    PictureService.this.sendBroadcast(broadcast,null);
+
                                     Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
                                     Uri uri = Uri.fromFile(f);
                                     intent.setData(uri);
@@ -291,8 +295,8 @@ public class PictureService  extends Service {
 //                                    SystemClock.sleep(1000);
                                     // finish();
                                 }
-                                Toast.makeText(getApplicationContext(), "图片保存成功"+pic_count+"张", Toast.LENGTH_SHORT).show();
-                            }
+                                Toast.makeText(getApplicationContext(), "图片保存成功", Toast.LENGTH_SHORT).show();
+//                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

@@ -27,6 +27,10 @@ public class MinaHandler extends IoHandlerAdapter {
 		//Log.i(TAG,ConnectUtils.stringNowTime() + " : ￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥客户端收到消息："+message);
 		Log.d("FPP","messageReceived="+message.toString());
 		Intent myIntent = new Intent();
+		if(message.toString().contains("S0]")){
+			myIntent.setAction(Constants.BROADCAST_ACTION_RESPONSE_LOGIN_INFO);
+			LauncherApplication.getContext().sendBroadcast(myIntent);
+		}
 		if(message.toString().contains("S7")){
 			myIntent.setAction(Constants.BROADCAST_ACTION_OPEN_CAMERA);
 			LauncherApplication.getContext().sendBroadcast(myIntent);
@@ -49,8 +53,6 @@ public class MinaHandler extends IoHandlerAdapter {
 			myIntent.putExtra(Constants.MSG_FROM_SERVER, message.toString());
 			LauncherApplication.getContext().sendBroadcast(myIntent);
 		}
-
-
 	}
 
 	@Override

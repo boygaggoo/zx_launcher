@@ -355,9 +355,9 @@ public class AppUtil {
     }
 
     public static void uploadHumanMonitorMsgToServerAndSound(Context context, String fileName, String type) {
-        Intent broadcast = new Intent(HWSink.ACTION_HUMAN_MONITOR_NOTIFY);
-        broadcast.putExtra(HWSink.EXTRA_STATUS, HWSink.STATUS_HUMAN_IN);
-        context.sendBroadcast(broadcast,null);
+//        Intent broadcast = new Intent(HWSink.ACTION_HUMAN_MONITOR_NOTIFY);
+//        broadcast.putExtra(HWSink.EXTRA_STATUS, HWSink.STATUS_HUMAN_IN);
+//        context.sendBroadcast(broadcast,null);
 
         String msg = "[" + System.currentTimeMillis() + ",T5," + Constants.SOFT_VERSION + "," + AppUtil.getZYLicense() + "," + fileName + "," + type + "]";
         IoBuffer buffer = IoBuffer.allocate(msg.length());
@@ -453,5 +453,21 @@ public class AppUtil {
             return zy_license;
         }
         return "";
+    }
+
+
+    public static boolean isForeground(Context context, String className) {
+        if (context == null) {
+            return false;
+        }
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> list = am.getRunningTasks(1);
+        if (list != null && list.size() > 0) {
+            ComponentName cpn = list.get(0).topActivity;
+            if (className.equals(cpn.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

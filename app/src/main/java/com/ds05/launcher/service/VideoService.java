@@ -150,9 +150,7 @@ public class VideoService extends Service {
                 Log.d("ZXH","###surfaceCreated holder= " + holder);
                 surfaceHolder = holder;
                 // //录像线程，当然也可以在别的地方启动，但是一定要在onCreate方法执行完成以及surfaceHolder被赋值以后启动
-                if(thread == null){
-                    thread = new CramerThread(VideoService.this, 10000, surfaceview, surfaceHolder);// 设置录制时间为10秒
-                }
+                thread = new CramerThread(VideoService.this, 10000, surfaceview, surfaceHolder);// 设置录制时间为10秒
                 thread.start();
             }
 

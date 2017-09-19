@@ -6,6 +6,7 @@ import android.media.SoundPool;
 
 import com.ds05.launcher.R;
 import com.ds05.launcher.common.manager.PrefDataManager;
+import com.ds05.launcher.common.utils.AppUtil;
 
 /**
  * Created by Chongyang.Hu on 2017/1/21 0021.
@@ -117,6 +118,10 @@ public final class SoundManager {
         mTestLoopId = mTestLoop.load(mContext, ALARM_SOUND[index], 1);
     }
     public void playDoorbellSound() {
+        //TODO
+        if(AppUtil.isForeground(mContext,"com.ds05.launcher.CameraActivity_ZY")){
+            return;
+        }
         stopTestSound();
         stopDoorbellSound();
         mSoundPool.play(mDoorbellSoundId, mDoorbellVolume, mDoorbellVolume, 1, DOORBELL_SOUND_LOOP, 1);

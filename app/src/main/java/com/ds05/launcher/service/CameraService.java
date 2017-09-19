@@ -15,6 +15,7 @@ import android.os.SystemClock;
 import android.util.Log;
 
 import com.ds05.launcher.CameraActivity_ZY;
+import com.ds05.launcher.LauncherApplication;
 import com.ds05.launcher.MainActivity;
 import com.ds05.launcher.common.Constants;
 import com.ds05.launcher.common.manager.PrefDataManager;
@@ -110,7 +111,7 @@ public class CameraService extends IntentService {
 			}
 
 			Log.d("ZXH","##############isForeground");
-			if(!isForeground(CameraService.this,"com.ds05.launcher.CameraActivity_ZY")){
+			if(!AppUtil.isForeground(CameraService.this,"com.ds05.launcher.CameraActivity_ZY")){
 				Log.d("ZXH","##############isForeground startActivity");
 				String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + Constants.DOORBELL_PATH;
 				File dirFile = new File(dirPath);
@@ -139,7 +140,7 @@ public class CameraService extends IntentService {
 				isValidTime = false;
 				return;
 			}
-			if(isForeground(CameraService.this,"com.ds05.launcher.CameraActivity_ZY")){
+			if(AppUtil.isForeground(CameraService.this,"com.ds05.launcher.CameraActivity_ZY")){
 				return;
 			}
 
@@ -250,7 +251,38 @@ public class CameraService extends IntentService {
 			PrefDataManager.setDoorbellSoundIndex(doorbellSound);
 			AppUtil.uploadConfigMsgToServer(getApplicationContext());
 			AppUtil.respondReceiveConfigFromServer(getApplicationContext(),true);
-		}  else {
+		}else if (Constants.BROADCAST_ACTION_RESPONSE_LOGIN_INFO.equals(action)) {
+			Log.i(TAG, "send login info");
+			int alarmSensi = 2;
+			if(PrefDataManager.MonitorSensitivity.High.equals(PrefDataManager.getHumanMonitorSensi())){
+				alarmSensi = 1;
+			}else {
+				alarmSensi = 2;
+			}
+			int alarmMode = 0;
+			if(PrefDataManager.AlarmMode.Capture.equals(PrefDataManager.getAlarmMode())){
+				alarmMode = 0;
+			}else if(PrefDataManager.AlarmMode.Recorder.equals(PrefDataManager.getAlarmMode())){
+				alarmMode = 1;
+			}
+			int alarmsound = 0;
+			if(PrefDataManager.AutoAlarmSound.Silence.equals(PrefDataManager.getAlarmSound())){
+				alarmsound = 1;
+
+			}else if(PrefDataManager.AutoAlarmSound.Alarm.equals(PrefDataManager.getAlarmSound())){
+				alarmsound = 2;
+			}else if(PrefDataManager.AutoAlarmSound.Scream.equals(PrefDataManager.getAlarmSound())){
+				alarmsound = 3;
+			}
+			int length = (int)PrefDataManager.getAlarmSoundVolume()*10;
+
+			String msg = "[" + System.currentTimeMillis() + ",T1," + Constants.SOFT_VERSION + "," + AppUtil.getZYLicense() + "," + PrefDataManager.getHumanMonitorState() + "," +
+					PrefDataManager.getAutoAlarmTime() + "," + alarmSensi+","+ alarmMode +","+ 1 +","+ alarmsound +","+length+","+PrefDataManager.getDoorbellLight()+","+
+					PrefDataManager.getDoorbellSoundIndex()+","+PrefDataManager.getAlarmIntervalTime()+","+ AppUtil.BATTERY_LEVEL + "," + AppUtil.getWifiSSID(LauncherApplication.getContext()) + "]";
+			IoBuffer buffer = IoBuffer.allocate(msg.length());
+			buffer.put(msg.getBytes());
+			SessionManager.getInstance().writeToServer(buffer);
+		}else {
 			Log.d(TAG, "收到未知消息，忽略处理: " + action);
 		}
 		// 未知广播消息
@@ -328,18 +360,4 @@ public class CameraService extends IntentService {
 		VideoService.startToStopRecording(this, receiver);
 	}
 
-	private boolean isForeground(Context context, String className) {
-		if (context == null) {
-			return false;
-		}
-		ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-		List<ActivityManager.RunningTaskInfo> list = am.getRunningTasks(1);
-		if (list != null && list.size() > 0) {
-			ComponentName cpn = list.get(0).topActivity;
-			if (className.equals(cpn.getClassName())) {
-				return true;
-			}
-		}
-		return false;
-	}
 }

@@ -103,10 +103,8 @@ public class ConnectSocketService extends Service {
                         alarmMode = 1;
                     }
                     int alarmsound = 0;
-                    Log.d("PPPP","PrefDataManager.getAlarmSoundVolume()="+PrefDataManager.getAlarmSound());
                     if(PrefDataManager.AutoAlarmSound.Silence.equals(PrefDataManager.getAlarmSound())){
                         alarmsound = 1;
-
                     }else if(PrefDataManager.AutoAlarmSound.Alarm.equals(PrefDataManager.getAlarmSound())){
                         alarmsound = 2;
                     }else if(PrefDataManager.AutoAlarmSound.Scream.equals(PrefDataManager.getAlarmSound())){
@@ -120,7 +118,6 @@ public class ConnectSocketService extends Service {
                     IoBuffer buffer = IoBuffer.allocate(msg.length());
                     buffer.put(msg.getBytes());
                     SessionManager.getInstance().writeToServer(buffer);
-
                     break;
                 }
             } catch (RuntimeIoException e) {

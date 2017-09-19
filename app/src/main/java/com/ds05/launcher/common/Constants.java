@@ -68,6 +68,8 @@ public class Constants {
     public static final String MSG_FROM_SERVER="msg_from_server";
     //服务器下发重新请求
     public static final String BROADCAST_ACTION_RECEIVE_REBOOT_FROM_SERVER="com.ds05.Broadcast.FromServer.Action.REBOOT";
+    //请求客户端上传登陆报文
+    public static final String BROADCAST_ACTION_RESPONSE_LOGIN_INFO="com.ds05.Broadcast.FromServer.Action.RESPONSE_LOGIN_INFO";
 
     public static final int CAPTURE_KEY = 19;
     public static final int HOME_KEY = 27;

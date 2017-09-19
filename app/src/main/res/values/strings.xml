@@ -290,7 +290,6 @@
     <string name="string_wifi_verify">Verify</string>
     <string name="string_wifi_obtain_ip">Obtain IP</string>
 
-
     <!-- Intelligent Lock Settings -->
     <string name="string_remote_unlock_feature">Remote unlock</string>
     <string name="string_intelligent_lock_info_trans">Intelligent lock message transmit</string>
@@ -302,7 +301,6 @@
     <string name="home_settings_show_qrcode_summary">Show QR code in desktop</string>
     <string name="home_settings_weather_setting">Weather setting</string>
 
-
     <string name="local_service_started">服务正在运行中……</string>
     <string name="local_service_stopped">服务停止了……</string>
     <string name="local_service_label">正在测试中……</string>
@@ -310,9 +308,6 @@
     <string name="wifi_connected">wifi connected</string>
     <string name="wifi_disconnected">wifi disconnected</string>
     <string name="not_configure_wifi">network is ok, not need configure wifi</string>
-
-
-
 
     <string name="signal_strength">信号强度</string>
     <string name="security_level">安全性</string>
