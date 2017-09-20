@@ -75,6 +75,9 @@ public class CameraService extends IntentService {
 		} else if (Constants.BROADCAST_NOTIFY_DOORBELL_PRESSED.equals(action)) {
 			Log.d("ZXH","##############BROADCAST_NOTIFY_DOORBELL_PRESSED  isDoorBelling = " + isDoorBelling);
 			// 门铃事件通知
+			if(AppUtil.isForeground(CameraService.this,"com.ds05.launcher.qrcode.QRCodeScanActivity")){
+				return;
+			}
 			Intent broadcast = new Intent(HWSink.ACTION_DOORBELL_PRESSED);
 			sendBroadcast(broadcast,null);
 			if(isDoorBelling){
@@ -135,6 +138,9 @@ public class CameraService extends IntentService {
 		} else if (Constants.BROADCAST_NOTIFY_HUMAN_MONITORING.equals(action)) {
 			// 人体监测通知
 			Log.d("ZXH","############## BROADCAST_NOTIFY_HUMAN_MONITORING");
+			if(AppUtil.isForeground(CameraService.this,"com.ds05.launcher.qrcode.QRCodeScanActivity")){
+				return;
+			}
 			if(!PrefDataManager.getHumanMonitorState() || isIntervalTime){
 				isFirstHumanMonitor = false;
 				isValidTime = false;

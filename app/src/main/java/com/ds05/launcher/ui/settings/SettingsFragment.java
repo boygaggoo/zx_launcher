@@ -21,6 +21,7 @@ import android.preference.SwitchPreference;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.ds05.launcher.LauncherApplication;
 import com.ds05.launcher.ModuleBaseFragment;
@@ -397,13 +398,16 @@ public class SettingsFragment extends ModuleBaseFragment
             super.handleMessage(msg);
             switch (msg.what) {
                 case NETWORKCONNECTED:
-                    ToastUtil.showToast(getActivity(), getActivity().getResources().getString(R.string.wifi_connected));
+//                    ToastUtil.showToast(getActivity(), getActivity().getResources().getString(R.string.wifi_connected));
+                    Toast.makeText(getActivity(), R.string.wifi_connected, Toast.LENGTH_SHORT).show();
                     break;
                 case NETWORKDISCONNECTED:
-                    ToastUtil.showToast(getActivity(), getActivity().getResources().getString(R.string.wifi_disconnected));
+//                    ToastUtil.showToast(getActivity(), getActivity().getResources().getString(R.string.wifi_disconnected));
+                    Toast.makeText(getActivity(), R.string.wifi_disconnected, Toast.LENGTH_SHORT).show();
                     break;
                 case NETWORKISOK:
-                    ToastUtil.showToast(getActivity(), getActivity().getResources().getString(R.string.not_configure_wifi));
+//                    ToastUtil.showToast(getActivity(), getActivity().getResources().getString(R.string.not_configure_wifi));
+                    Toast.makeText(getActivity(), R.string.not_configure_wifi, Toast.LENGTH_SHORT).show();
                     break;
                 default:
                     break;
