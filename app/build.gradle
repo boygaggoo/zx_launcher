@@ -29,6 +29,14 @@ android {
 
 
 }
+android {
+    defaultConfig {
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
+    }
+}
 
 dependencies {
     compile files('src/main/libs/gson-2.2.4.jar')
@@ -39,4 +47,7 @@ dependencies {
     compile 'com.android.support:support-v4:19.1.0'
     compile files('src/main/libs/avs_sdk_v4.3.2.jar')
     compile files('src/main/libs/httpclient-4.3.6.jar')
+    compile 'com.tencent.bugly:crashreport:latest.release' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+    compile 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
+
 }

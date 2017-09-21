@@ -2,7 +2,6 @@ package com.ds05.launcher;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -24,6 +23,7 @@ import com.ds05.launcher.ui.home.BaseFragment;
 import com.ds05.launcher.ui.home.DesktopFragment;
 import com.ds05.launcher.ui.settings.SettingsActivity;
 import com.ichano.MediaManagerService;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import org.jsoup.helper.StringUtil;
 
@@ -37,6 +37,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        CrashReport.initCrashReport(getApplicationContext(), "57db92d6d5", false);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
